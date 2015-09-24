@@ -8,19 +8,25 @@ public class Room {
     public Room() {
     }
 
-    public Room(int roomNumber, int roomNode, int roomFloor, int building_ID, String roomType) {
+
+    public Room(int roomNumber, int roomNode, int roomFloor, int building_ID, String roomType, int[] coordinates) {
         this.roomNumber = roomNumber;
         this.roomNode = roomNode;
         this.roomFloor = roomFloor;
         this.building_ID = building_ID;
         this.roomType = roomType;
+        this.coordinates = coordinates;
     }
+
 
     private int roomNumber;
     private int roomNode;
     private int roomFloor;
     private int building_ID;
     private String roomType;
+    //maybe have this value?
+    private int[] coordinates = new int[2];
+
 
     public int getRoomNumber() {
         return roomNumber;
@@ -60,5 +66,13 @@ public class Room {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public int[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(int[] coordinates) {
+        this.coordinates = coordinates;
     }
 }
