@@ -1,5 +1,3 @@
 # MizzMaps
 
-Hey bromigos, just making sure I'm pulling/pushing correctly.
-
-p.s. Sorry for all the commits... 
+MizzMaps is an Android app to help new students (or anyone) at the University of Missouri find their way around campus, specifically the Engineering Building.
