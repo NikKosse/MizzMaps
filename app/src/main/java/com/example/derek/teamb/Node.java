@@ -3,7 +3,6 @@ package com.example.derek.teamb;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-
 /**
  * Class to hold the information from the room table in the database.
  *   used by the A* path finding algorithm to keep track of way-points in the graph / map
@@ -11,8 +10,10 @@ import java.util.Comparator;
 public class Node {
 
     private int id;
-    private ArrayList<Integer> adjacents;
+    private ArrayList<Integer> adjacents; //TODO: is there a better way to store our adjacent + distance pairs?
     private ArrayList<Integer> distances;
+    private int floor;
+    // private int buildingId;  //Do we need this in our object? I don't think it's really necessary here...
     private double x;
     private double y;
 
@@ -20,13 +21,14 @@ public class Node {
     private Node prevNode;
     private int costFromPrev;
 
-    public Node (int nodeID, ArrayList<Integer> adj, ArrayList<Integer> dist, double xCoord, double yCoord){
+    public Node (int nodeID, ArrayList<Integer> adj, ArrayList<Integer> dist, int floor, double xCoord, double yCoord){
         this.id = nodeID;
         this.adjacents = adj;
         this.distances = dist;
-
+        this.floor = floor;
         this.x = xCoord;
         this.y = yCoord;
+        this.prevNode = null;
     }
 
     public int getId() {
@@ -51,6 +53,14 @@ public class Node {
 
     public void setDistances(ArrayList<Integer> distances) {
         this.distances = distances;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
     }
 
     public double getX() {
@@ -99,4 +109,17 @@ public class Node {
             return (n1.priority - n2.priority);
         }
     };
+
+
+    //Following two methods are necessary for determining if two nodes are the same
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && (obj instanceof Node) && ((Node) obj).getId() == this.getId();
+    }
 }
