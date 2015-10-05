@@ -2,7 +2,7 @@ package com.database.teamb;
 
 /**
  * Created by Drew on 9/22/2015.
- */
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -36,3 +36,4 @@ public class NodesDAO {
         nodesDbHelper.close();
     }
 }
+ */
