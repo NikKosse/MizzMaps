@@ -5,65 +5,87 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-/**
- * Created by Drew on 9/22/2015.
- */
+
 public class DbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final String TAG = "DBHelper";
 
     //Columns in database for Building Table
     public static final String Table_Building = "Building";
-    public static final String Building_name= "buildingName";
-    public static final String Building_id = "ID";
+    public static final String Building_name = "building_Name";
+    public static final String Building_id = "_ID";
 
-    //Columns in database for Rooms Table
-    public static final String Table_Rooms = "Rooms";
-    public static final String Room_Number = "roomNumber";
-    public static final String Node_ID = "node";
-    public static final String Type  = "type";
+    //Columns in database for Room Table
+    public static final String Table_Room = "Room";
+    public static final String Room_ID = "_ID";
+    public static final String Room_Number = "room_number";
+    public static final String Type = "type";
+    public static final String Node_Id = "node_id";
 
-    //Columns in database for Nodes Table
-    public static final String Table_Nodes = "Nodes";
-    public static final String Node_Adjacency  = "adjacency";
-    public static final String Distance = "distance";
-    public static final String Node__floor = "floor";
-    public static final String Node_Building_ID = Building_id;
+    //Columns in database for Node Table
+    public static final String Table_Node = "Node";
+    public static final String Node_ID = "_ID";
+    public static final String Floor = "floor";
+    public static final String Building_ID = Building_id;
+    public static final String Reachable_Nodes = "reachable_nodes";
+    public static final String Coordinates = "coordinates";
 
     //Creating tables
     private static final String SQL_CREATE_Table_Building = "CREATE TABLE " + Table_Building + "("
-            + Building_name + " char(20), " + Building_id + " int UNIQUE)";
+            + Building_id + " integer PRIMARY KEY AUTOINCREMENT, " + Building_name + " text";
 
-    private static final String SQL_CREATE_TABLE_Rooms = "CREATE TABLE "+ Table_Rooms +"(" + Room_Number + " varchar(20) PRIMARY KEY, "+
-            Node_ID + " int REFERENCES Nodes.Node_ID, "+ Type + " varchar(10), ";
+    private static final String SQL_CREATE_TABLE_Room = "CREATE TABLE " + Table_Room + "(" + Room_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
+            Room_Number + " text, " + Type + " text, " + Node_Id + "integer, FOREIGN KEY (" + Node_ID + ") REFERENCES " + Table_Node + "(" + Node_ID + "));";
 
-    private static final String SQL_CREATE_TABLE_Nodes = "CREATE TABLE " + Table_Nodes + "("
-            + Node_ID + " int, " + Node_Adjacency + " varchar(10), " + Node__floor + " int, " + Node_Building_ID + " int REFERENCES Building.Building_name, " + Distance + " varchar(10))";
+    private static final String SQL_CREATE_TABLE_Node = "CREATE TABLE " + Table_Node + "("
+            + Node_ID + " integer PRIMARY KEY AUTOINCREMENT, " + Floor + " integer, " + Building_ID + " integer, " + Reachable_Nodes + " blob, " + Coordinates + " blob, FOREIGN KEY" +
+            " (" + Building_ID + ") REFERENCES " + Table_Building + "(" + Building_id + "));";
 
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    public static final int DATABASE_VERSION = 2;
+    public static final String DATABASE_NAME = "MizzMaps.db";
+    public String[] insertList;
 
-    //Executing Table
+    //constructor
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    //create table
+    @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_Table_Building);
-        db.execSQL(SQL_CREATE_TABLE_Rooms);
-        db.execSQL(SQL_CREATE_TABLE_Nodes);
+        db.execSQL(SQL_CREATE_TABLE_Room);
+        db.execSQL(SQL_CREATE_TABLE_Node);
+
+        String[] files = {"C:\\Users\\nikol\\Documents\\LafferreRooms.csv"};
+        DbFileReader sqlGenerate = new DbFileReader();
+        insertList = sqlGenerate.generateSQLInsert(files[0]);
+        executeInsert(db);
     }
+
+
+
     //To Upgrade tables
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         Log.w(TAG, "Uprgrading From Version " + oldVersion + " to " + newVersion);
         db.execSQL("Drop table if exists " + Table_Building);
-        db.execSQL("Drop Table if exists " + Table_Rooms);
-        db.execSQL("Drop Table if exists " + Table_Nodes);
+        db.execSQL("Drop Table if exists " + Table_Room);
+        db.execSQL("Drop Table if exists " + Table_Node);
         onCreate(db);
     }
+
     //To Downgrade tables
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+
+    public void executeInsert(SQLiteDatabase db) {
+        //for every s of type string in insertList
+        for (String s: insertList) {
+            db.execSQL(s);
+        }
     }
 }

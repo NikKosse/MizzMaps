@@ -1,8 +1,6 @@
 package com.database.teamb;
 
-/**
- * Created by Drew on 9/22/2015.
- */
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -14,7 +12,7 @@ public class NodesDAO {
     private SQLiteDatabase database;
     private DbHelper nodesDbHelper;
     private Context nodesContext;
-    private String[] allColumns = { DbHelper.Node_ID, DbHelper.Node_Adjacency, DbHelper.Node__floor, DbHelper.Node_Building_ID, DbHelper.Node__floor };
+    private String[] allColumns = { DbHelper.Node_ID, DbHelper.Reachable_Nodes, DbHelper.Floor, DbHelper.Building_ID, DbHelper.Coordinates };
 
     public NodesDAO(Context context){
         this.nodesContext = context;
