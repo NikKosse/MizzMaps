@@ -13,7 +13,7 @@ public class Node {
     private ArrayList<Integer> adjacents; //TODO: is there a better way to store our adjacent + distance pairs?
     private ArrayList<Integer> distances;
     private int floor;
-    // private int buildingId;  //Do we need this in our object? I don't think it's really necessary here...
+    private int buildingId;  //TODO: Do we need this in our object? I don't know if it's really necessary here...
     private double x;
     private double y;
 
@@ -21,11 +21,12 @@ public class Node {
     private Node prevNode;
     private int costFromPrev;
 
-    public Node (int nodeID, ArrayList<Integer> adj, ArrayList<Integer> dist, int floor, double xCoord, double yCoord){
+    public Node (int nodeID, ArrayList<Integer> adj, ArrayList<Integer> dist, int floor, int building, double xCoord, double yCoord){
         this.id = nodeID;
         this.adjacents = adj;
         this.distances = dist;
         this.floor = floor;
+        this.buildingId = building;
         this.x = xCoord;
         this.y = yCoord;
         this.prevNode = null;
@@ -79,6 +80,14 @@ public class Node {
         this.y = y;
     }
 
+    public int getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(int buildingId) {
+        this.buildingId = buildingId;
+    }
+
     public int getPriority() {
         return priority;
     }
@@ -109,7 +118,6 @@ public class Node {
             return (n1.priority - n2.priority);
         }
     };
-
 
     //Following two methods are necessary for determining if two nodes are the same
 
