@@ -17,36 +17,50 @@ public class DbFileReader {
     public DbFileReader() {
     }
 
-//    String csvFilePath = "C:\\Users\\nikol\\Documents\\LafferreRooms.csv";
     String line;
     String csvSplitBy = ",";
-    String sqlInsert;
     String[] insertList;
-    int index = 0;
 
-    public String[] generateSQLInsert(String csvFilePath){
-
+    public String[] generateSQLInsertRooms(String csvFilePath){
+        int index = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(csvFilePath));
             while ((line = br.readLine()) != null){
-
                 String[] currentLine = line.split(csvSplitBy);
                 if(currentLine[0].equals("")){
-                    sqlInsert = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[1] + ", " + currentLine[2] + ");";
-                    insertList[index] = sqlInsert;
+                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[1] + ", " + currentLine[2] + ");";
                 }
                 else if(currentLine[1].equals("")){
-                    sqlInsert = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", "+ currentLine[2] + ");";
-                    insertList[index] = sqlInsert;
+                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", "+ currentLine[2] + ");";
                 }
                 else if(currentLine[2].equals("")){
-                    sqlInsert = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", " + currentLine[1] + ");";
-                    insertList[index] = sqlInsert;
+                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", " + currentLine[1] + ");";
                 }
                 else {
-                    sqlInsert = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", " + currentLine[1] + ", " + currentLine[2] + ");";
-                    insertList[index] = sqlInsert;
+                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", " + currentLine[1] + ", " + currentLine[2] + ");";
                 }
+                index++;
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found!");
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            System.out.println("IO error!");
+            e.printStackTrace();
+        }
+        return insertList;
+    }
+
+
+    public String[] generateSQLInsertNodes(String csvFilePath){
+        int index = 0;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(csvFilePath));
+            while ((line = br.readLine()) != null){
+                String[] currentLine = line.split(csvSplitBy);
+                insertList[index] = "INSERT INTO table Node(floor,building_id,reachable_nodes,coordinates) VALUES (" + currentLine[0] + ", " + currentLine[1] + ", " + currentLine[2] + ");";
                 index++;
             }
         }

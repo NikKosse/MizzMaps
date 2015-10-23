@@ -1,5 +1,6 @@
 package com.example.derek.teamb;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.database.teamb.DbHelper;
+
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +29,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Map.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DbHelper database = new DbHelper(getApplicationContext());
+                String result = database.testDatabase("SELECT * FROM Room WHERE _ID == 1");
+                TextView textView = (TextView) findViewById(R.id.textView3);
+                textView.append(result);
             }
         });
     }

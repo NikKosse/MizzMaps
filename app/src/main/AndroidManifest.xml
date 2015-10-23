@@ -24,6 +24,8 @@
             android:name=".MainActivity"
             android:label="MizzMaps" >
         </activity>
+
     </application>
+
 
 </manifest>

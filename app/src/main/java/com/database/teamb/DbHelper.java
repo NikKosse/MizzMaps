@@ -1,9 +1,12 @@
 package com.database.teamb;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.example.derek.teamb.Room;
 
 
 public class DbHelper extends SQLiteOpenHelper {
@@ -41,35 +44,39 @@ public class DbHelper extends SQLiteOpenHelper {
             + Node_ID + " integer PRIMARY KEY AUTOINCREMENT, " + Floor + " integer, " + Building_ID + " integer, " + Reachable_Nodes + " blob, " + Coordinates + " blob, FOREIGN KEY" +
             " (" + Building_ID + ") REFERENCES " + Table_Building + "(" + Building_id + "));";
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "MizzMaps.db";
     public String[] insertList;
+    public String path = "";
 
     //constructor
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        path = context.getDatabasePath(DATABASE_NAME).getPath();
     }
 
     //create table
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "**********************Creating Database*********************");
         db.execSQL(SQL_CREATE_Table_Building);
         db.execSQL(SQL_CREATE_TABLE_Room);
         db.execSQL(SQL_CREATE_TABLE_Node);
 
-        String[] files = {"C:\\Users\\nikol\\Documents\\LafferreRooms.csv"};
+        String[] files = {"LafferreRooms.csv", "LafferreNodes.csv"};
         DbFileReader sqlGenerate = new DbFileReader();
-        insertList = sqlGenerate.generateSQLInsert(files[0]);
+        insertList = sqlGenerate.generateSQLInsertRooms(files[0]);
         executeInsert(db);
+        insertList = sqlGenerate.generateSQLInsertNodes(files[1]);
+        executeInsert(db);
+
     }
-
-
 
     //To Upgrade tables
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        Log.w(TAG, "Uprgrading From Version " + oldVersion + " to " + newVersion);
+        Log.w(TAG, "*******************Uprgrading From Version " + oldVersion + " to " + newVersion);
         db.execSQL("Drop table if exists " + Table_Building);
         db.execSQL("Drop Table if exists " + Table_Room);
         db.execSQL("Drop Table if exists " + Table_Node);
@@ -81,6 +88,12 @@ public class DbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+    public String testDatabase(String query){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(query, null);
+//        String result = cursor.getString(cursor.getColumnIndex("type"));
+        return path;
+    }
 
     public void executeInsert(SQLiteDatabase db) {
         //for every s of type string in insertList
@@ -88,4 +101,5 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL(s);
         }
     }
+
 }
