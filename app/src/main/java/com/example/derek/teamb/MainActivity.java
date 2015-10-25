@@ -2,6 +2,8 @@ package com.example.derek.teamb;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,12 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.database.teamb.DataSource;
 import com.database.teamb.DbHelper;
 
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
+    DataSource datasource = new DataSource(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,14 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DbHelper database = new DbHelper(getApplicationContext());
-                String result = database.testDatabase("SELECT * FROM Room WHERE _ID == 1");
+                String result;
+
+                boolean dbExist = datasource.testDatabase("test");
+                if(dbExist){
+                    result = "Exists!";
+                }else{
+                    result = "motherfucker";
+                }
                 TextView textView = (TextView) findViewById(R.id.textView3);
                 textView.append(result);
             }
@@ -64,5 +74,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        datasource.open();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        datasource.close();
     }
 }

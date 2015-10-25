@@ -1,9 +1,8 @@
 package com.database.teamb;
 
-//database includes
-import android.database.sqlite.SQLiteDatabase;
-
 //file IO includes
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,11 +19,14 @@ public class DbFileReader {
     String line;
     String csvSplitBy = ",";
     String[] insertList;
+    String TAG = "DbFileReader";
 
     public String[] generateSQLInsertRooms(String csvFilePath){
         int index = 0;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(csvFilePath));
+
+            FileReader file = new FileReader(csvFilePath);
+            BufferedReader br = new BufferedReader(file);
             while ((line = br.readLine()) != null){
                 String[] currentLine = line.split(csvSplitBy);
                 if(currentLine[0].equals("")){
@@ -65,11 +67,11 @@ public class DbFileReader {
             }
         }
         catch (FileNotFoundException e){
-            System.out.println("File not found!");
-            e.printStackTrace();
+            Log.i(TAG, "File not found!");
+            //e.printStackTrace();
         }
         catch (IOException e){
-            System.out.println("IO error!");
+            Log.i(TAG, "IO error!");
             e.printStackTrace();
         }
         return insertList;
