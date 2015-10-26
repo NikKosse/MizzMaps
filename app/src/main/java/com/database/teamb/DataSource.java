@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.BufferedReader;
+
 /**
  * Class for interfacing with the database
  */
@@ -31,19 +33,4 @@ public class DataSource {
         Log.i(TAG, "database closed.");
         database.close();
     }
-
-
-    public Boolean testDatabase(String query){
-        SQLiteDatabase db = null;
-        try {
-            db = SQLiteDatabase.openDatabase(path, null,
-                    SQLiteDatabase.OPEN_READONLY);
-            db.close();
-        } catch (SQLiteException e) {
-            // database doesn't exist yet.
-        }
-        return db != null;
-    }
-
-
 }

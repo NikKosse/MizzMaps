@@ -1,12 +1,17 @@
 package com.database.teamb;
 
 //file IO includes
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Reads in CSV file and inserts the data into the database
@@ -18,30 +23,39 @@ public class DbFileReader {
 
     String line;
     String csvSplitBy = ",";
-    String[] insertList;
+    String[] insertList = new String[5000];
     String TAG = "DbFileReader";
 
-    public String[] generateSQLInsertRooms(String csvFilePath){
-        int index = 0;
+    public String[] generateSQLInsertRooms(Context context, SQLiteDatabase db){
         try {
-
-            FileReader file = new FileReader(csvFilePath);
-            BufferedReader br = new BufferedReader(file);
-            while ((line = br.readLine()) != null){
+            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("LafferreRooms.csv")));
+            while ((line = reader.readLine()) != null){
                 String[] currentLine = line.split(csvSplitBy);
-                if(currentLine[0].equals("")){
-                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[1] + ", " + currentLine[2] + ");";
+                if(currentLine[0].equals(" ")){
+                    ContentValues values = new ContentValues();
+                    values.put(DbHelper.Type, currentLine[1]);
+                    values.put(DbHelper.Node_id, currentLine[2]);
+                    db.insert(DbHelper.Table_Room, null, values);
+                    Log.i(TAG, "Room with no room_number inserted.");
                 }
-                else if(currentLine[1].equals("")){
-                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", "+ currentLine[2] + ");";
+                else if(currentLine[1].equals(" ")){
+                    ContentValues values = new ContentValues();
+                    values.put(DbHelper.Room_number, currentLine[0]);
+                    values.put(DbHelper.Node_id, currentLine[2]);
+                    db.insert(DbHelper.Table_Room, null, values);
+                    Log.i(TAG, "Room with no type inserted");
                 }
-                else if(currentLine[2].equals("")){
-                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", " + currentLine[1] + ");";
+                else if(currentLine[2].equals(" ")){
+                    Log.wtf(TAG, "No node_id for a room!");
                 }
                 else {
-                    insertList[index] = "INSERT INTO table Room(room_number,type,node_id) VALUES (" + currentLine[0] + ", " + currentLine[1] + ", " + currentLine[2] + ");";
+                    ContentValues values = new ContentValues();
+                    values.put(DbHelper.Room_number, currentLine[0]);
+                    values.put(DbHelper.Type, currentLine[1]);
+                    values.put(DbHelper.Node_id, currentLine[2]);
+                    db.insert(DbHelper.Table_Room, null, values);
+                    Log.i(TAG, "Room with all fields inserted");
                 }
-                index++;
             }
         }
         catch (FileNotFoundException e){
@@ -49,18 +63,18 @@ public class DbFileReader {
             e.printStackTrace();
         }
         catch (IOException e){
-            System.out.println("IO error!");
+            System.out.println("Error reading file!");
             e.printStackTrace();
         }
         return insertList;
     }
 
 
-    public String[] generateSQLInsertNodes(String csvFilePath){
+    public String[] generateSQLInsertNodes(Context context, SQLiteDatabase db){
         int index = 0;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(csvFilePath));
-            while ((line = br.readLine()) != null){
+            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("LafferreNodes.csv")));
+            while ((line = reader.readLine()) != null){
                 String[] currentLine = line.split(csvSplitBy);
                 insertList[index] = "INSERT INTO table Node(floor,building_id,reachable_nodes,coordinates) VALUES (" + currentLine[0] + ", " + currentLine[1] + ", " + currentLine[2] + ");";
                 index++;
@@ -68,7 +82,7 @@ public class DbFileReader {
         }
         catch (FileNotFoundException e){
             Log.i(TAG, "File not found!");
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         catch (IOException e){
             Log.i(TAG, "IO error!");

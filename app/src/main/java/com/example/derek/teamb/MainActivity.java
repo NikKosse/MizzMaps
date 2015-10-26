@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,9 @@ import android.widget.TextView;
 import com.database.teamb.DataSource;
 import com.database.teamb.DbHelper;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 
@@ -40,14 +45,10 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String result;
-
-                boolean dbExist = datasource.testDatabase("test");
-                if(dbExist){
-                    result = "Exists!";
-                }else{
-                    result = "motherfucker";
-                }
+                String result = "";
+                //BufferedReader reader;
+                  //  reader = new BufferedReader(new InputStreamReader(getAssets().open("LafferreNodes.csv")));
+                   datasource.open();
                 TextView textView = (TextView) findViewById(R.id.textView3);
                 textView.append(result);
             }
