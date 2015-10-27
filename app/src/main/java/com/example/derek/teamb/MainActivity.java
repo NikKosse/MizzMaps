@@ -1,27 +1,14 @@
 package com.example.derek.teamb;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import com.database.teamb.DataSource;
-import com.database.teamb.DbHelper;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String result = "";
-                //BufferedReader reader;
-                  //  reader = new BufferedReader(new InputStreamReader(getAssets().open("LafferreNodes.csv")));
-                   datasource.open();
+                datasource.open();
+
                 TextView textView = (TextView) findViewById(R.id.textView3);
                 textView.append(result);
             }

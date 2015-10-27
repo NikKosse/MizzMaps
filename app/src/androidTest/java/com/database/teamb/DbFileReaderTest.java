@@ -13,7 +13,7 @@
 //
 //        String[] expected;
 //        expected[1] = "farts";
-//        String[] actual = read.generateSQLInsertRooms();
+//        String[] actual = read.insertDataRooms();
 //
 //        assertEquals(expected[1], actual[1]);
 //    }

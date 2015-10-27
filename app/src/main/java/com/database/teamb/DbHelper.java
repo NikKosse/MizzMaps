@@ -81,20 +81,13 @@ public class DbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public void executeInsert(SQLiteDatabase db) {
-        //for every s of type string in insertList
-        for (String s: insertList) {
-            db.execSQL(s);
-        }
-    }
 
     public void fillDatabase(SQLiteDatabase db){
 
-        DbFileReader sqlGenerate = new DbFileReader();
-        insertList = sqlGenerate.generateSQLInsertRooms(context, db);
-        executeInsert(db);
-        insertList = sqlGenerate.generateSQLInsertNodes(context, db);
-        executeInsert(db);
+        DbFileReader dbFileReader = new DbFileReader();
+        dbFileReader.insertDataRooms(context, db);
+        dbFileReader.insertDataNodes(context, db);
+        dbFileReader.insertDataBuildings(db);
     }
 
 }
