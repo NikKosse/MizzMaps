@@ -42,9 +42,8 @@ public class DbHelper extends SQLiteOpenHelper {
             + Node_id + " integer PRIMARY KEY AUTOINCREMENT, " + Floor + " integer, " + Building_id + " integer, " + Reachable_Nodes + " blob, " + Coordinates + " blob, FOREIGN KEY" +
             " (" + Building_id + ") REFERENCES " + Table_Building + "(" + Building_id + "));";
 
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "MizzMaps.db";
-    public String[] insertList;
 
     Context context;
 
