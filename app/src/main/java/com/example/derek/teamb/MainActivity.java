@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.Models.Building;
+import com.Models.Room;
 import com.database.teamb.DataSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,15 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String result;
                 datasource.open();
 
-                List<Building> buildings = datasource.getAllBuildings();
+                List<Room> rooms = datasource.getAllRooms();
+                String roomType = rooms.get(0).getType();
 
-                result = buildings.get(0).getBuilding_name();
 
                 TextView textView = (TextView) findViewById(R.id.textView3);
-                textView.append(result);
+                textView.append(roomType);
             }
         });
     }

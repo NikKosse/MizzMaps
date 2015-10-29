@@ -75,8 +75,8 @@ public class Pathfinder {
         //TODO: will nodes in the fringe ever be overwritten with a worse priority before they're closed? Make sure on this...
         int costUntilNow, priority;
         Node nodeToInsert;
-        for (int i=0; i < nodeToExpand.getAdjacents().size(); i++) {
-            nodeToInsert = nodes.get( idMap.get(nodeToExpand.getAdjacents().get(i)));
+        for (int i=0; i < nodeToExpand.getReachable_nodes().size(); i++) {
+            nodeToInsert = nodes.get( idMap.get(nodeToExpand.getReachable_nodes().get(i)));
             costUntilNow = nodeToExpand.getCostFromPrev() + nodeToExpand.getDistances().get(i);
             priority = (int) Math.round( costUntilNow + Math.sqrt(
                     Math.pow(nodeToExpand.getX() - nodeToInsert.getX(), 2)

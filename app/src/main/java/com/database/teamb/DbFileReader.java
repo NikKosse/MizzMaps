@@ -3,13 +3,11 @@ package com.database.teamb;
 //file IO includes
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -28,7 +26,7 @@ public class DbFileReader {
 
     public void insertDataRooms(Context context, SQLiteDatabase db){
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("LafferreRooms.csv")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("Rooms.csv")));
             while ((line = reader.readLine()) != null) {
                 String[] currentLine = line.split(csvSplitBy);
                 ContentValues values = new ContentValues();
@@ -52,7 +50,7 @@ public class DbFileReader {
 
     public void insertDataNodes(Context context, SQLiteDatabase db){
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("LafferreNodes.csv")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("Nodes.csv")));
             while ((line = reader.readLine()) != null){
                 String[] currentLine = line.split(csvSplitBy);
                 ContentValues values = new ContentValues();
