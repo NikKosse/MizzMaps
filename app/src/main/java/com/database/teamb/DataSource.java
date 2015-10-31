@@ -74,6 +74,7 @@ public class DataSource {
         return buildings;
     }
 
+    //TODO: sync this up with the node class
     public List<Node> getAllNodes() {
         List<Node> nodes = new ArrayList<>();
 
@@ -86,7 +87,7 @@ public class DataSource {
                 node.setNode_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id)));
                 node.setFloor(cursor.getInt(cursor.getColumnIndex(DbHelper.Floor)));
                 node.setBuildingId(cursor.getInt(cursor.getColumnIndex(DbHelper.Building_id)));
-//                node.setReachable_nodes(cursor.getBlob(cursor.getColumnIndex(DbHelper.Reachable_Nodes)));//TODO figure out how to deal with the blob
+//                node.setReachable_nodes(cursor.getBlob(cursor.getColumnIndex(DbHelper.Reachable_Nodes))); TODO: figure out alternative for blob that is easy to use
                 nodes.add(node);
                 Log.i(TAG, "Retrieved row with id:" + node.getNode_id());
             }

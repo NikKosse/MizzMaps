@@ -55,7 +55,7 @@ public class Pathfinder {
             if (closedSet.contains(current)) {
                 continue; //don't expand nodes we've already expanded
             }
-            if (current.getId() == goalNode) {
+            if (current.getNode_id() == goalNode) {
                 //TODO: Do we somehow want to return the total distance traveled as well?
                 return getPath(current);
             }
@@ -101,12 +101,12 @@ public class Pathfinder {
         //TODO : implement this iteratively. I think recursion might cause problems
         if ( currentNode.getPrevNode() == null ) {
             ArrayList<Integer> startOfPath = new ArrayList<>();
-            startOfPath.add(currentNode.getId());
+            startOfPath.add((int)currentNode.getNode_id());
             return startOfPath;
         }
         else {
             ArrayList<Integer> path = getPath(currentNode.getPrevNode());
-            path.add(currentNode.getId());
+            path.add((int)currentNode.getNode_id());
             return path;
         }
     }

@@ -11,6 +11,7 @@ public class Node {
 
     private long node_id;
     private ArrayList<Integer> reachable_nodes; //TODO: is there a better way to store our adjacent + distance pairs?
+//    private byte[] reachable_nodes;
     private ArrayList<Integer> distances;
     private int floor;
     private long buildingId;
@@ -37,6 +38,7 @@ public class Node {
     }
 
     public void setReachable_nodes(ArrayList<Integer> reachable_nodes) {
+        //TODO: logic here to split the value from the DB into two arrayLists
         this.reachable_nodes = reachable_nodes;
     }
 
@@ -45,6 +47,7 @@ public class Node {
     }
 
     public void setDistances(ArrayList<Integer> distances) {
+        //TODO: logic here to split the value from the DB into two arrayLists
         this.distances = distances;
     }
 
@@ -61,6 +64,7 @@ public class Node {
     }
 
     public void setX(double x) {
+        //TODO: logic here to split the value from the DB into two arrayLists
         this.x = x;
     }
 
@@ -69,6 +73,7 @@ public class Node {
     }
 
     public void setY(double y) {
+        //TODO: logic here to split the value from the DB into two arrayLists
         this.y = y;
     }
 
