@@ -1,145 +1,92 @@
 package com.database.teamb;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.derek.teamb.MyObject;
 
 public class DbHelper extends SQLiteOpenHelper {
+    // If you change the database schema, you must increment the database version.
+    public static final String TAG = "DBHelper";
 
-    // for our logs
-    public static final String TAG = "DatabaseHandler.java";
+    //Columns in database for Building Table
+    public static final String Table_Building = "Building";
+    public static final String Building_name = "building_name";
+    public static final String Building_id = "building_id";
 
-    // database version
-    private static final int DATABASE_VERSION = 4;
+    //Columns in database for Room Table
+    public static final String Table_Room = "Room";
+    public static final String Room_id = "room_id";
+    public static final String Room_number = "room_number";
+    public static final String Type = "type";
+    public static final String Node_id = "node_id";
 
-    // database name
-    protected static final String DATABASE_NAME = "NinjaDatabase2";
+    //Columns in database for Node Table
+    public static final String Table_Node = "Node";
+    public static final String Floor = "floor";
+    public static final String Reachable_Nodes = "reachable_nodes";
+    public static final String Coordinates = "coordinates";
 
-    // table details
-    public String tableName = "locations";
-    public String fieldObjectId = "id";
-    public String fieldObjectName = "name";
+    //Creating tables
+    //should be:CREATE TABLE Building(Building_id integer PRIMARY KEY AUTOINCREMENT, building_Name text);
+    private static final String SQL_CREATE_TABLE_Building = "CREATE TABLE " + Table_Building + "("
+            + Building_id + " integer PRIMARY KEY AUTOINCREMENT, " + Building_name + " text);";
 
-    // constructor
+    //should be: CREATE TABLE Room(room_id integer PRIMARY KEY AUTOINCREMENT, room_number text, type test, Node_id integer, FOREIGN KEY (Node_id) REFERENCES Node(Node_id);
+    private static final String SQL_CREATE_TABLE_Room = "CREATE TABLE " + Table_Room + "(" + Room_id + " integer PRIMARY KEY AUTOINCREMENT, " +
+            Room_number + " text, " + Type + " text, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
+
+    //should be: CREATE TABLE Node(Node_id integer PRIMARY KEY AUTOINCREMENT, floor integer, Building_id integer, reachable_nodes bloc, coordinates, FOREIGN KEY (Building_id) REFERENCES Building(Building_id);
+    private static final String SQL_CREATE_TABLE_Node = "CREATE TABLE " + Table_Node + "("
+            + Node_id + " integer PRIMARY KEY AUTOINCREMENT, " + Floor + " integer, " + Building_id + " integer, " + Reachable_Nodes + " blob, " + Coordinates + " blob, FOREIGN KEY" +
+            " (" + Building_id + ") REFERENCES " + Table_Building + "(" + Building_id + "));";
+
+    public static final int DATABASE_VERSION = 7;
+    public static final String DATABASE_NAME = "MizzMaps.db";
+
+    Context context;
+
+    //constructor
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
-    // creating table
+    //create table
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        String sql = "";
-
-        sql += "CREATE TABLE " + tableName;
-        sql += " ( ";
-        sql += fieldObjectId + " INTEGER PRIMARY KEY AUTOINCREMENT, ";
-        sql += fieldObjectName + " TEXT ";
-        sql += " ) ";
-
-        db.execSQL(sql);
-
+        Log.i(TAG, "creating database");
+        db.execSQL(SQL_CREATE_TABLE_Building);
+        db.execSQL(SQL_CREATE_TABLE_Node);
+        db.execSQL(SQL_CREATE_TABLE_Room);
+        Log.i(TAG, "Database created");
+        fillDatabase(db);
     }
 
-    // When upgrading the database, it will drop the current table and recreate.
-    @Override
+    //To Upgrade tables
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        String sql = "DROP TABLE IF EXISTS " + tableName;
-        db.execSQL(sql);
-
+        // This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        Log.i(TAG, "Upgrading From Version " + oldVersion + " to " + newVersion);
+        db.execSQL("DROP TABLE IF EXISTS " + Table_Building);
+        db.execSQL("DROP TABLE IF EXISTS " + Table_Room);
+        db.execSQL("DROP TABLE IF EXISTS " + Table_Node);
         onCreate(db);
     }
 
-    // create new record
-    // @param myObj contains details to be added as single row.
-    public boolean create(MyObject myObj) {
-
-        boolean createSuccessful = false;
-
-        if(!checkIfExists(myObj.objectName)){
-
-            SQLiteDatabase db = this.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(fieldObjectName, myObj.objectName);
-            createSuccessful = db.insert(tableName, null, values) > 0;
-
-            db.close();
-
-            if(createSuccessful){
-                Log.e(TAG, myObj.objectName + " created.");
-            }
-        }
-
-        return createSuccessful;
+    //To Downgrade tables
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
     }
 
-    // check if a record exists so it won't insert the next time you run this code
-    public boolean checkIfExists(String objectName){
 
-        boolean recordExists = false;
+    public void fillDatabase(SQLiteDatabase db){
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + fieldObjectId + " FROM " + tableName + " WHERE " + fieldObjectName + " = '" + objectName + "'", null);
-
-        if(cursor!=null) {
-
-            if(cursor.getCount()>0) {
-                recordExists = true;
-            }
-        }
-
-        cursor.close();
-        db.close();
-
-        return recordExists;
-    }
-
-    // Read records related to the search term
-    public List<MyObject> read(String searchTerm) {
-
-        List<MyObject> recordsList = new ArrayList<MyObject>();
-
-        // select query
-        String sql = "";
-        sql += "SELECT * FROM " + tableName;
-        sql += " WHERE " + fieldObjectName + " LIKE '%" + searchTerm + "%'";
-        sql += " ORDER BY " + fieldObjectId + " DESC";
-        sql += " LIMIT 0,5";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        // execute the query
-        Cursor cursor = db.rawQuery(sql, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-
-                // int productId = Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
-                String objectName = cursor.getString(cursor.getColumnIndex(fieldObjectName));
-                MyObject myObject = new MyObject(objectName);
-
-                // add to list
-                recordsList.add(myObject);
-
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-
-        // return the list of records
-        return recordsList;
+        DbFileReader dbFileReader = new DbFileReader();
+        dbFileReader.insertDataRooms(context, db);
+        dbFileReader.insertDataNodes(context, db);
+        dbFileReader.insertDataBuildings(db);
     }
 
 }

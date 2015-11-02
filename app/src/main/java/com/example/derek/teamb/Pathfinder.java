@@ -1,5 +1,7 @@
 package com.example.derek.teamb;
 
+import com.Models.Node;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -53,7 +55,7 @@ public class Pathfinder {
             if (closedSet.contains(current)) {
                 continue; //don't expand nodes we've already expanded
             }
-            if (current.getId() == goalNode) {
+            if (current.getNode_id() == goalNode) {
                 //TODO: Do we somehow want to return the total distance traveled as well?
                 return getPath(current);
             }
@@ -73,8 +75,8 @@ public class Pathfinder {
         //TODO: will nodes in the fringe ever be overwritten with a worse priority before they're closed? Make sure on this...
         int costUntilNow, priority;
         Node nodeToInsert;
-        for (int i=0; i < nodeToExpand.getAdjacents().size(); i++) {
-            nodeToInsert = nodes.get( idMap.get(nodeToExpand.getAdjacents().get(i)));
+        for (int i=0; i < nodeToExpand.getReachable_nodes().size(); i++) {
+            nodeToInsert = nodes.get( idMap.get(nodeToExpand.getReachable_nodes().get(i)));
             costUntilNow = nodeToExpand.getCostFromPrev() + nodeToExpand.getDistances().get(i);
             priority = (int) Math.round( costUntilNow + Math.sqrt(
                     Math.pow(nodeToExpand.getX() - nodeToInsert.getX(), 2)
@@ -99,12 +101,12 @@ public class Pathfinder {
         //TODO : implement this iteratively. I think recursion might cause problems
         if ( currentNode.getPrevNode() == null ) {
             ArrayList<Integer> startOfPath = new ArrayList<>();
-            startOfPath.add(currentNode.getId());
+            startOfPath.add((int)currentNode.getNode_id());
             return startOfPath;
         }
         else {
             ArrayList<Integer> path = getPath(currentNode.getPrevNode());
-            path.add(currentNode.getId());
+            path.add((int)currentNode.getNode_id());
             return path;
         }
     }

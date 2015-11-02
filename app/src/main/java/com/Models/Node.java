@@ -1,4 +1,4 @@
-package com.example.derek.teamb;
+package com.Models;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,11 +9,12 @@ import java.util.Comparator;
  */
 public class Node {
 
-    private int id;
-    private ArrayList<Integer> adjacents; //TODO: is there a better way to store our adjacent + distance pairs?
+    private long node_id;
+    private ArrayList<Integer> reachable_nodes; //TODO: is there a better way to store our adjacent + distance pairs?
+//    private byte[] reachable_nodes;
     private ArrayList<Integer> distances;
     private int floor;
-    private int buildingId;  //TODO: Do we need this in our object? I don't know if it's really necessary here...
+    private long buildingId;
     private double x;
     private double y;
 
@@ -21,31 +22,24 @@ public class Node {
     private Node prevNode;
     private int costFromPrev;
 
-    public Node (int nodeID, ArrayList<Integer> adj, ArrayList<Integer> dist, int floor, int building, double xCoord, double yCoord){
-        this.id = nodeID;
-        this.adjacents = adj;
-        this.distances = dist;
-        this.floor = floor;
-        this.buildingId = building;
-        this.x = xCoord;
-        this.y = yCoord;
-        this.prevNode = null;
+    public Node (){
     }
 
-    public int getId() {
-        return id;
+    public long getNode_id() {
+        return node_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNode_id (long node_id) {
+        this.node_id = node_id;
     }
 
-    public ArrayList<Integer> getAdjacents() {
-        return adjacents;
+    public ArrayList<Integer> getReachable_nodes() {
+        return reachable_nodes;
     }
 
-    public void setAdjacents(ArrayList<Integer> adjacents) {
-        this.adjacents = adjacents;
+    public void setReachable_nodes(ArrayList<Integer> reachable_nodes) {
+        //TODO: logic here to split the value from the DB into two arrayLists
+        this.reachable_nodes = reachable_nodes;
     }
 
     public ArrayList<Integer> getDistances() {
@@ -53,6 +47,7 @@ public class Node {
     }
 
     public void setDistances(ArrayList<Integer> distances) {
+        //TODO: logic here to split the value from the DB into two arrayLists
         this.distances = distances;
     }
 
@@ -69,6 +64,7 @@ public class Node {
     }
 
     public void setX(double x) {
+        //TODO: logic here to split the value from the DB into two arrayLists
         this.x = x;
     }
 
@@ -77,14 +73,15 @@ public class Node {
     }
 
     public void setY(double y) {
+        //TODO: logic here to split the value from the DB into two arrayLists
         this.y = y;
     }
 
-    public int getBuildingId() {
+    public long getBuildingId() {
         return buildingId;
     }
 
-    public void setBuildingId(int buildingId) {
+    public void setBuildingId(long buildingId) {
         this.buildingId = buildingId;
     }
 
@@ -123,11 +120,11 @@ public class Node {
 
     @Override
     public int hashCode() {
-        return id;
+        return (int)node_id;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && (obj instanceof Node) && ((Node) obj).getId() == this.getId();
+        return obj != null && (obj instanceof Node) && ((Node) obj).getNode_id() == this.getNode_id();
     }
 }
