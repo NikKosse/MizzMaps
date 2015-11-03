@@ -35,23 +35,23 @@
 
 
 
-            <!--<ExpandableListView-->
+            <ExpandableListView
+                android:layout_width="wrap_content"
+                android:layout_height="322dp"
+                android:id="@+id/expandableListView" />
+
+            <!--<Button-->
                 <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="322dp"-->
-                <!--android:id="@+id/expandableListView" />-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Tap to query"-->
+                <!--android:id="@+id/button" />-->
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tap to query"
-                android:id="@+id/button" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/textView3"
-                android:layout_gravity="center_vertical" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text=""-->
+                <!--android:id="@+id/textView3"-->
+                <!--android:layout_gravity="center_vertical" />-->
 
 
         </LinearLayout>
