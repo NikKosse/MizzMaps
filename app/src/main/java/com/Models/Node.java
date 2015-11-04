@@ -10,7 +10,7 @@ import java.util.Comparator;
 public class Node {
 
     private long node_id;
-    private ArrayList<Integer> reachable_nodes; //TODO: is there a better way to store our adjacent + distance pairs?
+    private ArrayList<Long> reachable_nodes; //TODO: is there a better way to store our adjacent + distance pairs?
 //    private byte[] reachable_nodes;
     private ArrayList<Integer> distances;
     private int floor;
@@ -33,11 +33,11 @@ public class Node {
         this.node_id = node_id;
     }
 
-    public ArrayList<Integer> getReachable_nodes() {
+    public ArrayList<Long> getReachable_nodes() {
         return reachable_nodes;
     }
 
-    public void setReachable_nodes(ArrayList<Integer> reachable_nodes) {
+    public void setReachable_nodes(ArrayList<Long> reachable_nodes) {
         //TODO: logic here to split the value from the DB into two arrayLists
         this.reachable_nodes = reachable_nodes;
     }

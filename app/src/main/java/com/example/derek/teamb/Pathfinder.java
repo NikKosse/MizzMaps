@@ -3,6 +3,7 @@ package com.example.derek.teamb;
 import com.Models.Node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -14,7 +15,7 @@ import java.util.Set;
 public class Pathfinder {
 
     private ArrayList<Node> nodes; //stores all nodes for the current building (or floor) being searched
-    private HashMap<Integer, Integer> idMap; //maps node Id's to the proper index in this.nodes
+    private HashMap<Long, Integer> idMap; //maps node Id's to the proper index in this.nodes
     private PriorityQueue<Node> fringe; //current nodes being considered for exploration
     private Set<Node> closedSet; //keeps track of nodes that have already been explored so we don't backtrack
     private Node current; // node currently being analyzed
@@ -45,11 +46,11 @@ public class Pathfinder {
      *
      * @param startNode integer id of the beginning node
      * @param goalNode integer id of the goal node
-     * @return an ArrayList of the integer id's of the nodes along the optimal path
+     * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    public ArrayList<Integer> search(int startNode, int goalNode){
+    public ArrayList<Long> search(int startNode, int goalNode){
 
-        fringe.add(nodes.get(idMap.get(Integer.valueOf(startNode))));
+        fringe.add(nodes.get(idMap.get(Long.valueOf(startNode))));
         while ( ! fringe.isEmpty()){
             current = fringe.remove();
             if (closedSet.contains(current)) {
@@ -95,19 +96,15 @@ public class Pathfinder {
      * Utility method called by search, returns the list of nodes traversed on the optimal path to the goal
      *
      * @param currentNode node at the end of the current path being analyzed
-     * @return an ArrayList of the integer id's of the nodes along the optimal path
+     * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    private ArrayList<Integer> getPath(Node currentNode) {
-        //TODO : implement this iteratively. I think recursion might cause problems
-        if ( currentNode.getPrevNode() == null ) {
-            ArrayList<Integer> startOfPath = new ArrayList<>();
-            startOfPath.add((int)currentNode.getNode_id());
-            return startOfPath;
+    private ArrayList<Long> getPath(Node currentNode) {
+        ArrayList<Long> path = new ArrayList<>();
+        while (currentNode != null) {
+            path.add(currentNode.getNode_id());
+            currentNode = currentNode.getPrevNode();
         }
-        else {
-            ArrayList<Integer> path = getPath(currentNode.getPrevNode());
-            path.add((int)currentNode.getNode_id());
-            return path;
-        }
+        Collections.reverse(path);
+        return path;
     }
 }
