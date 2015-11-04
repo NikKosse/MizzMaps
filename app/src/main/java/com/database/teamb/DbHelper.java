@@ -1,9 +1,15 @@
 package com.database.teamb;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.example.derek.teamb.MyObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DbHelper extends SQLiteOpenHelper {
@@ -41,16 +47,16 @@ public class DbHelper extends SQLiteOpenHelper {
             + Building_id + " integer PRIMARY KEY AUTOINCREMENT, " + Building_name + " text);";
 
     //should be: CREATE TABLE Room(room_id integer PRIMARY KEY AUTOINCREMENT, room_number text, type test, Node_id integer, FOREIGN KEY (Node_id) REFERENCES Node(Node_id));
-    private static final String SQL_CREATE_TABLE_Room = "CREATE TABLE " + Table_Room + "(" + Room_id + " integer PRIMARY KEY AUTOINCREMENT, " +
+    private static final String SQL_CREATE_TABLE_Room = "CREATE TABLE " + Table_Room + "(" + Room_id + " integer PRIMARY KEY, " +
             Room_number + " text, " + Room_type + " text, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
 
     //should be: CREATE TABLE Node(Node_id integer PRIMARY KEY AUTOINCREMENT, floor integer, building_id integer, reachable_nodes bloc, coordinates, FOREIGN KEY (Building_id) REFERENCES Building(Building_id));
     private static final String SQL_CREATE_TABLE_Node = "CREATE TABLE " + Table_Node + "("
-            + Node_id + " integer PRIMARY KEY AUTOINCREMENT, " + Node_floor + " integer, " + Building_id + " integer, " + Reachable_nodes + " text, " + Node_coordinates + " text, FOREIGN KEY" +
+            + Node_id + " integer PRIMARY KEY, " + Node_floor + " integer, " + Building_id + " integer, " + Reachable_nodes + " text, " + Node_coordinates + " text, FOREIGN KEY" +
             " (" + Building_id + ") REFERENCES " + Table_Building + "(" + Building_id + "));";
 
     //should be: CREATE TABLE Course(course_id integer PRIMARY KEY AUTOINCREMENT, course_name text, course_room text, course_building_id integer);
-    private static final String SQL_CREATE_TABLE_Schedule = "CREATE TABLE " + Table_Course + "(" + Course_id + "integer PRIMARY KEY AUTOINCREMENT, " + Course_name + " text, "
+    private static final String SQL_CREATE_TABLE_Schedule = "CREATE TABLE " + Table_Course + "(" + Course_id + "integer PRIMARY KEY, " + Course_name + " text, "
             + Course_room + " text, " + Course_building + " text);";
 
     public static final int DATABASE_VERSION = 8;
@@ -100,6 +106,44 @@ public class DbHelper extends SQLiteOpenHelper {
         dbFileReader.insertDataRooms(context, db);
         dbFileReader.insertDataNodes(context, db);
         dbFileReader.insertDataBuildings(db);
+    }
+
+    // Read records related to the search term
+    public List<MyObject> read(String searchTerm) {
+
+        List<MyObject> recordsList = new ArrayList<MyObject>();
+
+        // select query
+        String sql = "";
+        sql += "SELECT * FROM " + Table_Room;
+        sql += " WHERE " + Room_number + " LIKE '%" + searchTerm + "%'";
+        sql += " ORDER BY " + Room_id + " DESC";
+        sql += " LIMIT 0,5";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // execute the query
+        Cursor cursor = db.rawQuery(sql, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                // int productId = Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
+                String objectName = cursor.getString(cursor.getColumnIndex(Room_number));
+                MyObject myObject = new MyObject(objectName);
+
+                // add to list
+                recordsList.add(myObject);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        // return the list of records
+        return recordsList;
     }
 
 }

@@ -3,27 +3,65 @@ package com.example.derek.teamb;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.Models.Building;
-import com.Models.Room;
-import com.database.teamb.DataSource;
-
-import java.util.ArrayList;
 import java.util.List;
 
+import android.widget.ArrayAdapter;
+
+import com.database.teamb.DbHelper;
 
 public class MainActivity extends AppCompatActivity {
-    DataSource datasource = new DataSource(this);
+
+    CustomView myAutoComplete;
+
+    // adapter for auto-complete
+    ArrayAdapter<String> myAdapter;
+
+    // for database operations
+    DbHelper databaseH;
+
+    // just to add some initial value
+    String[] item = new String[] {"Please search..."};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try{
+
+            // instantiate database handler
+            databaseH = new DbHelper(MainActivity.this);
+
+
+            // autocompletetextview is in activity_main.xml
+            myAutoComplete = (CustomView) findViewById(R.id.myautocomplete);
+
+            // add the listener so it will tries to suggest while the user types
+            myAutoComplete.addTextChangedListener(new Listener(this));
+
+            // set our adapter
+            myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, item);
+            myAutoComplete.setAdapter(myAdapter);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        myAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                String selection = (String) parent.getItemAtPosition(position);
+                Log.i("SELECTED TEXT WAS------->", selection);
+            }
+        });
+
 
         Button btnNext = (Button) findViewById(R.id.buttonNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -31,22 +69,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Map.class);
                 startActivityForResult(intent, 0);
-            }
-        });
-
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                datasource.open();
-
-                List<Room> rooms = datasource.getAllRooms();
-                String roomType = rooms.get(0).getType();
-
-
-                TextView textView = (TextView) findViewById(R.id.textView3);
-                textView.append(roomType);
             }
         });
     }
@@ -73,15 +95,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        datasource.open();
+    // this function is used in Listener.java
+    public String[] getItemsFromDb(String searchTerm){
+
+        // add items on the array dynamically
+        List<MyObject> products = databaseH.read(searchTerm);
+        int rowCount = products.size();
+
+        String[] item = new String[rowCount];
+        int x = 0;
+
+        for (MyObject record : products) {
+
+            item[x] = record.objectName;
+            x++;
+        }
+
+        return item;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        datasource.close();
-    }
 }
