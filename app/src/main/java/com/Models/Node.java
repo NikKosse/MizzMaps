@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * Class to hold the information from the room table in the database.
+ * Course to hold the information from the room table in the database.
  *   used by the A* path finding algorithm to keep track of way-points in the graph / map
  */
 public class Node {

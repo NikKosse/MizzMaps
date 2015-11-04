@@ -6,15 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.Models.Building;
-import com.Models.Node;
-import com.Models.Room;
+import com.Models.*;
+import com.Models.Course;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class for interfacing with the database
+ * Course for interfacing with the database
  */
 public class DataSource {
 
@@ -29,15 +28,21 @@ public class DataSource {
     private static final String[] allRoomColumns = {
             DbHelper.Room_id,
             DbHelper.Room_number,
-            DbHelper.Type,
+            DbHelper.Room_type,
             DbHelper.Node_id
     };
     private static final String[] allNodeColumns = {
             DbHelper.Node_id,
-            DbHelper.Floor,
+            DbHelper.Node_floor,
             DbHelper.Building_id,
-            DbHelper.Reachable_Nodes,
-            DbHelper.Coordinates
+            DbHelper.Reachable_nodes,
+            DbHelper.Node_coordinates
+    };
+    private static final String[] allCourseColumns = {
+            DbHelper.Course_id,
+            DbHelper.Course_name,
+            DbHelper.Course_room,
+            DbHelper.Course_building
     };
 
     public DataSource(Context context) {
@@ -85,9 +90,9 @@ public class DataSource {
             while (cursor.moveToNext()) {
                 Node node = new Node();
                 node.setNode_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id)));
-                node.setFloor(cursor.getInt(cursor.getColumnIndex(DbHelper.Floor)));
+                node.setFloor(cursor.getInt(cursor.getColumnIndex(DbHelper.Node_floor)));
                 node.setBuildingId(cursor.getInt(cursor.getColumnIndex(DbHelper.Building_id)));
-//                node.setReachable_nodes(cursor.getBlob(cursor.getColumnIndex(DbHelper.Reachable_Nodes))); TODO: figure out alternative for blob that is easy to use
+//                node.setReachable_nodes(cursor.getBlob(cursor.getColumnIndex(DbHelper.Reachable_nodes))); TODO: figure out alternative for blob that is easy to use
                 nodes.add(node);
                 Log.i(TAG, "Retrieved row with id:" + node.getNode_id());
             }
@@ -97,25 +102,47 @@ public class DataSource {
         return nodes;
     }
 
-        public List<Room> getAllRooms() {
-            List<Room> rooms = new ArrayList<>();
+    public List<Room> getAllRooms() {
+        List<Room> rooms = new ArrayList<>();
 
-            Cursor cursor = database.query(DbHelper.Table_Room, allRoomColumns, null, null, null, null, null);
+        Cursor cursor = database.query(DbHelper.Table_Room, allRoomColumns, null, null, null, null, null);
 
-            Log.i(TAG, "Returned " + cursor.getColumnCount() + " rows");
-            if (cursor.getColumnCount() > 0) {
-                while (cursor.moveToNext()) {
-                    Room room = new Room();
-                    room.setRoom_number(cursor.getString(cursor.getColumnIndex(DbHelper.Room_number)));
-                    room.setType(cursor.getString(cursor.getColumnIndex(DbHelper.Type)));
-                    room.setNode_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id)));
-                    room.setRoom_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Room_id)));
-                    rooms.add(room);
-                    Log.i(TAG, "Retrieved row with id:" + room.getRoom_id());
-                }
+        Log.i(TAG, "Returned " + cursor.getColumnCount() + " rows");
+        if (cursor.getColumnCount() > 0) {
+            while (cursor.moveToNext()) {
+                Room room = new Room();
+                room.setRoom_number(cursor.getString(cursor.getColumnIndex(DbHelper.Room_number)));
+                room.setType(cursor.getString(cursor.getColumnIndex(DbHelper.Room_type)));
+                room.setNode_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id)));
+                room.setRoom_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Room_id)));
+                rooms.add(room);
+                Log.i(TAG, "Retrieved row with id:" + room.getRoom_id());
             }
-            Log.i(TAG, "Size of results is: " + rooms.size());
-            cursor.close();
-            return rooms;
         }
+        Log.i(TAG, "Size of results is: " + rooms.size());
+        cursor.close();
+        return rooms;
+    }
+
+    public List<Course> getAllCourses(){
+        List<Course> courses = new ArrayList<>();
+
+        Cursor cursor = database.query(DbHelper.Table_Course, allCourseColumns, null, null, null, null, null);
+
+        Log.i(TAG, "Returned " + cursor.getColumnCount() + " rows");
+        if (cursor.getColumnCount() > 0) {
+            while (cursor.moveToNext()) {
+                Course course = new Course();
+                course.setCourse_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Course_id)));
+                course.setCourse_name(cursor.getString(cursor.getColumnIndex(DbHelper.Course_name)));
+                course.setCourse_room(cursor.getString(cursor.getColumnIndex(DbHelper.Course_room)));
+                course.setCourse_building(cursor.getString(cursor.getColumnIndex(DbHelper.Course_building)));
+                courses.add(course);
+                Log.i(TAG, "Retrieved row with id:" + course.getCourse_id());
+            }
+        }
+        Log.i(TAG, "Size of results is: " + courses.size());
+        cursor.close();
+        return courses;
+    }
 }

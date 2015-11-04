@@ -12,7 +12,7 @@ public class NodesDAO {
     private SQLiteDatabase database;
     private DbHelper nodesDbHelper;
     private Context nodesContext;
-    private String[] allColumns = { DbHelper.Node_id, DbHelper.Reachable_Nodes, DbHelper.Floor, DbHelper.Building_id, DbHelper.Coordinates };
+    private String[] allColumns = { DbHelper.Node_id, DbHelper.Reachable_nodes, DbHelper.Node_floor, DbHelper.Building_id, DbHelper.Node_coordinates};
 
     public NodesDAO(Context context){
         this.nodesContext = context;

@@ -19,30 +19,41 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String Table_Room = "Room";
     public static final String Room_id = "room_id";
     public static final String Room_number = "room_number";
-    public static final String Type = "type";
+    public static final String Room_type = "type";
     public static final String Node_id = "node_id";
 
     //Columns in database for Node Table
     public static final String Table_Node = "Node";
-    public static final String Floor = "floor";
-    public static final String Reachable_Nodes = "reachable_nodes";
-    public static final String Coordinates = "coordinates";
+    public static final String Node_floor = "floor";
+    public static final String Reachable_nodes = "reachable_nodes";
+    public static final String Node_coordinates = "coordinates";
+
+    //Columns in database for course table
+    public static final String Table_Course = "Course";
+    public static final String Course_id = "course_id";
+    public static final String Course_name = "course_name";
+    public static final String Course_room = "course_room";
+    public static final String Course_building = "course_building_name";
 
     //Creating tables
     //should be:CREATE TABLE Building(Building_id integer PRIMARY KEY AUTOINCREMENT, building_Name text);
     private static final String SQL_CREATE_TABLE_Building = "CREATE TABLE " + Table_Building + "("
             + Building_id + " integer PRIMARY KEY AUTOINCREMENT, " + Building_name + " text);";
 
-    //should be: CREATE TABLE Room(room_id integer PRIMARY KEY AUTOINCREMENT, room_number text, type test, Node_id integer, FOREIGN KEY (Node_id) REFERENCES Node(Node_id);
+    //should be: CREATE TABLE Room(room_id integer PRIMARY KEY AUTOINCREMENT, room_number text, type test, Node_id integer, FOREIGN KEY (Node_id) REFERENCES Node(Node_id));
     private static final String SQL_CREATE_TABLE_Room = "CREATE TABLE " + Table_Room + "(" + Room_id + " integer PRIMARY KEY AUTOINCREMENT, " +
-            Room_number + " text, " + Type + " text, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
+            Room_number + " text, " + Room_type + " text, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
 
-    //should be: CREATE TABLE Node(Node_id integer PRIMARY KEY AUTOINCREMENT, floor integer, Building_id integer, reachable_nodes bloc, coordinates, FOREIGN KEY (Building_id) REFERENCES Building(Building_id);
+    //should be: CREATE TABLE Node(Node_id integer PRIMARY KEY AUTOINCREMENT, floor integer, building_id integer, reachable_nodes bloc, coordinates, FOREIGN KEY (Building_id) REFERENCES Building(Building_id));
     private static final String SQL_CREATE_TABLE_Node = "CREATE TABLE " + Table_Node + "("
-            + Node_id + " integer PRIMARY KEY AUTOINCREMENT, " + Floor + " integer, " + Building_id + " integer, " + Reachable_Nodes + " blob, " + Coordinates + " blob, FOREIGN KEY" +
+            + Node_id + " integer PRIMARY KEY AUTOINCREMENT, " + Node_floor + " integer, " + Building_id + " integer, " + Reachable_nodes + " text, " + Node_coordinates + " text, FOREIGN KEY" +
             " (" + Building_id + ") REFERENCES " + Table_Building + "(" + Building_id + "));";
 
-    public static final int DATABASE_VERSION = 7;
+    //should be: CREATE TABLE Course(course_id integer PRIMARY KEY AUTOINCREMENT, course_name text, course_room text, course_building_id integer);
+    private static final String SQL_CREATE_TABLE_Schedule = "CREATE TABLE " + Table_Course + "(" + Course_id + "integer PRIMARY KEY AUTOINCREMENT, " + Course_name + " text, "
+            + Course_room + " text, " + Course_building + " text);";
+
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "MizzMaps.db";
 
     Context context;
@@ -60,6 +71,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_Building);
         db.execSQL(SQL_CREATE_TABLE_Node);
         db.execSQL(SQL_CREATE_TABLE_Room);
+        db.execSQL(SQL_CREATE_TABLE_Schedule);
         Log.i(TAG, "Database created");
         fillDatabase(db);
     }
@@ -72,6 +84,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Table_Building);
         db.execSQL("DROP TABLE IF EXISTS " + Table_Room);
         db.execSQL("DROP TABLE IF EXISTS " + Table_Node);
+        db.execSQL("DROP TABLE IF EXISTS " + Table_Course);
         onCreate(db);
     }
 
