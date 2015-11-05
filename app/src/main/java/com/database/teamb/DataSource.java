@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.Models.*;
-import com.Models.Course;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +78,6 @@ public class DataSource {
         return buildings;
     }
 
-    //TODO: sync this up with the node class
     public List<Node> getAllNodes() {
         List<Node> nodes = new ArrayList<>();
 
@@ -92,7 +90,8 @@ public class DataSource {
                 node.setNode_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id)));
                 node.setFloor(cursor.getInt(cursor.getColumnIndex(DbHelper.Node_floor)));
                 node.setBuildingId(cursor.getInt(cursor.getColumnIndex(DbHelper.Building_id)));
-//                node.setReachable_nodes(cursor.getBlob(cursor.getColumnIndex(DbHelper.Reachable_nodes))); TODO: figure out alternative for blob that is easy to use
+                node.setAdjacencies(cursor.getString(cursor.getColumnIndex(DbHelper.Reachable_nodes)));
+                node.setCoordinates(cursor.getString(cursor.getColumnIndex(DbHelper.Node_coordinates)));
                 nodes.add(node);
                 Log.i(TAG, "Retrieved row with id:" + node.getNode_id());
             }
