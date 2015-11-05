@@ -12,6 +12,7 @@ import android.widget.Button;
 import java.util.List;
 
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.database.teamb.DbHelper;
 
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         myAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                 String selection = (String) parent.getItemAtPosition(position);
-                Log.i("SELECTED TEXT WAS------->", selection);
+                TextView testText = (TextView) findViewById(R.id.testText);
+                testText.setText(selection);
             }
         });
 
