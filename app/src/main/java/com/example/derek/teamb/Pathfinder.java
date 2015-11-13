@@ -22,12 +22,13 @@ public class Pathfinder {
     private Set<Node> closedSet; //keeps track of nodes that have already been explored so we don't backtrack
     private Node current; // node currently being analyzed
     private NodesDAO nodesDAO;
+    private int totalDistance;
 
     /**
      * Create a Pathfinder class for searching a building
      * @param buildingID integer id of the building to be searched
      */
-    public Pathfinder(int buildingID, Context context){
+    public Pathfinder(long buildingID, Context context){
         fringe = new PriorityQueue<>(25, Node.nodeComparator);
         closedSet = new HashSet<>();  //TODO: research performance for hashsets and priorityqueues; maybe specify max capacity?
         idMap = new HashMap<>();
@@ -44,6 +45,8 @@ public class Pathfinder {
      *   building / floor as well as creating the fringe, closed set, and map from node id's to indexes
      * Note: This algorithm currently only works for a single building.  It will have to be called
      *   multiple times in order to search between separate buildings.
+     * Note: Once this method is run, the total path distance can be obtained by executing the
+     *   getTotalDistance() method.
      *
      * @param startNode integer id of the beginning node
      * @param goalNode integer id of the goal node
@@ -53,12 +56,12 @@ public class Pathfinder {
 
         fringe.add(nodes.get(idMap.get(Long.valueOf(startNode))));
         while ( ! fringe.isEmpty()){
-            current = fringe.remove();
+            current = fringe.poll();
             if (closedSet.contains(current)) {
                 continue; //don't expand nodes we've already expanded
             }
             if (current.getNode_id() == goalNode) {
-                //TODO: Do we somehow want to return the total distance traveled as well?
+                setTotalDistance(current.getCostFromPrev());
                 return getPath(current);
             }
             expand(current);
@@ -74,10 +77,10 @@ public class Pathfinder {
      * @param nodeToExpand node currently being searched for adjacents
      */
     private void expand(Node nodeToExpand) {
-        //TODO: will nodes in the fringe ever be overwritten with a worse priority before they're closed? Make sure on this...
         int costUntilNow, priority;
         Node nodeToInsert;
-        for (int i=0; i < nodeToExpand.getReachable_nodes().size(); i++) {
+        int numAdjacents = nodeToExpand.getReachable_nodes().size();
+        for (int i=0; i < numAdjacents; i++) {
             nodeToInsert = nodes.get( idMap.get(nodeToExpand.getReachable_nodes().get(i)));
             costUntilNow = nodeToExpand.getCostFromPrev() + nodeToExpand.getDistances().get(i);
             priority = (int) Math.round( costUntilNow + Math.sqrt(
@@ -88,7 +91,9 @@ public class Pathfinder {
             nodeToInsert.setPrevNode(nodeToExpand);
             nodeToInsert.setCostFromPrev(costUntilNow);
             nodeToInsert.setPriority(priority);
-            fringe.add(nodeToInsert);
+            if (! fringe.contains(nodeToInsert)) {
+                fringe.add(nodeToInsert);
+            }
         }
         closedSet.add(nodeToExpand);
     }
@@ -107,5 +112,13 @@ public class Pathfinder {
         }
         Collections.reverse(path);
         return path;
+    }
+
+    public int getTotalDistance() {
+        return totalDistance;
+    }
+
+    private void setTotalDistance(int totalDistance) {
+        this.totalDistance = totalDistance;
     }
 }
