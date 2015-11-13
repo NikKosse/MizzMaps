@@ -109,7 +109,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     // Read records related to the search term
-    public List<MyObject> read(String searchTerm) {
+    public MyObject[] read(String searchTerm) {
 
         List<MyObject> recordsList = new ArrayList<MyObject>();
 
@@ -125,16 +125,23 @@ public class DbHelper extends SQLiteOpenHelper {
         // execute the query
         Cursor cursor = db.rawQuery(sql, null);
 
+        int recCount = cursor.getCount();
+
+        MyObject[] ObjectItemData = new MyObject[recCount];
+        int x = 0;
+
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
 
-                // int productId = Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
                 String objectName = cursor.getString(cursor.getColumnIndex(Room_number));
+                Log.e(TAG, "objectName: " + objectName);
+
                 MyObject myObject = new MyObject(objectName);
 
-                // add to list
-                recordsList.add(myObject);
+                ObjectItemData[x] = myObject;
+
+                x++;
 
             } while (cursor.moveToNext());
         }
@@ -142,8 +149,8 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        // return the list of records
-        return recordsList;
+        return ObjectItemData;
+
     }
 
 }

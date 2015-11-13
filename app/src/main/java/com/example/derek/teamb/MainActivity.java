@@ -1,27 +1,27 @@
 package com.example.derek.teamb;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.app.Activity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import java.util.List;
-
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.database.teamb.DbHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     CustomView myAutoComplete;
 
+    ClassList myClass;
+
     // adapter for auto-complete
-    ArrayAdapter<String> myAdapter;
+    ArrayAdapter<MyObject> myAdapter;
 
     // for database operations
     DbHelper databaseH;
@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     // just to add some initial value
     String[] item = new String[] {"Please search..."};
 
+
+int i=0;
+    String [] classList= new String[5];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +46,38 @@ public class MainActivity extends AppCompatActivity {
             // autocompletetextview is in activity_main.xml
             myAutoComplete = (CustomView) findViewById(R.id.myautocomplete);
 
+            myAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
+
+                    RelativeLayout rl = (RelativeLayout) arg1;
+                    TextView tv = (TextView) rl.getChildAt(0);
+                    TextView testText = (TextView) findViewById(R.id.testText);
+
+                    classList[i] = (tv.getText().toString());
+                    i++;
+
+                   // myClass.getClass(classList,i);
+
+
+                    testText.setText(classList[i-1]);
+
+
+
+                }
+
+            });
+
+
             // add the listener so it will tries to suggest while the user types
             myAutoComplete.addTextChangedListener(new Listener(this));
 
+            // ObjectItemData has no value at first
+            MyObject[] ObjectItemData = new MyObject[0];
+
             // set our adapter
-            myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, item);
+            myAdapter = new AutocompleteCustomArrayAdapter(this, R.layout.list_view_row, ObjectItemData);
             myAutoComplete.setAdapter(myAdapter);
 
         } catch (NullPointerException e) {
@@ -56,13 +86,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        myAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                String selection = (String) parent.getItemAtPosition(position);
-                TextView testText = (TextView) findViewById(R.id.testText);
-                testText.setText(selection);
-            }
-        });
+
 
 
         Button btnNext = (Button) findViewById(R.id.buttonNext);
@@ -73,47 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    // this function is used in Listener.java
-    public String[] getItemsFromDb(String searchTerm){
-
-        // add items on the array dynamically
-        List<MyObject> products = databaseH.read(searchTerm);
-        int rowCount = products.size();
-
-        String[] item = new String[rowCount];
-        int x = 0;
-
-        for (MyObject record : products) {
-
-            item[x] = record.objectName;
-            x++;
-        }
-
-        return item;
-    }
 
 }

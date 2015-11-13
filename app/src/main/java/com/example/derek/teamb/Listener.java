@@ -7,7 +7,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 public class Listener implements TextWatcher{
 
@@ -34,19 +33,32 @@ public class Listener implements TextWatcher{
     @Override
     public void onTextChanged(CharSequence userInput, int start, int before, int count) {
 
-        // if you want to see in the logcat what the user types
-        Log.e(TAG, "User input: " + userInput);
+        try{
 
-        MainActivity mainActivity = ((MainActivity) context);
+            // if you want to see in the logcat what the user types
+            Log.e(TAG, "User input: " + userInput);
 
-        // query the database based on the user input
-        mainActivity.item = mainActivity.getItemsFromDb(userInput.toString());
+            MainActivity mainActivity = ((MainActivity) context);
 
-        // update the adapater
-        mainActivity.myAdapter.notifyDataSetChanged();
-        mainActivity.myAdapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_dropdown_item_1line, mainActivity.item);
-        mainActivity.myAutoComplete.setAdapter(mainActivity.myAdapter);
+            // update the adapater
+            mainActivity.myAdapter.notifyDataSetChanged();
+
+            // get suggestions from the database
+            MyObject[] myObjs = mainActivity.databaseH.read(userInput.toString());
+
+            // update the adapter
+            mainActivity.myAdapter = new AutocompleteCustomArrayAdapter(mainActivity, R.layout.list_view_row, myObjs);
+
+            mainActivity.myAutoComplete.setAdapter(mainActivity.myAdapter);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
+
+
 
 }
