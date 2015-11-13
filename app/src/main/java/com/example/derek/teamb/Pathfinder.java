@@ -1,8 +1,11 @@
 package com.example.derek.teamb;
 
+import android.content.Context;
 import com.Models.Node;
-
+import com.database.teamb.NodesDAO;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -13,26 +16,25 @@ import java.util.Set;
  */
 public class Pathfinder {
 
-    private ArrayList<Node> nodes; //stores all nodes for the current building (or floor) being searched
-    private HashMap<Integer, Integer> idMap; //maps node Id's to the proper index in this.nodes
+    private List<Node> nodes; //stores all nodes for the current building (or floor) being searched
+    private HashMap<Long, Integer> idMap; //maps node Id's to the proper index in this.nodes
     private PriorityQueue<Node> fringe; //current nodes being considered for exploration
     private Set<Node> closedSet; //keeps track of nodes that have already been explored so we don't backtrack
     private Node current; // node currently being analyzed
+    private NodesDAO nodesDAO;
 
     /**
      * Create a Pathfinder class for searching a building
      * @param buildingID integer id of the building to be searched
      */
-    public Pathfinder(int buildingID){
+    public Pathfinder(int buildingID, Context context){
         fringe = new PriorityQueue<>(25, Node.nodeComparator);
         closedSet = new HashSet<>();  //TODO: research performance for hashsets and priorityqueues; maybe specify max capacity?
         idMap = new HashMap<>();
+        nodesDAO = new NodesDAO(context);
 
-        //TODO : database query to select all of the nodes for the building parameter
-        //Only will need to get the nodes with floors in between (inclusive) the start and end floor
-            //Load the results of the query into this.nodes
-            //for each node which is inserted into this.nodes, execute the following line:
-            //  this.idMap.put(nodeID, indexInArrayList);
+        nodes = nodesDAO.getPathfinderNodes(buildingID, idMap);
+          //TODO: Is there a good way to get the floor numbers that we should query for?  For that matter, will we have the building ID?
     }
 
     /**
@@ -45,11 +47,11 @@ public class Pathfinder {
      *
      * @param startNode integer id of the beginning node
      * @param goalNode integer id of the goal node
-     * @return an ArrayList of the integer id's of the nodes along the optimal path
+     * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    public ArrayList<Integer> search(int startNode, int goalNode){
+    public List<Long> search(long startNode, long goalNode){
 
-        fringe.add(nodes.get(idMap.get(Integer.valueOf(startNode))));
+        fringe.add(nodes.get(idMap.get(Long.valueOf(startNode))));
         while ( ! fringe.isEmpty()){
             current = fringe.remove();
             if (closedSet.contains(current)) {
@@ -95,19 +97,15 @@ public class Pathfinder {
      * Utility method called by search, returns the list of nodes traversed on the optimal path to the goal
      *
      * @param currentNode node at the end of the current path being analyzed
-     * @return an ArrayList of the integer id's of the nodes along the optimal path
+     * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    private ArrayList<Integer> getPath(Node currentNode) {
-        //TODO : implement this iteratively. I think recursion might cause problems
-        if ( currentNode.getPrevNode() == null ) {
-            ArrayList<Integer> startOfPath = new ArrayList<>();
-            startOfPath.add((int)currentNode.getNode_id());
-            return startOfPath;
+    private List<Long> getPath(Node currentNode) {
+        ArrayList<Long> path = new ArrayList<>();
+        while (currentNode != null) {
+            path.add(currentNode.getNode_id());
+            currentNode = currentNode.getPrevNode();
         }
-        else {
-            ArrayList<Integer> path = getPath(currentNode.getPrevNode());
-            path.add((int)currentNode.getNode_id());
-            return path;
-        }
+        Collections.reverse(path);
+        return path;
     }
 }

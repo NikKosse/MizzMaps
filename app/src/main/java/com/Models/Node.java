@@ -10,8 +10,7 @@ import java.util.Comparator;
 public class Node {
 
     private long node_id;
-    private ArrayList<Integer> reachable_nodes; //TODO: is there a better way to store our adjacent + distance pairs?
-//    private byte[] reachable_nodes;
+    private ArrayList<Long> reachable_nodes;
     private ArrayList<Integer> distances;
     private int floor;
     private long buildingId;
@@ -33,12 +32,27 @@ public class Node {
         this.node_id = node_id;
     }
 
-    public ArrayList<Integer> getReachable_nodes() {
+    public ArrayList<Long> getReachable_nodes() {
         return reachable_nodes;
     }
 
-    public void setReachable_nodes(ArrayList<Integer> reachable_nodes) {
-        //TODO: logic here to split the value from the DB into two arrayLists
+    public void setAdjacencies(String dbReachableNodes){
+        if (dbReachableNodes.isEmpty()) return;
+        ArrayList<Long> node_ids = new ArrayList<>();
+        ArrayList<Integer> adjDistances = new ArrayList<>();
+        String[] adjacents = dbReachableNodes.split(";");
+        int i=0;
+        //Maybe check that (adjacents.length%2 == 0)
+        while (i < adjacents.length-1){
+            node_ids.add(Long.parseLong(adjacents[i]));
+            adjDistances.add(Integer.parseInt(adjacents[i+1]));
+            i = i+2;
+        }
+        setReachable_nodes(node_ids);
+        setDistances(adjDistances);
+    }
+
+    public void setReachable_nodes(ArrayList<Long> reachable_nodes) {
         this.reachable_nodes = reachable_nodes;
     }
 
@@ -47,7 +61,6 @@ public class Node {
     }
 
     public void setDistances(ArrayList<Integer> distances) {
-        //TODO: logic here to split the value from the DB into two arrayLists
         this.distances = distances;
     }
 
@@ -63,8 +76,19 @@ public class Node {
         return x;
     }
 
+    public void setCoordinates(String coordinates){
+        if (coordinates.isEmpty()) return;
+        String[] coords = coordinates.split(";"); //or is it a space or something?
+        if (coords.length == 2) {
+            setX(Double.parseDouble(coords[0]));
+            setY(Double.parseDouble(coords[1]));
+        }
+        else {
+            //log an error or something?
+        }
+    }
+
     public void setX(double x) {
-        //TODO: logic here to split the value from the DB into two arrayLists
         this.x = x;
     }
 
@@ -73,7 +97,6 @@ public class Node {
     }
 
     public void setY(double y) {
-        //TODO: logic here to split the value from the DB into two arrayLists
         this.y = y;
     }
 
