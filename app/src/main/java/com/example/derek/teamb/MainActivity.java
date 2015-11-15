@@ -7,12 +7,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.database.teamb.DbHelper;
 
+import java.util.ArrayList;
+
 public class MainActivity extends Activity {
+
+    ArrayAdapter<String> adapter;
+    ListView list;
+    ArrayList<String> arrayList;
 
     CustomView myAutoComplete;
 
@@ -28,18 +35,24 @@ public class MainActivity extends Activity {
     String[] item = new String[] {"Please search..."};
 
 
-int i=0;
+    int i=0;
     String [] classList= new String[5];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        list = (ListView) findViewById(R.id.list);
+        arrayList = new ArrayList<String>();
+
         try{
 
             // instantiate database handler
             databaseH = new DbHelper(MainActivity.this);
 
+
+            adapter = new ArrayAdapter<String>(this,R.layout.list_black_text,R.id.list_content, arrayList);
+            list.setAdapter(adapter);
 
             // autocompletetextview is in activity_main.xml
             myAutoComplete = (CustomView) findViewById(R.id.myautocomplete);
@@ -51,16 +64,17 @@ int i=0;
 
                     RelativeLayout rl = (RelativeLayout) arg1;
                     TextView tv = (TextView) rl.getChildAt(0);
-                    TextView testText = (TextView) findViewById(R.id.testText);
 
                     if(i != 5) {
                         classList[i] = (tv.getText().toString());
+                        arrayList.add(classList[i]);
+                        adapter.notifyDataSetChanged();
                         i++;
-                        testText.setText(classList[i-1]);
+
                     }else {
-                        testText.setText("Too many classes");
+
                     }
-                   // myClass.getClass(classList,i);
+                    // myClass.getClass(classList,i);
 
 
 

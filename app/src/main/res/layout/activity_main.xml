@@ -39,30 +39,30 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.63">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/testText"
-                android:layout_gravity="bottom" />
-
-            <ExpandableListView
-                android:layout_width="wrap_content"
-                android:layout_height="322dp"
-                android:id="@+id/expandableListView" />
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:drawSelectorOnTop="false"
+                android:layout_marginBottom="40dp" />
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Next"
-            android:id="@+id/buttonNext"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.15"
-            android:background="@drawable/rounded_button"
-            android:textColor="#ffffff"
-            android:textSize="30dp" />
-
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/buttonNext"
+        android:background="@drawable/rounded_button"
+        android:layout_alignParentBottom="true"
+        android:minHeight="60dp"
+        android:minWidth="600dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:enabled="true"
+        android:textSize="30dp"
+        android:textColor="#ffffff" />
 </RelativeLayout>
