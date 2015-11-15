@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.database.teamb.DbHelper;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MainActivity extends Activity {
 
@@ -22,8 +23,6 @@ public class MainActivity extends Activity {
     ArrayList<String> arrayList;
 
     CustomView myAutoComplete;
-
-    ClassList myClass;
 
     // adapter for auto-complete
     ArrayAdapter<MyObject> myAdapter;
@@ -34,9 +33,10 @@ public class MainActivity extends Activity {
     // just to add some initial value
     String[] item = new String[] {"Please search..."};
 
-
     int i=0;
     String [] classList= new String[5];
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +45,13 @@ public class MainActivity extends Activity {
         list = (ListView) findViewById(R.id.list);
         arrayList = new ArrayList<String>();
 
-        try{
+        try {
 
             // instantiate database handler
             databaseH = new DbHelper(MainActivity.this);
 
 
-            adapter = new ArrayAdapter<String>(this,R.layout.list_black_text,R.id.list_content, arrayList);
+            adapter = new ArrayAdapter<String>(this, R.layout.list_black_text, R.id.list_content, arrayList);
             list.setAdapter(adapter);
 
             // autocompletetextview is in activity_main.xml
@@ -65,22 +65,15 @@ public class MainActivity extends Activity {
                     RelativeLayout rl = (RelativeLayout) arg1;
                     TextView tv = (TextView) rl.getChildAt(0);
 
-                    if(i != 5) {
+                    if (i != 5) {
                         classList[i] = (tv.getText().toString());
                         arrayList.add(classList[i]);
                         adapter.notifyDataSetChanged();
                         i++;
 
-                    }else {
-
+                    } else {
+                        //TODO
                     }
-                    // myClass.getClass(classList,i);
-
-
-
-
-
-
                 }
 
             });
@@ -103,24 +96,30 @@ public class MainActivity extends Activity {
         }
 
 
-
-
         Button btnNext = (Button) findViewById(R.id.buttonNext);
-            btnNext.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), Map.class);
-                    startActivityForResult(intent, 0);
-            }
-        });
+                    if (arrayList.size() != 0) {
+                        databaseH.deleteAllData();
+                        for (int i = 0; i < arrayList.size(); i++) {
+                            databaseH.create(new MyObject(arrayList.get(i)));
+                        }
+                        Intent intent = new Intent(v.getContext(), Map.class);
+                        startActivityForResult(intent, 0);
+
+                    } else {
+                        //// TODO: 11/15/2015 }
+                    }
+                }
+         });
+
 
 
     }
 
 
-    public  String [] getArray (){
-        return this.classList;
-    }
 
 
 

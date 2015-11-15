@@ -1,5 +1,7 @@
 package com.example.derek.teamb;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,17 +12,24 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.database.teamb.DbHelper;
+
 public class Map extends AppCompatActivity {
+
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        String[] items = new String[] {"uno", "due", "tre"};
-        Spinner sp = (Spinner) findViewById(R.id.spinnerRooms);
-        sp.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, items));
+      //  String[] items = new String[] {"uno", "due", "tre"};
+        spinner = (Spinner) findViewById(R.id.spinnerRooms);
+       // sp.setAdapter(new ArrayAdapter<String>(this,
+       //         android.R.layout.simple_spinner_item, items));
+
+        // Loading spinner data from database
+        loadSpinnerData();
 
         Button btnBack = (Button) findViewById(R.id.buttonBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -52,5 +61,24 @@ public class Map extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadSpinnerData() {
+        // database handler
+        DbHelper db = new DbHelper(getApplicationContext());
+
+        // Spinner Drop down elements
+        List<String> lables = db.getAllLabels();
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
     }
 }

@@ -1,5 +1,6 @@
 package com.database.teamb;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
@@ -152,5 +153,82 @@ public class DbHelper extends SQLiteOpenHelper {
         return ObjectItemData;
 
     }
+
+    // create new record
+    // @param myObj contains details to be added as single row.
+    public boolean create(MyObject myObj) {
+
+        boolean createSuccessful = false;
+
+        if(!checkIfExists(myObj.objectName)){
+
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(Course_name, myObj.objectName);
+            createSuccessful = db.insert(Table_Course, null, values) > 0;
+
+            db.close();
+
+            if(createSuccessful){
+                Log.e(TAG, myObj.objectName + " created.");
+            }
+        }
+
+        return createSuccessful;
+    }
+
+    // check if a record exists so it won't insert the next time you run this code
+    public boolean checkIfExists(String objectName){
+
+        boolean recordExists = false;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + Course_name + " FROM " + Table_Course + " WHERE " + Course_name + " = '" + objectName + "'", null);
+
+        if(cursor!=null) {
+
+            if(cursor.getCount()>0) {
+                recordExists = true;
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return recordExists;
+    }
+
+    public List<String> getAllLabels(){
+        List<String> labels = new ArrayList<String>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + Table_Course;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return labels;
+    }
+
+    public void deleteAllData()
+    {
+        SQLiteDatabase sdb= this.getWritableDatabase();
+        sdb.delete(Table_Course, null, null);
+
+    }
+
 
 }
