@@ -47,7 +47,7 @@ public class Listener implements TextWatcher{
             MyObject[] myObjs = mainActivity.databaseH.read(userInput.toString());
 
             // update the adapter
-            mainActivity.myAdapter = new AutocompleteCustomArrayAdapter(mainActivity, R.layout.list_view_row, myObjs);
+            mainActivity.myAdapter = new CustomArrayAdapter(mainActivity, R.layout.list_view_row, myObjs);
 
             mainActivity.myAutoComplete.setAdapter(mainActivity.myAdapter);
 

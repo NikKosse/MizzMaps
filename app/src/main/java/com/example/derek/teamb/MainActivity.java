@@ -3,10 +3,8 @@ package com.example.derek.teamb;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -55,13 +53,17 @@ int i=0;
                     TextView tv = (TextView) rl.getChildAt(0);
                     TextView testText = (TextView) findViewById(R.id.testText);
 
-                    classList[i] = (tv.getText().toString());
-                    i++;
-
+                    if(i != 5) {
+                        classList[i] = (tv.getText().toString());
+                        i++;
+                        testText.setText(classList[i-1]);
+                    }else {
+                        testText.setText("Too many classes");
+                    }
                    // myClass.getClass(classList,i);
 
 
-                    testText.setText(classList[i-1]);
+
 
 
 
@@ -77,7 +79,7 @@ int i=0;
             MyObject[] ObjectItemData = new MyObject[0];
 
             // set our adapter
-            myAdapter = new AutocompleteCustomArrayAdapter(this, R.layout.list_view_row, ObjectItemData);
+            myAdapter = new CustomArrayAdapter(this, R.layout.list_view_row, ObjectItemData);
             myAutoComplete.setAdapter(myAdapter);
 
         } catch (NullPointerException e) {
@@ -90,16 +92,23 @@ int i=0;
 
 
         Button btnNext = (Button) findViewById(R.id.buttonNext);
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Map.class);
-                startActivityForResult(intent, 0);
+            btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), Map.class);
+                    startActivityForResult(intent, 0);
             }
         });
 
 
     }
+
+
+    public  String [] getArray (){
+        return this.classList;
+    }
+
+
 
 
 }

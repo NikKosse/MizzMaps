@@ -14,7 +14,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Mizz"
         android:id="@+id/textView"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="38dp"
         android:textColor="#d7ce30"
         android:textSize="100dp"
         android:layout_alignParentTop="true"
@@ -47,5 +47,28 @@
         android:enabled="true"
         android:textSize="30dp"
         android:textColor="#ffffff" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Load Schedule"
+        android:id="@+id/buttonContinue"
+        android:background="@drawable/rounded_button2"
+        android:minHeight="40dp"
+        android:minWidth="600dp"
+        android:clickable="true"
+        android:enabled="true"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/buttonStart"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
 
 </RelativeLayout>

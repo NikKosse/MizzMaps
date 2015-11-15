@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class AutocompleteCustomArrayAdapter extends ArrayAdapter<MyObject> {
+public class CustomArrayAdapter extends ArrayAdapter<MyObject> {
 
-    final String TAG = "AutocompleteCustomArrayAdapter.java";
+    final String TAG = "CustomArrayAdapter.java";
 
     Context mContext;
     int layoutResourceId;
     MyObject data[] = null;
 
-    public AutocompleteCustomArrayAdapter(Context mContext, int layoutResourceId, MyObject[] data) {
+    public CustomArrayAdapter(Context mContext, int layoutResourceId, MyObject[] data) {
 
         super(mContext, layoutResourceId, data);
 
@@ -52,8 +52,7 @@ public class AutocompleteCustomArrayAdapter extends ArrayAdapter<MyObject> {
             TextView textViewItem = (TextView) convertView.findViewById(R.id.textViewItem);
             textViewItem.setText(objectItem.objectName);
 
-            // in case you want to add some style, you can do something like:
-            textViewItem.setBackgroundColor(Color.CYAN);
+
 
         } catch (NullPointerException e) {
             e.printStackTrace();

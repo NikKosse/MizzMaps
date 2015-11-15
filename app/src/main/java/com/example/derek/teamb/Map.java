@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 public class Map extends AppCompatActivity {
 
@@ -14,6 +16,11 @@ public class Map extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        String[] items = new String[] {"uno", "due", "tre"};
+        Spinner sp = (Spinner) findViewById(R.id.spinnerRooms);
+        sp.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, items));
 
         Button btnBack = (Button) findViewById(R.id.buttonBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
