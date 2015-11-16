@@ -8,7 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.database.teamb.DbHelper;
+
 public class Start extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,7 @@ public class Start extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent (v.getContext(),MainActivity.class );
                 startActivityForResult(intent, 0);
             }

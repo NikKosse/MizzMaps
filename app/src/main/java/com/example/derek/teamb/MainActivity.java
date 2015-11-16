@@ -1,5 +1,6 @@
 package com.example.derek.teamb;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import com.database.teamb.DbHelper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -96,24 +97,45 @@ public class MainActivity extends Activity {
         }
 
 
-        Button btnNext = (Button) findViewById(R.id.buttonNext);
+        final Button btnNext = (Button) findViewById(R.id.buttonNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    if (arrayList.size() != 0) {
-                        databaseH.deleteAllData();
-                        for (int i = 0; i < arrayList.size(); i++) {
-                            databaseH.create(new MyObject(arrayList.get(i)));
-                        }
-                        Intent intent = new Intent(v.getContext(), Map.class);
-                        startActivityForResult(intent, 0);
-
-                    } else {
-                        //// TODO: 11/15/2015 }
+            @Override
+            public void onClick(View v) {
+                if (arrayList.size() != 0) {
+                    databaseH.deleteAllData();
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        databaseH.create(new MyObject(arrayList.get(i)));
                     }
+                    Intent intent = new Intent(v.getContext(), Map.class);
+                    startActivityForResult(intent, 0);
+
+                } else {
+                    final Dialog dialog = new Dialog(MainActivity.this);
+                    dialog.setContentView(R.layout.no_class_dialog);
+                    dialog.show();
+
+                    final Button cancelButton = (Button)dialog.findViewById(R.id.btnOk);
+
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.cancel();
+                        }
+                    });
                 }
-         });
+            }
+        });
+
+
+
+    }
+
+    public void showDialog(){
+
+        MyAlert myAlert = new MyAlert();
+        myAlert.show(getFragmentManager(), "My Alert");
+
 
 
 
