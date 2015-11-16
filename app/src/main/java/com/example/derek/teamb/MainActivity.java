@@ -97,53 +97,86 @@ public class MainActivity extends Activity {
         }
 
 
-        final Button btnNext = (Button) findViewById(R.id.buttonNext);
-        btnNext.setOnClickListener(new View.OnClickListener() {
+
+
+        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onClick(View v) {
-                if (arrayList.size() != 0) {
-                    databaseH.deleteAllData();
-                    for (int i = 0; i < arrayList.size(); i++) {
-                        databaseH.create(new MyObject(arrayList.get(i)));
+            public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.delete_class_dialog);
+                dialog.show();
+
+                final Button cancelButton = (Button) dialog.findViewById(R.id.btnCancel);
+                Button deleteButton = (Button) dialog.findViewById(R.id.btnOk);
+
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        i=arrayList.size();
+                        dialog.cancel();
                     }
-                    Intent intent = new Intent(v.getContext(), Map.class);
-                    startActivityForResult(intent, 0);
+                });
 
-                } else {
-                    final Dialog dialog = new Dialog(MainActivity.this);
-                    dialog.setContentView(R.layout.no_class_dialog);
-                    dialog.show();
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
 
-                    final Button cancelButton = (Button)dialog.findViewById(R.id.btnOk);
-
-                    cancelButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.cancel();
-                        }
-                    });
-                }
             }
-        });
+        };
+
+        list.setOnItemClickListener(onItemClickListener);
 
 
+                final Button btnNext = (Button) findViewById(R.id.buttonNext);
+                btnNext.setOnClickListener(new View.OnClickListener() {
 
-    }
+                    @Override
+                    public void onClick(View v) {
+                        if (arrayList.size() != 0) {
+                            databaseH.deleteAllData();
+                            for (int i = 0; i < arrayList.size(); i++) {
+                                databaseH.create(new MyObject(arrayList.get(i)));
+                            }
+                            Intent intent = new Intent(v.getContext(), Map.class);
+                            startActivityForResult(intent, 0);
 
-    public void showDialog(){
+                        } else {
+                            final Dialog dialog = new Dialog(MainActivity.this);
+                            dialog.setContentView(R.layout.no_class_dialog);
+                            dialog.show();
 
-        MyAlert myAlert = new MyAlert();
-        myAlert.show(getFragmentManager(), "My Alert");
+                            final Button cancelButton = (Button) dialog.findViewById(R.id.btnOk);
+
+                            cancelButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.cancel();
+                                }
+                            });
+                        }
+                    }
+                });
 
 
+            }
+
+            public void showDialog() {
+
+                MyAlert myAlert = new MyAlert();
+                myAlert.show(getFragmentManager(), "My Alert");
 
 
-    }
+            }
+
+            private int getCategoryPos(String category) {
+                return arrayList.indexOf(category);
+            }
 
 
-
-
-
-
-}
+        }
