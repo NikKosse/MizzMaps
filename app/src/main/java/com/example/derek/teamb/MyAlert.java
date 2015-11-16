@@ -18,12 +18,12 @@ public class MyAlert extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 
-        builder.setTitle("Alert");
-        builder.setMessage("Need classes to continue");
+        builder.setTitle("Too Many Classes");
+        builder.setMessage("Only five classes allowed");
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "Search for classes in the Search Bar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Click a class in order to delete", Toast.LENGTH_LONG).show();
             }
         });
         Dialog dialog = builder.create();

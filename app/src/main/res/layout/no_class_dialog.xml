@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="No Classes Selected"
-        android:id="@+id/textTitle"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="15dp"
-        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="15dp"
-        android:paddingBottom="5dp" />
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:text="No Classes Selected"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,16 +22,16 @@
         android:layout_gravity="center_horizontal">
 
         <Button
+            android:id="@+id/btnOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OK"
-            android:id="@+id/btnOk"
-            android:layout_gravity="center_horizontal"
-            android:minWidth="125dp"
-            android:minHeight="50dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="10dp" />
+            android:layout_gravity="center_horizontal"
+            android:minHeight="50dp"
+            android:minWidth="125dp"
+            android:paddingBottom="10dp"
+            android:text="OK" />
 
     </RelativeLayout>
 

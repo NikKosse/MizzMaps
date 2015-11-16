@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.database.teamb.DbHelper;
 
@@ -32,10 +33,10 @@ public class MainActivity extends Activity {
     DbHelper databaseH;
 
     // just to add some initial value
-    String[] item = new String[] {"Please search..."};
+    String[] item = new String[]{"Please search..."};
 
-    int i=0;
-    String [] classList= new String[5];
+    int i = 0;
+    String[] classList = new String[5];
 
 
     @Override
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
                         i++;
 
                     } else {
-                        //TODO
+                        showDialog();
                     }
                 }
 
@@ -97,8 +98,6 @@ public class MainActivity extends Activity {
         }
 
 
-
-
         AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 
             @Override
@@ -115,7 +114,7 @@ public class MainActivity extends Activity {
                     public void onClick(View v) {
                         arrayList.remove(position);
                         adapter.notifyDataSetChanged();
-                        i=arrayList.size();
+                        i = arrayList.size();
                         dialog.cancel();
                     }
                 });
@@ -133,50 +132,51 @@ public class MainActivity extends Activity {
         list.setOnItemClickListener(onItemClickListener);
 
 
-                final Button btnNext = (Button) findViewById(R.id.buttonNext);
-                btnNext.setOnClickListener(new View.OnClickListener() {
+        final Button btnNext = (Button) findViewById(R.id.buttonNext);
+        btnNext.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        if (arrayList.size() != 0) {
-                            databaseH.deleteAllData();
-                            for (int i = 0; i < arrayList.size(); i++) {
-                                databaseH.create(new MyObject(arrayList.get(i)));
-                            }
-                            Intent intent = new Intent(v.getContext(), Map.class);
-                            startActivityForResult(intent, 0);
-
-                        } else {
-                            final Dialog dialog = new Dialog(MainActivity.this);
-                            dialog.setContentView(R.layout.no_class_dialog);
-                            dialog.show();
-
-                            final Button cancelButton = (Button) dialog.findViewById(R.id.btnOk);
-
-                            cancelButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.cancel();
-                                }
-                            });
-                        }
+            @Override
+            public void onClick(View v) {
+                if (arrayList.size() != 0) {
+                    databaseH.deleteAllData();
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        databaseH.create(new MyObject(arrayList.get(i)));
                     }
-                });
+                    Intent intent = new Intent(v.getContext(), Map.class);
+                    startActivityForResult(intent, 0);
 
+                } else {
+                    final Dialog dialog = new Dialog(MainActivity.this);
+                    dialog.setContentView(R.layout.no_class_dialog);
+                    dialog.show();
 
+                    final Button cancelButton = (Button) dialog.findViewById(R.id.btnOk);
+
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getApplicationContext(), "Enter a class by using the Search Bar", Toast.LENGTH_SHORT).show();
+                            dialog.cancel();
+                        }
+                    });
+                }
             }
-
-            public void showDialog() {
-
-                MyAlert myAlert = new MyAlert();
-                myAlert.show(getFragmentManager(), "My Alert");
+        });
 
 
-            }
+    }
 
-            private int getCategoryPos(String category) {
-                return arrayList.indexOf(category);
-            }
+    public void showDialog() {
+
+        MyAlert myAlert = new MyAlert();
+        myAlert.show(getFragmentManager(), "My Alert");
 
 
-        }
+    }
+
+    private int getCategoryPos(String category) {
+        return arrayList.indexOf(category);
+    }
+
+
+}
