@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CustomArrayAdapter extends ArrayAdapter<GetObject> {
+public class CustomMapArrayAdapter extends ArrayAdapter<GetObject> {
 
-    final String TAG = "CustomArrayAdapter.java";
+    final String TAG = "CustomMapArrayAdapter.java";
 
     Context mContext;
     int layoutResourceId;
     GetObject data[] = null;
 
-    public CustomArrayAdapter(Context mContext, int layoutResourceId, GetObject[] data) {
+    public CustomMapArrayAdapter(Context mContext, int layoutResourceId, GetObject[] data) {
 
         super(mContext, layoutResourceId, data);
 
@@ -40,7 +40,7 @@ public class CustomArrayAdapter extends ArrayAdapter<GetObject> {
              */
             if(convertView==null){
                 // inflate the layout
-                LayoutInflater inflater = ((MainActivity) mContext).getLayoutInflater();
+                LayoutInflater inflater = ((Map) mContext).getLayoutInflater();
                 convertView = inflater.inflate(layoutResourceId, parent, false);
             }
 

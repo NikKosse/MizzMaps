@@ -10,7 +10,7 @@ import android.widget.Toast;
 /**
  * Created by Derek on 11/15/2015.
  */
-public class MyAlert extends DialogFragment {
+public class CustomAlert extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

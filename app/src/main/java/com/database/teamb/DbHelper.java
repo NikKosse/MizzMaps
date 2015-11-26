@@ -7,7 +7,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.derek.teamb.MyObject;
+import com.example.derek.teamb.GetObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,9 +110,9 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     // Read records related to the search term
-    public MyObject[] read(String searchTerm) {
+    public GetObject[] read(String searchTerm) {
 
-        List<MyObject> recordsList = new ArrayList<MyObject>();
+        List<GetObject> recordsList = new ArrayList<GetObject>();
 
         // select query
         String sql = "";
@@ -128,7 +128,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         int recCount = cursor.getCount();
 
-        MyObject[] ObjectItemData = new MyObject[recCount];
+        GetObject[] ObjectItemData = new GetObject[recCount];
         int x = 0;
 
         // looping through all rows and adding to list
@@ -138,9 +138,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 String objectName = cursor.getString(cursor.getColumnIndex(Room_number));
                 Log.e(TAG, "objectName: " + objectName);
 
-                MyObject myObject = new MyObject(objectName);
+                GetObject getObject = new GetObject(objectName);
 
-                ObjectItemData[x] = myObject;
+                ObjectItemData[x] = getObject;
 
                 x++;
 
@@ -156,7 +156,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     // create new record
     // @param myObj contains details to be added as single row.
-    public boolean create(MyObject myObj) {
+    public boolean create(GetObject myObj) {
 
         boolean createSuccessful = false;
 

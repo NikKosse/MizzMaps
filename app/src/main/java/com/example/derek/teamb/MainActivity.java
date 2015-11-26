@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.database.teamb.DbHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -27,7 +26,7 @@ public class MainActivity extends Activity {
     CustomView myAutoComplete;
 
     // adapter for auto-complete
-    ArrayAdapter<MyObject> myAdapter;
+    ArrayAdapter<GetObject> myAdapter;
 
     // for database operations
     DbHelper databaseH;
@@ -85,7 +84,7 @@ public class MainActivity extends Activity {
             myAutoComplete.addTextChangedListener(new Listener(this));
 
             // ObjectItemData has no value at first
-            MyObject[] ObjectItemData = new MyObject[0];
+            GetObject[] ObjectItemData = new GetObject[0];
 
             // set our adapter
             myAdapter = new CustomArrayAdapter(this, R.layout.list_view_row, ObjectItemData);
@@ -140,7 +139,7 @@ public class MainActivity extends Activity {
                 if (arrayList.size() != 0) {
                     databaseH.deleteAllData();
                     for (int i = 0; i < arrayList.size(); i++) {
-                        databaseH.create(new MyObject(arrayList.get(i)));
+                        databaseH.create(new GetObject(arrayList.get(i)));
                     }
                     Intent intent = new Intent(v.getContext(), Map.class);
                     startActivityForResult(intent, 0);
@@ -168,15 +167,12 @@ public class MainActivity extends Activity {
 
     public void showDialog() {
 
-        MyAlert myAlert = new MyAlert();
-        myAlert.show(getFragmentManager(), "My Alert");
+        CustomAlert customAlert = new CustomAlert();
+        customAlert.show(getFragmentManager(), "My Alert");
 
 
     }
 
-    private int getCategoryPos(String category) {
-        return arrayList.indexOf(category);
-    }
 
 
 }
