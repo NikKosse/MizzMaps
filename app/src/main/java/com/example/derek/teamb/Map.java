@@ -199,11 +199,11 @@ public class Map extends Activity {
         DbHelper db = new DbHelper(getApplicationContext());
 
         // Spinner Drop down elements
-        List<String> lables = db.getAllLabels();
+        List<String> roooms = db.getAllLabels();
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lables);
+                android.R.layout.simple_spinner_item, roooms);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
