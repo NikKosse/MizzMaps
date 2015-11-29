@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -34,13 +35,15 @@ public class Map extends Activity {
     // for database operations
     DbHelper databaseH;
 
+
+
     final String[] locatation = {""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView) findViewById(R.id.imageView);
+        final PinView imageView = (PinView) findViewById(R.id.imageView);
 
 
 
@@ -174,6 +177,7 @@ public class Map extends Activity {
                         break;
                     case 1:
                         imageView.setImage(ImageSource.asset("lvl1.png"));
+                        imageView.setPin(new PointF(1718f, 581f));
                         break;
                     case 2:
                         imageView.setImage(ImageSource.asset("lvl2.png"));
