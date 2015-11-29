@@ -130,6 +130,11 @@ public class MainActivity extends Activity {
 
         list.setOnItemClickListener(onItemClickListener);
 
+        final Dialog save = new Dialog(MainActivity.this);
+        save.setContentView(R.layout.save_classes);
+
+        final Button noButton = (Button) save.findViewById(R.id.btnNo);
+        final Button yesButton = (Button) save.findViewById(R.id.btnYes);
 
         final Button btnNext = (Button) findViewById(R.id.buttonNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -137,14 +142,32 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (arrayList.size() != 0) {
-                    databaseH.deleteAllData();
+                    databaseH.deleteRoomData();
                     for (int i = 0; i < arrayList.size(); i++) {
                         databaseH.create(new GetObject(arrayList.get(i)));
                     }
-                    Intent intent = new Intent(v.getContext(), Map.class);
-                    startActivityForResult(intent, 0);
+                    save.show();
+                    noButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            save.cancel();
+                            Intent intent = new Intent(v.getContext(), Map.class);
+                            startActivityForResult(intent, 0);
+                        }
+                    });
 
-                } else {
+                    yesButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            for (int i = 0; i < arrayList.size(); i++) {
+                                databaseH.store(new GetObject(arrayList.get(i)));
+                            }
+                            Intent intent = new Intent(v.getContext(), Map.class);
+                            startActivityForResult(intent, 0);
+                        }
+                    });
+
+                }else {
                     final Dialog dialog = new Dialog(MainActivity.this);
                     dialog.setContentView(R.layout.no_class_dialog);
                     dialog.show();

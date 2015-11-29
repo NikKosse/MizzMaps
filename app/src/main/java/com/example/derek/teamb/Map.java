@@ -4,12 +4,10 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,11 +15,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.database.teamb.DbHelper;
 import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 public class Map extends Activity {
 
@@ -54,7 +50,15 @@ public class Map extends Activity {
         dialog.show();
 
         final Button insideButton = (Button) dialog.findViewById(R.id.btnInside);
+        final Button outsideButton = (Button) dialog.findViewById(R.id.btnOutside);
         final Button changeButton = (Button) findViewById(R.id.btnChange);
+
+        outsideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
 
         insideButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +66,8 @@ public class Map extends Activity {
                 dialog.cancel();
                 dialog.setContentView(R.layout.inside_location_dialog);
                 dialog.show();
+                final Button cancelButton = (Button) dialog.findViewById(R.id.btnCancel);
+
                 try {
 
                     // instantiate database handler
@@ -82,9 +88,7 @@ public class Map extends Activity {
                             dialog.cancel();
                             Log.i("SELECTED TEXT WAS------->", locatation[0]);
 
-
                         }
-
                     });
 
 
@@ -104,8 +108,17 @@ public class Map extends Activity {
                 e.printStackTrace();
             }
 
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
             }
         });
+
+
 
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,19 +214,38 @@ public class Map extends Activity {
     private void loadSpinnerData() {
         // database handler
         DbHelper db = new DbHelper(getApplicationContext());
+        int check = 0;
+        try {
+            // Spinner Drop down elements
+            List<String> roooms = db.getRooms();
 
-        // Spinner Drop down elements
-        List<String> roooms = db.getAllLabels();
+            // Creating adapter for spinner
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, roooms);
 
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, roooms);
+            // Drop down layout style - list view with radio button
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // attaching data adapter to spinner
+            spinner.setAdapter(dataAdapter);
+            check = 1;
+        } catch (SQLiteException e){
+            
+        }
+        if (check==0){
+            // Spinner Drop down elements
+            List<String> roooms = db.getStorage();
 
-        // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+            // Creating adapter for spinner
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, roooms);
+
+            // Drop down layout style - list view with radio button
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            // attaching data adapter to spinner
+            spinner.setAdapter(dataAdapter);
+        }
     }
 
 
