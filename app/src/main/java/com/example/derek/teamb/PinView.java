@@ -62,12 +62,15 @@ public class PinView extends SubsamplingScaleImageView {
         float radius = (getScale() * getSWidth()) * 0.25f;
         ;
 
-        PointF vLine = sourceToViewCoord(new PointF(1718f,581f));
-        PointF vLine2 = sourceToViewCoord(new PointF(1290f,741f));
-        float lY = vLine.y;
-        float lX = vLine.x;
-        float lY2 = vLine2.y;
-        float lX2 = vLine2.x;
+        PointF[] vLine = new PointF[]{
+                sourceToViewCoord(new PointF(1718f,581f)),sourceToViewCoord(new PointF(1290f,741f))
+        };
+
+
+        float lY = vLine[0].y;
+        float lX = vLine[0].x;
+        float lY2 = vLine[1].y;
+        float lX2 = vLine[1].x;
         float x[] = {vCenter.x, vCenter.y, lX, lY, lX, lY, lX2, lY2};
 
         paint.setAntiAlias(true);
