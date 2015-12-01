@@ -28,6 +28,10 @@
             android:label="MizzMaps" >
         </activity>
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB1rQrAbPhHcxEcgN4gVxLCNsSR9bwvOns"/>
+
     </application>
 
 
