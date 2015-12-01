@@ -31,9 +31,8 @@ public class Map extends Activity {
     // for database operations
     DbHelper databaseH;
 
-
-
     final String[] locatation = {""};
+    final String[] selectedRoom = {""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +207,8 @@ public class Map extends Activity {
         });
 
 
+
+
     }
 
 
@@ -226,10 +227,24 @@ public class Map extends Activity {
             // Drop down layout style - list view with radio button
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            // attaching data adapter to spinner
-            spinner.setAdapter(dataAdapter);
-            check = 1;
-        } catch (SQLiteException e){
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View arg1, int position, long id) {
+                    selectedRoom[0] = parent.getItemAtPosition(position).toString();
+                    Log.i("SELECTED TEXT WAS------->", selectedRoom[0]);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+
+                // attaching data adapter to spinner
+                 spinner.setAdapter(dataAdapter);
+                 check=1;
+             }catch (SQLiteException e){
             
         }
         if (check==0){
@@ -242,6 +257,19 @@ public class Map extends Activity {
 
             // Drop down layout style - list view with radio button
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View arg1, int position, long id) {
+                    selectedRoom[0] = parent.getItemAtPosition(position).toString();
+                    Log.i("SELECTED TEXT WAS------->", selectedRoom[0]);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
 
             // attaching data adapter to spinner
             spinner.setAdapter(dataAdapter);
