@@ -174,6 +174,11 @@ public class MainActivity extends Activity {
 
     }
 
+    public void goToOutsideMap(View view){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
     private int getCategoryPos(String category) {
         return arrayList.indexOf(category);
     }
