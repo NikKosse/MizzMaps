@@ -33,6 +33,9 @@ public class DbFileReader {
                 values.put(DbHelper.Room_number, currentLine[0]);
                 values.put(DbHelper.Room_type, currentLine[1]);
                 values.put(DbHelper.Node_id, currentLine[2]);
+                values.put(DbHelper.xCoord, currentLine[3]);
+                values.put(DbHelper.yCoord, currentLine[4]);
+                values.put(DbHelper.Room_floor, currentLine[5]);
                 long room_id = db.insert(DbHelper.Table_Room, null, values);
                 Log.i(TAG, "Room line inserted, id: " + room_id);
             }

@@ -28,6 +28,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String Room_number = "room_number";
     public static final String Room_type = "type";
     public static final String Node_id = "node_id";
+    public static final String xCoord = "x_coord";
+    public static final String yCoord = "y_coord";
+    public static final String Room_floor = "floor";
 
     //Columns in database for Node Table
     public static final String Table_Node = "Node";
@@ -54,7 +57,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //should be: CREATE TABLE Room(room_id integer PRIMARY KEY AUTOINCREMENT, room_number text, type test, Node_id integer, FOREIGN KEY (Node_id) REFERENCES Node(Node_id));
     private static final String SQL_CREATE_TABLE_Room = "CREATE TABLE " + Table_Room + "(" + Room_id + " integer PRIMARY KEY, " +
-            Room_number + " text, " + Room_type + " text, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
+            Room_number + " text, " + Room_type + " text, " + xCoord +" float, " + yCoord + " float, " + Room_floor + " float, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
 
     //should be: CREATE TABLE Node(Node_id integer PRIMARY KEY AUTOINCREMENT, floor integer, building_id integer, reachable_nodes bloc, coordinates, FOREIGN KEY (Building_id) REFERENCES Building(Building_id));
     private static final String SQL_CREATE_TABLE_Node = "CREATE TABLE " + Table_Node + "("
@@ -69,7 +72,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_Storage = "CREATE TABLE " + Table_Storage + "(" + Storage_id + "integer PRIMARY KEY, "
             + Storage_room + " text);";
 
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 10;
     public static final String DATABASE_NAME = "MizzMaps.db";
 
     Context context;
@@ -102,6 +105,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Table_Room);
         db.execSQL("DROP TABLE IF EXISTS " + Table_Node);
         db.execSQL("DROP TABLE IF EXISTS " + Table_Course);
+        db.execSQL("DROP TABLE IF EXISTS " + Table_Storage);
         onCreate(db);
     }
 
@@ -292,6 +296,40 @@ public class DbHelper extends SQLiteOpenHelper {
         // returning lables
         return labels;
     }
+
+    public Float[] getXY(String room){
+
+        Float[] xY = new Float[3];
+
+        String sql = "";
+        sql += "SELECT " + xCoord + ", " + yCoord + ", " + Room_floor + " FROM " + Table_Room;
+        sql += " WHERE " + Room_number + " LIKE '%" + room + "%'";
+        sql += " ORDER BY " + Room_id + " DESC";
+
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+                xY[0]= cursor.getFloat(cursor.getColumnIndex(xCoord));
+                xY[1]= cursor.getFloat(cursor.getColumnIndex(yCoord));
+                xY[2]= cursor.getFloat(cursor.getColumnIndex(Room_floor));
+        }
+
+
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning XY
+        System.out.print(xY[0]+ xY[1]);
+        return xY;
+    }
+
+
 
 
 

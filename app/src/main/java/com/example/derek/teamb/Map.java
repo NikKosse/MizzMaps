@@ -33,6 +33,8 @@ public class Map extends Activity {
 
     final String[] locatation = {""};
     final String[] selectedRoom = {""};
+    Float[] xyCoords = {0f,0f};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,28 @@ public class Map extends Activity {
                             RelativeLayout rl = (RelativeLayout) arg1;
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
+                            switch (Math.round(xyCoords[2])){
+                                case 0:
+                                    imageView.setImage(ImageSource.asset("lvl0.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(0);
+                                    break;
+                                case 1:
+                                    imageView.setImage(ImageSource.asset("lvl1.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(1);
+                                    break;
+                                case 2:
+                                    imageView.setImage(ImageSource.asset("lvl2.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(2);
+                                    break;
+                                case 3:
+                                    imageView.setImage(ImageSource.asset("lvl3.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(3);
+                                    break;
+                            }
                             dialog.cancel();
                             Log.i("SELECTED TEXT WAS------->", locatation[0]);
 
@@ -141,6 +165,29 @@ public class Map extends Activity {
                             RelativeLayout rl = (RelativeLayout) arg1;
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
+                            xyCoords = databaseH.getXY(locatation[0]);
+                            switch (Math.round(xyCoords[2])){
+                                case 0:
+                                    imageView.setImage(ImageSource.asset("lvl0.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(0);
+                                    break;
+                                case 1:
+                                    imageView.setImage(ImageSource.asset("lvl1.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(1);
+                                    break;
+                                case 2:
+                                    imageView.setImage(ImageSource.asset("lvl2.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(2);
+                                    break;
+                                case 3:
+                                    imageView.setImage(ImageSource.asset("lvl3.png"));
+                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    spinnerFloor.setSelection(3);
+                                    break;
+                            }
                             dialog.cancel();
                             Log.i("SELECTED TEXT WAS------->", locatation[0]);
 
@@ -189,7 +236,7 @@ public class Map extends Activity {
                         break;
                     case 1:
                         imageView.setImage(ImageSource.asset("lvl1.png"));
-                        imageView.setPin(new PointF(1718f, 581f));
+
                         break;
                     case 2:
                         imageView.setImage(ImageSource.asset("lvl2.png"));
@@ -205,7 +252,6 @@ public class Map extends Activity {
 
             }
         });
-
 
 
 
@@ -275,6 +321,14 @@ public class Map extends Activity {
             spinner.setAdapter(dataAdapter);
         }
     }
+
+    public void getFloor(Float getFloor){
+
+
+
+
+    }
+
 
 
 }
