@@ -59,8 +59,7 @@ public class PinView extends SubsamplingScaleImageView {
         paint.setAntiAlias(true);
         PointF sCenter = new PointF(getSWidth()/2, getSHeight()/2);
         PointF vCenter = sourceToViewCoord(sCenter);
-        float radius = (getScale() * getSWidth()) * 0.25f;
-        ;
+
 
         PointF[] vLine = new PointF[]{
                 sourceToViewCoord(new PointF(1718f,581f)),sourceToViewCoord(new PointF(1290f,741f))
@@ -73,6 +72,7 @@ public class PinView extends SubsamplingScaleImageView {
         float lX2 = vLine[1].x;
         float x[] = {vCenter.x, vCenter.y, lX, lY, lX, lY, lX2, lY2};
 
+        /*
         paint.setAntiAlias(true);
         paint.setStyle(Style.STROKE);
         paint.setStrokeCap(Cap.ROUND);
@@ -82,7 +82,7 @@ public class PinView extends SubsamplingScaleImageView {
         paint.setStrokeWidth(strokeWidth);
         paint.setColor(Color.argb(255, 51, 181, 229));
 
-
+*/
         if (sPin != null && pin != null) {
             PointF vPin = sourceToViewCoord(sPin);
             float vX = vPin.x - (pin.getWidth()/2);

@@ -33,7 +33,7 @@ public class Map extends Activity {
 
     final String[] locatation = {""};
     final String[] selectedRoom = {""};
-    Float[] xyCoords = {0f,0f};
+    Float[] xyCoords = {0f, 0f, -1f};
 
 
     @Override
@@ -41,7 +41,6 @@ public class Map extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         final PinView imageView = (PinView) findViewById(R.id.imageView);
-
 
 
         final Dialog dialog = new Dialog(Map.this);
@@ -86,7 +85,8 @@ public class Map extends Activity {
                             RelativeLayout rl = (RelativeLayout) arg1;
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
-                            switch (Math.round(xyCoords[2])){
+                            xyCoords = databaseH.getXY(locatation[0]);
+                            switch (Math.round(xyCoords[2])) {
                                 case 0:
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
                                     imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
@@ -122,14 +122,14 @@ public class Map extends Activity {
                     GetObject[] ObjectItemData = new GetObject[0];
 
                     // set our adapter
-                        myAdapter = new CustomMapArrayAdapter(Map.this, R.layout.list_view_row, ObjectItemData);
-                myAutoComplete.setAdapter(myAdapter);
+                    myAdapter = new CustomMapArrayAdapter(Map.this, R.layout.list_view_row, ObjectItemData);
+                    myAutoComplete.setAdapter(myAdapter);
 
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 cancelButton.setOnClickListener(new View.OnClickListener() {
 
@@ -140,7 +140,6 @@ public class Map extends Activity {
                 });
             }
         });
-
 
 
         changeButton.setOnClickListener(new View.OnClickListener() {
@@ -165,8 +164,9 @@ public class Map extends Activity {
                             RelativeLayout rl = (RelativeLayout) arg1;
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
+                            changeButton.setText(locatation[0]);
                             xyCoords = databaseH.getXY(locatation[0]);
-                            switch (Math.round(xyCoords[2])){
+                            switch (Math.round(xyCoords[2])) {
                                 case 0:
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
                                     imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
@@ -233,16 +233,35 @@ public class Map extends Activity {
                 switch (position) {
                     case 0:
                         imageView.setImage(ImageSource.asset("lvl0.png"));
+                        if (Math.round(xyCoords[2]) != 0){
+                            imageView.setPin(null);
+                        }else{
+                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                        }
                         break;
                     case 1:
                         imageView.setImage(ImageSource.asset("lvl1.png"));
-
+                        if (Math.round(xyCoords[2]) != 1){
+                            imageView.setPin(null);
+                        }else{
+                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                        }
                         break;
                     case 2:
                         imageView.setImage(ImageSource.asset("lvl2.png"));
+                        if (Math.round(xyCoords[2]) != 2){
+                            imageView.setPin(null);
+                        }else{
+                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                        }
                         break;
                     case 3:
                         imageView.setImage(ImageSource.asset("lvl3.png"));
+                        if (Math.round(xyCoords[2]) != 3){
+                            imageView.setPin(null);
+                        }else{
+                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                        }
                         break;
                 }
             }
@@ -252,7 +271,6 @@ public class Map extends Activity {
 
             }
         });
-
 
 
     }
@@ -287,13 +305,13 @@ public class Map extends Activity {
             });
 
 
-                // attaching data adapter to spinner
-                 spinner.setAdapter(dataAdapter);
-                 check=1;
-             }catch (SQLiteException e){
-            
+            // attaching data adapter to spinner
+            spinner.setAdapter(dataAdapter);
+            check = 1;
+        } catch (SQLiteException e) {
+
         }
-        if (check==0){
+        if (check == 0) {
             // Spinner Drop down elements
             List<String> roooms = db.getStorage();
 
@@ -322,13 +340,10 @@ public class Map extends Activity {
         }
     }
 
-    public void getFloor(Float getFloor){
-
-
+    public void getFloor(Float getFloor) {
 
 
     }
-
 
 
 }
