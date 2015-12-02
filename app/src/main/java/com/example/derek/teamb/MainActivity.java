@@ -171,7 +171,6 @@ public class MainActivity extends Activity {
         MyAlert myAlert = new MyAlert();
         myAlert.show(getFragmentManager(), "My Alert");
 
-
     }
 
     public void goToOutsideMap(View view){
