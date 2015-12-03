@@ -1,15 +1,24 @@
 package com.example.derek.teamb;
 
-import junit.framework.TestCase;
-import junit.framework.Assert;
+import android.test.AndroidTestCase;
 import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PathfinderTest extends TestCase {
+public class PathfinderTest extends AndroidTestCase {
 
-    private long buildingId = 0;
+    private long buildingId;
     private Context context = null;
+
+    public void setUp() throws Exception {
+        super.setUp();
+
+        buildingId = 1;
+        context = getContext();
+
+        assertNotNull(context);
+
+    }
 
     public void testSearch() throws Exception {
         Pathfinder pf = new Pathfinder(buildingId, context);
@@ -25,10 +34,10 @@ public class PathfinderTest extends TestCase {
         desiredPath = new ArrayList<>();
         desiredPath.add((long) (54)); desiredPath.add((long) (46)); desiredPath.add((long) (45));
         desiredPath.add((long) (42)); desiredPath.add((long) (41)); desiredPath.add((long) (40));
-        assertEquals("Path is not optimal for pathfinder search 1", returnedPath, desiredPath);
+        assertEquals("Path is not optimal for pathfinder search 1.", desiredPath, returnedPath);
 
         //make sure distance is roughly 144 ft
-        assertEquals("Distance is not correct for pathfinder search 1", pf.getTotalDistance(), 144);
+        assertEquals("Distance is not correct for pathfinder search 1.", 144, pf.getTotalDistance());
 
 
         //TEST SEARCH 2
@@ -39,10 +48,10 @@ public class PathfinderTest extends TestCase {
         desiredPath = new ArrayList<>();
         desiredPath.add((long) (19)); desiredPath.add((long) (20)); desiredPath.add((long) (21));
         desiredPath.add((long) (23)); desiredPath.add((long) (36)); desiredPath.add((long) (37));
-        assertEquals("Path is not optimal for pathfinder search 2", returnedPath, desiredPath);
+        assertEquals("Path is not optimal for pathfinder search 2.", desiredPath, returnedPath);
 
         //make sure distance is roughly 78 ft
-        assertEquals("Distance is not correct for pathfinder search 2", pf.getTotalDistance(), 78);
+        assertEquals("Distance is not correct for pathfinder search 2.", 78, pf.getTotalDistance());
 
 
         //TEST SEARCH 3
@@ -53,9 +62,9 @@ public class PathfinderTest extends TestCase {
         desiredPath = new ArrayList<>();
         desiredPath.add((long) (162)); desiredPath.add((long) (163));
         desiredPath.add((long) (164)); desiredPath.add((long) (55));
-        assertEquals("Path is not optimal for pathfinder search 3", returnedPath, desiredPath);
+        assertEquals("Path is not optimal for pathfinder search 3.", desiredPath, returnedPath);
 
         //make sure distance is roughly 86 ft
-        assertEquals("Distance is not correct for pathfinder search 3", pf.getTotalDistance(), 86);
+        assertEquals("Distance is not correct for pathfinder search 3.", 86, pf.getTotalDistance());
     }
 }
