@@ -8,12 +8,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
-public class Listener implements TextWatcher{
+public class ListenerForMap implements TextWatcher{
 
     public static final String TAG = "Listener.java";
     Context context;
 
-    public Listener(Context context){
+    public ListenerForMap(Context context){
         this.context = context;
     }
 
@@ -38,18 +38,18 @@ public class Listener implements TextWatcher{
             // if you want to see in the logcat what the user types
             Log.e(TAG, "User input: " + userInput);
 
-            MainActivity mainActivity = ((MainActivity) context);
+            Map map = ((Map) context);
 
             // update the adapater
-            mainActivity.myAdapter.notifyDataSetChanged();
+            map.myAdapter.notifyDataSetChanged();
 
             // get suggestions from the database
-            GetObject[] myObjs = mainActivity.databaseH.read(userInput.toString());
+            GetObject[] myObjs = map.databaseH.read(userInput.toString());
 
             // update the adapter
-            mainActivity.myAdapter = new CustomArrayAdapter(mainActivity, R.layout.list_view_row, myObjs);
+            map.myAdapter = new CustomMapArrayAdapter(map, R.layout.list_view_row, myObjs);
 
-            mainActivity.myAutoComplete.setAdapter(mainActivity.myAdapter);
+            map.myAutoComplete.setAdapter(map.myAdapter);
 
         } catch (NullPointerException e) {
             e.printStackTrace();

@@ -4,12 +4,12 @@ package com.example.derek.teamb;
 /**
  * Created by Derek on 10/4/2015.
  */
-public class MyObject {
+public class GetObject {
 
     public String objectName;
 
     // constructor for adding sample data
-    public MyObject(String objectName){
+    public GetObject(String objectName){
 
         this.objectName = objectName;
     }

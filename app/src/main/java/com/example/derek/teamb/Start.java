@@ -20,11 +20,22 @@ public class Start extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         Button btnStart = (Button) findViewById(R.id.buttonNext);
+        Button btnLoad = (Button) findViewById(R.id.buttonContinue);
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent (v.getContext(),MainActivity.class );
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        btnLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent (v.getContext(),Map.class );
                 startActivityForResult(intent, 0);
             }
         });

@@ -7,7 +7,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.derek.teamb.MyObject;
+import com.example.derek.teamb.GetObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String Course_room = "course_room";
     public static final String Course_building = "course_building_name";
 
+    //Columns in database for storage table
+    public static final String Table_Storage = "Storage";
+    public static final String Storage_room = "storage_room";
+    public static final String Storage_id = "storage_id";
+
     //Creating tables
     //should be:CREATE TABLE Building(Building_id integer PRIMARY KEY AUTOINCREMENT, building_Name text);
     private static final String SQL_CREATE_TABLE_Building = "CREATE TABLE " + Table_Building + "("
@@ -59,6 +64,10 @@ public class DbHelper extends SQLiteOpenHelper {
     //should be: CREATE TABLE Course(course_id integer PRIMARY KEY AUTOINCREMENT, course_name text, course_room text, course_building_id integer);
     private static final String SQL_CREATE_TABLE_Schedule = "CREATE TABLE " + Table_Course + "(" + Course_id + "integer PRIMARY KEY, " + Course_name + " text, "
             + Course_room + " text, " + Course_building + " text);";
+
+
+    private static final String SQL_CREATE_TABLE_Storage = "CREATE TABLE " + Table_Storage + "(" + Storage_id + "integer PRIMARY KEY, "
+            + Storage_room + " text);";
 
     public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "MizzMaps.db";
@@ -79,6 +88,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_Node);
         db.execSQL(SQL_CREATE_TABLE_Room);
         db.execSQL(SQL_CREATE_TABLE_Schedule);
+        db.execSQL(SQL_CREATE_TABLE_Storage);
         Log.i(TAG, "Database created");
         fillDatabase(db);
     }
@@ -110,9 +120,9 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     // Read records related to the search term
-    public MyObject[] read(String searchTerm) {
+    public GetObject[] read(String searchTerm) {
 
-        List<MyObject> recordsList = new ArrayList<MyObject>();
+        List<GetObject> recordsList = new ArrayList<GetObject>();
 
         // select query
         String sql = "";
@@ -128,7 +138,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         int recCount = cursor.getCount();
 
-        MyObject[] ObjectItemData = new MyObject[recCount];
+        GetObject[] ObjectItemData = new GetObject[recCount];
         int x = 0;
 
         // looping through all rows and adding to list
@@ -138,9 +148,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 String objectName = cursor.getString(cursor.getColumnIndex(Room_number));
                 Log.e(TAG, "objectName: " + objectName);
 
-                MyObject myObject = new MyObject(objectName);
+                GetObject getObject = new GetObject(objectName);
 
-                ObjectItemData[x] = myObject;
+                ObjectItemData[x] = getObject;
 
                 x++;
 
@@ -156,7 +166,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     // create new record
     // @param myObj contains details to be added as single row.
-    public boolean create(MyObject myObj) {
+    public boolean create(GetObject myObj) {
 
         boolean createSuccessful = false;
 
@@ -199,7 +209,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return recordExists;
     }
 
-    public List<String> getAllLabels(){
+    public List<String> getRooms(){
         List<String> labels = new ArrayList<String>();
 
         // Select All Query
@@ -223,11 +233,64 @@ public class DbHelper extends SQLiteOpenHelper {
         return labels;
     }
 
-    public void deleteAllData()
+    public void deleteRoomData()
     {
         SQLiteDatabase sdb= this.getWritableDatabase();
         sdb.delete(Table_Course, null, null);
 
+    }
+
+    public void deleteStorageData()
+    {
+        SQLiteDatabase sdb= this.getWritableDatabase();
+        sdb.delete(Table_Storage, null, null);
+
+    }
+
+    public boolean store(GetObject myObj) {
+
+        boolean createSuccessful = false;
+
+        if(!checkIfExists(myObj.objectName)){
+
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(Course_name, myObj.objectName);
+            createSuccessful = db.insert(Table_Storage, null, values) > 0;
+
+            db.close();
+
+            if(createSuccessful){
+                Log.e(TAG, myObj.objectName + " created.");
+            }
+        }
+
+        return createSuccessful;
+    }
+
+    public List<String> getStorage(){
+        List<String> labels = new ArrayList<String>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + Table_Storage;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return labels;
     }
 
 
