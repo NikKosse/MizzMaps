@@ -7,24 +7,20 @@ import java.util.List;
 
 public class PathfinderTest extends AndroidTestCase {
 
-    private long buildingId;
-    private Context context = null;
+    private Context context;
 
     public void setUp() throws Exception {
         super.setUp();
-
-        buildingId = 1;
         context = getContext();
-
         assertNotNull(context);
 
     }
 
     public void testSearch() throws Exception {
-        Pathfinder pf = new Pathfinder(buildingId, context);
+        Pathfinder pf = new Pathfinder(context);
         List<Long> returnedPath, desiredPath;
 
-        //TODO: Find actual distances of paths and verity path node id's
+        //TODO: Find actual distances of paths and verify path node id's
 
         //TEST SEARCH 1
 
@@ -42,6 +38,7 @@ public class PathfinderTest extends AndroidTestCase {
 
         //TEST SEARCH 2
 
+        pf = new Pathfinder(context);
         returnedPath = pf.search(19, 37);
 
         //make sure path is the right path: 19, 20, 21, 23, 36, 37
@@ -56,6 +53,7 @@ public class PathfinderTest extends AndroidTestCase {
 
         //TEST SEARCH 3
 
+        pf = new Pathfinder(context);
         returnedPath = pf.search(162, 55);
 
         //make sure path is the right path: 162, 163, 164, 55

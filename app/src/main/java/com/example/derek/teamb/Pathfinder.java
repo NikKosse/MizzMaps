@@ -26,16 +26,10 @@ public class Pathfinder {
 
     /**
      * Create a Pathfinder class for searching a building
-     * @param buildingID integer id of the building to be searched
+     * @param context Android db context for loading the database
      */
-    public Pathfinder(long buildingID, Context context){
-        fringe = new PriorityQueue<>(25, Node.nodeComparator);
-        closedSet = new HashSet<>();  //TODO: research performance for hashsets and priorityqueues; maybe specify max capacity?
-        idMap = new HashMap<>();
+    public Pathfinder(Context context){
         nodesDAO = new NodesDAO(context);
-
-        nodes = nodesDAO.getPathfinderNodes(buildingID, idMap);
-          //TODO: Is there a good way to get the floor numbers that we should query for?  For that matter, will we have the building ID?
     }
 
     /**
@@ -53,6 +47,16 @@ public class Pathfinder {
      * @return an ArrayList of the long id's of the nodes along the optimal path
      */
     public List<Long> search(long startNode, long goalNode){
+
+        //initialize data structures
+        fringe = new PriorityQueue<>(25, Node.nodeComparator);
+        closedSet = new HashSet<>();  //TODO: research performance for hashsets and priorityqueues; maybe specify max capacity?
+        idMap = new HashMap<>();
+
+        //get proper nodes
+        List<Integer> startAndEndFloor = new ArrayList<>();
+        long buildingID = nodesDAO.getBuildingAndFloors(startNode, goalNode, startAndEndFloor);
+        nodes = nodesDAO.getPathfinderNodes(buildingID, idMap, startAndEndFloor);
 
         fringe.add(nodes.get(idMap.get(Long.valueOf(startNode))));
         while ( ! fringe.isEmpty()){
@@ -82,16 +86,16 @@ public class Pathfinder {
         int numAdjacents = nodeToExpand.getReachable_nodes().size();
         for (int i=0; i < numAdjacents; i++) {
             nodeToInsert = nodes.get( idMap.get(nodeToExpand.getReachable_nodes().get(i)));
-            costUntilNow = nodeToExpand.getCostFromPrev() + nodeToExpand.getDistances().get(i);
-            priority = (int) Math.round( costUntilNow + Math.sqrt(
-                    Math.pow(nodeToExpand.getX() - nodeToInsert.getX(), 2)
-                    + Math.pow(nodeToExpand.getY() - nodeToInsert.getY(), 2)
-                    + Math.pow((nodeToExpand.getFloor() - nodeToInsert.getFloor())*12, 2)
-            ));
-            nodeToInsert.setPrevNode(nodeToExpand);
-            nodeToInsert.setCostFromPrev(costUntilNow);
-            nodeToInsert.setPriority(priority);
-            if (! fringe.contains(nodeToInsert)) {
+            if (nodeToInsert != null && !fringe.contains(nodeToInsert)){
+                costUntilNow = nodeToExpand.getCostFromPrev() + nodeToExpand.getDistances().get(i);
+                priority = (int) Math.round( costUntilNow + Math.sqrt(
+                        Math.pow(nodeToExpand.getX() - nodeToInsert.getX(), 2)
+                                + Math.pow(nodeToExpand.getY() - nodeToInsert.getY(), 2)
+                                + Math.pow((nodeToExpand.getFloor() - nodeToInsert.getFloor())*12, 2)
+                ));
+                nodeToInsert.setPrevNode(nodeToExpand);
+                nodeToInsert.setCostFromPrev(costUntilNow);
+                nodeToInsert.setPriority(priority);
                 fringe.add(nodeToInsert);
             }
         }
