@@ -54,10 +54,11 @@ public class DbFileReader {
             while ((line = reader.readLine()) != null){
                 String[] currentLine = line.split(csvSplitBy);
                 ContentValues values = new ContentValues();
-                values.put(DbHelper.Node_floor, currentLine[0]);
-                values.put(DbHelper.Building_id, currentLine[1]);
-                values.put(DbHelper.Reachable_nodes, currentLine[2]);
-                values.put(DbHelper.Node_coordinates, currentLine[3]);
+                values.put(DbHelper.Node_id, currentLine[0]);
+                values.put(DbHelper.Node_floor, currentLine[1]);
+                values.put(DbHelper.Building_id, currentLine[2]);
+                values.put(DbHelper.Reachable_nodes, currentLine[3]);
+                values.put(DbHelper.Node_coordinates, currentLine[4]);
                 long node_id = db.insert(DbHelper.Table_Node, null, values);
                 Log.i(TAG, "Node line inserted, id: " + node_id);
             }

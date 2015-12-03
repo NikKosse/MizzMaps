@@ -41,15 +41,19 @@ public class Node {
         ArrayList<Long> node_ids = new ArrayList<>();
         ArrayList<Integer> adjDistances = new ArrayList<>();
         String[] adjacents = dbReachableNodes.split(";");
-        int i=0;
-        //Maybe check that (adjacents.length%2 == 0)
-        while (i < adjacents.length-1){
-            node_ids.add(Long.parseLong(adjacents[i]));
-            adjDistances.add(Integer.parseInt(adjacents[i+1]));
-            i = i+2;
+        if (adjacents.length%2 == 0) {
+            int i=0;
+            while (i < adjacents.length - 1) {
+                node_ids.add(Long.parseLong(adjacents[i].trim()));
+                adjDistances.add(Integer.parseInt(adjacents[i + 1].trim()));
+                i = i + 2;
+            }
+            setReachable_nodes(node_ids);
+            setDistances(adjDistances);
         }
-        setReachable_nodes(node_ids);
-        setDistances(adjDistances);
+        else {
+            //maybe log error or something?
+        }
     }
 
     public void setReachable_nodes(ArrayList<Long> reachable_nodes) {
@@ -78,10 +82,10 @@ public class Node {
 
     public void setCoordinates(String coordinates){
         if (coordinates.isEmpty()) return;
-        String[] coords = coordinates.split(";"); //or is it a space or something?
+        String[] coords = coordinates.split(";");
         if (coords.length == 2) {
-            setX(Double.parseDouble(coords[0]));
-            setY(Double.parseDouble(coords[1]));
+            setX(Double.parseDouble(coords[0].trim()));
+            setY(Double.parseDouble(coords[1].trim()));
         }
         else {
             //log an error or something?
