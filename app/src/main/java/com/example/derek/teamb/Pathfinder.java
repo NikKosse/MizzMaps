@@ -21,6 +21,7 @@ public class Pathfinder {
     private PriorityQueue<Node> fringe; //current nodes being considered for exploration
     private Set<Node> closedSet; //keeps track of nodes that have already been explored so we don't backtrack
     private Node current; // node currently being analyzed
+    private Node goalNode;
     private NodesDAO nodesDAO;
     private int totalDistance;
 
@@ -42,11 +43,11 @@ public class Pathfinder {
      * Note: Once this method is run, the total path distance can be obtained by executing the
      *   getTotalDistance() method.
      *
-     * @param startNode integer id of the beginning node
-     * @param goalNode integer id of the goal node
+     * @param startId long id of the beginning node
+     * @param goalId long id of the goal node
      * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    public List<Long> search(long startNode, long goalNode){
+    public List<Long> search(long startId, long goalId){
 
         //initialize data structures
         fringe = new PriorityQueue<>(25, Node.nodeComparator);
@@ -55,16 +56,17 @@ public class Pathfinder {
 
         //get proper nodes
         List<Integer> startAndEndFloor = new ArrayList<>();
-        long buildingID = nodesDAO.getBuildingAndFloors(startNode, goalNode, startAndEndFloor);
+        long buildingID = nodesDAO.getBuildingAndFloors(startId, goalId, startAndEndFloor);
+        if (startAndEndFloor.size() == 0 || buildingID == -1) {
+            return null;
+        }
         nodes = nodesDAO.getPathfinderNodes(buildingID, idMap, startAndEndFloor);
+        goalNode = nodes.get(idMap.get(goalId));
 
-        fringe.add(nodes.get(idMap.get(Long.valueOf(startNode))));
+        fringe.add(nodes.get(idMap.get(Long.valueOf(startId))));
         while ( ! fringe.isEmpty()){
             current = fringe.poll();
-            if (closedSet.contains(current)) {
-                continue; //don't expand nodes we've already expanded
-            }
-            if (current.getNode_id() == goalNode) {
+            if (current == goalNode) {
                 setTotalDistance(current.getCostFromPrev());
                 return getPath(current);
             }
@@ -83,20 +85,28 @@ public class Pathfinder {
     private void expand(Node nodeToExpand) {
         int costUntilNow, priority;
         Node nodeToInsert;
-        int numAdjacents = nodeToExpand.getReachable_nodes().size();
+        ArrayList<Long> adjacents = nodeToExpand.getReachable_nodes();
+        int numAdjacents = adjacents.size();
+        int costFromPrev = nodeToExpand.getCostFromPrev();
+
         for (int i=0; i < numAdjacents; i++) {
-            nodeToInsert = nodes.get( idMap.get(nodeToExpand.getReachable_nodes().get(i)));
-            if (nodeToInsert != null && !fringe.contains(nodeToInsert)){
-                costUntilNow = nodeToExpand.getCostFromPrev() + nodeToExpand.getDistances().get(i);
+            nodeToInsert = nodes.get( idMap.get(adjacents.get(i)));
+            if (nodeToInsert != null && !closedSet.contains(nodeToInsert)){
+                costUntilNow = costFromPrev + nodeToExpand.getDistances().get(i);
                 priority = (int) Math.round( costUntilNow + Math.sqrt(
-                        Math.pow(nodeToExpand.getX() - nodeToInsert.getX(), 2)
-                                + Math.pow(nodeToExpand.getY() - nodeToInsert.getY(), 2)
-                                + Math.pow((nodeToExpand.getFloor() - nodeToInsert.getFloor())*12, 2)
+                        Math.pow(goalNode.getX() - nodeToInsert.getX(), 2)
+                                + Math.pow(goalNode.getY() - nodeToInsert.getY(), 2)
+                                + Math.pow((goalNode.getFloor() - nodeToInsert.getFloor())*12, 2)
                 ));
-                nodeToInsert.setPrevNode(nodeToExpand);
-                nodeToInsert.setCostFromPrev(costUntilNow);
-                nodeToInsert.setPriority(priority);
-                fringe.add(nodeToInsert);
+                if (!fringe.contains(nodeToInsert)) {
+                    nodeToInsert.setPrevNode(nodeToExpand);
+                    nodeToInsert.setCostFromPrev(costUntilNow);
+                    nodeToInsert.setPriority(priority);
+                    fringe.add(nodeToInsert);
+                }
+                else if (priority < nodeToInsert.getPriority()) {
+                    //Update these weights?  Would this ever happen?
+                }
             }
         }
         closedSet.add(nodeToExpand);

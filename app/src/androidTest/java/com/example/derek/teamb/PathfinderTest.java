@@ -32,8 +32,8 @@ public class PathfinderTest extends AndroidTestCase {
         desiredPath.add((long) (42)); desiredPath.add((long) (41)); desiredPath.add((long) (40));
         assertEquals("Path is not optimal for pathfinder search 1.", desiredPath, returnedPath);
 
-        //make sure distance is roughly 144 ft
-        assertEquals("Distance is not correct for pathfinder search 1.", 144, pf.getTotalDistance());
+        //make sure distance is 115 ft
+        assertEquals("Distance is not correct for pathfinder search 1.", 115, pf.getTotalDistance());
 
 
         //TEST SEARCH 2
@@ -47,11 +47,12 @@ public class PathfinderTest extends AndroidTestCase {
         desiredPath.add((long) (23)); desiredPath.add((long) (36)); desiredPath.add((long) (37));
         assertEquals("Path is not optimal for pathfinder search 2.", desiredPath, returnedPath);
 
-        //make sure distance is roughly 78 ft
-        assertEquals("Distance is not correct for pathfinder search 2.", 78, pf.getTotalDistance());
+        //make sure distance is 83 ft
+        assertEquals("Distance is not correct for pathfinder search 2.", 83, pf.getTotalDistance());
 
 
         //TEST SEARCH 3
+        //THIS ONE CURRENTLY DOES NOT PASS BECAUSE OF SOME MISSING ADJACENCIES.
 
         pf = new Pathfinder(context);
         returnedPath = pf.search(162, 55);

@@ -51,7 +51,7 @@ public class NodesDAO {
     public List<Node> getPathfinderNodes(long building_id, HashMap<Long, Integer> idMap, List<Integer> startAndEndFloor) {
         List<Node> nodes = new ArrayList<>();
         String whereClause = DbHelper.Building_id + "=? AND " + DbHelper.Node_floor + " BETWEEN ? AND ?";
-        String[] whereArgs = { String.valueOf(building_id), String.valueOf(startAndEndFloor.get(0)), String.valueOf(startAndEndFloor.get(0))};
+        String[] whereArgs = { String.valueOf(building_id), String.valueOf(startAndEndFloor.get(0)), String.valueOf(startAndEndFloor.get(1))};
         int index = 0;
 
         Cursor cursor = database.query(DbHelper.Table_Node, allColumns, whereClause, whereArgs, null, null, null);
@@ -100,10 +100,12 @@ public class NodesDAO {
 
         if (returnedNodes.size() != 2) {
             Log.i(TAG, "Error retrieving start and goal nodes: " + startId + " and " + goalId);
+            return -1;
         }
         if (returnedNodes.get(0).getBuildingId() != returnedNodes.get(1).getBuildingId()){
             Log.i(TAG, "The following nodes are in different buildings: " + startId + " and " + goalId);
             //TODO: route them to google maps stuff if this happens?
+            return -1;
         }
 
         //set return values
