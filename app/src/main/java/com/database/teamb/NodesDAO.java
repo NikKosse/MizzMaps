@@ -25,7 +25,9 @@ public class NodesDAO {
             DbHelper.Node_floor,
             DbHelper.Building_id,
             DbHelper.Reachable_nodes,
-            DbHelper.Node_coordinates
+            DbHelper.Node_coordinates,
+            DbHelper.xNodeCoord,
+            DbHelper.yNodeCoord
     };
 
     public NodesDAO(Context context){
@@ -65,6 +67,8 @@ public class NodesDAO {
                 node.setBuildingId(cursor.getInt(cursor.getColumnIndex(DbHelper.Building_id)));
                 node.setAdjacencies(cursor.getString(cursor.getColumnIndex(DbHelper.Reachable_nodes)));
                 node.setCoordinates(cursor.getString(cursor.getColumnIndex(DbHelper.Node_coordinates)));
+                node.setxNodeCoord(cursor.getFloat(cursor.getColumnIndex(DbHelper.xNodeCoord)));
+                node.setyNodeCoord(cursor.getFloat(cursor.getColumnIndex(DbHelper.yNodeCoord)));
                 nodes.add(node);
                 idMap.put(node.getNode_id(), index++);
                 Log.i(TAG, "Retrieved row with id: " + node.getNode_id());
