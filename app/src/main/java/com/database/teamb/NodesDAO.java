@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.Models.Node;
+import com.Models.Room;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -91,13 +92,9 @@ public class NodesDAO {
         if (cursor.getColumnCount() > 0 && cursor.getCount() == 2) {
             while (cursor.moveToNext()) {
                 Node node = new Node();
-                //node.setNode_id(cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id)));
                 node.setFloor(cursor.getInt(cursor.getColumnIndex(DbHelper.Node_floor)));
                 node.setBuildingId(cursor.getInt(cursor.getColumnIndex(DbHelper.Building_id)));
-                //node.setAdjacencies(cursor.getString(cursor.getColumnIndex(DbHelper.Reachable_nodes)));
-                //node.setCoordinates(cursor.getString(cursor.getColumnIndex(DbHelper.Node_coordinates)));
                 returnedNodes.add(node);
-                //Log.i(TAG, "Retrieved row with id: " + node.getNode_id());
             }
         }
         cursor.close();
@@ -117,5 +114,40 @@ public class NodesDAO {
         startAndEndFloor.add(returnedNodes.get(1).getFloor());
         Collections.sort(startAndEndFloor);
         return returnedNodes.get(0).getBuildingId();
+    }
+
+    public List<Long> getNodeIds(String startRoom, String goalRoom) {
+        String whereClause = DbHelper.Room_number + " IN (?,?)";
+        String[] whereArgs = { startRoom, goalRoom };
+        String[] columns = {DbHelper.Room_number, DbHelper.Node_id};
+
+        List<Long> startAndGoalId = new ArrayList<>();
+        long startId = -1, goalId = -1;
+        Cursor cursor = database.query(DbHelper.Table_Room, columns , whereClause, whereArgs, null, null, null);
+
+        Log.i(TAG, "Returned " + cursor.getColumnCount() + " rows");
+        if (cursor.getColumnCount() > 0 && cursor.getCount() == 2) {
+            while (cursor.moveToNext()) {
+                if (startRoom.equals(cursor.getString(cursor.getColumnIndex(DbHelper.Room_number)).trim()))
+                    startId = cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id));
+                else if (goalRoom.equals(cursor.getString(cursor.getColumnIndex(DbHelper.Room_number)).trim()))
+                    goalId = cursor.getLong(cursor.getColumnIndex(DbHelper.Node_id));
+                else {
+                    cursor.close();
+                    return null;
+                }
+            }
+        }
+        cursor.close();
+
+        if (startId == -1 || goalId == -1) {
+            Log.i(TAG, "Error retrieving start and goal node ids: " + startRoom + " and " + goalRoom);
+            return null;
+        }
+
+        //set return values
+        startAndGoalId.add(startId);
+        startAndGoalId.add(goalId);
+        return startAndGoalId;
     }
 }
