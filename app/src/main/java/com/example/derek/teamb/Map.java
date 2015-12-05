@@ -52,6 +52,7 @@ public class Map extends Activity {
         final Button insideButton = (Button) dialog.findViewById(R.id.btnInside);
         final Button outsideButton = (Button) dialog.findViewById(R.id.btnOutside);
         final Button changeButton = (Button) findViewById(R.id.btnChange);
+        final TextView locationText = (TextView) findViewById(R.id.txtLocation);
 
         outsideButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +86,7 @@ public class Map extends Activity {
                             RelativeLayout rl = (RelativeLayout) arg1;
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
+                            locationText.setText(locatation[0]);
                             xyCoords = databaseH.getXY(locatation[0]);
                             switch (Math.round(xyCoords[2])) {
                                 case 0:
@@ -164,7 +166,7 @@ public class Map extends Activity {
                             RelativeLayout rl = (RelativeLayout) arg1;
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
-                            changeButton.setText(locatation[0]);
+                            locationText.setText(locatation[0]);
                             xyCoords = databaseH.getXY(locatation[0]);
                             switch (Math.round(xyCoords[2])) {
                                 case 0:
@@ -282,32 +284,35 @@ public class Map extends Activity {
         int check = 0;
         try {
             // Spinner Drop down elements
-            List<String> roooms = db.getRooms();
+            List<String> rooms = db.getRooms();
 
-            // Creating adapter for spinner
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, roooms);
+            if(rooms.size()!=0) {
 
-            // Drop down layout style - list view with radio button
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                // Creating adapter for spinner
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_spinner_item, rooms);
 
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View arg1, int position, long id) {
-                    selectedRoom[0] = parent.getItemAtPosition(position).toString();
-                    Log.i("SELECTED TEXT WAS------->", selectedRoom[0]);
-                }
+                // Drop down layout style - list view with radio button
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View arg1, int position, long id) {
+                        selectedRoom[0] = parent.getItemAtPosition(position).toString();
+                        Log.i("SELECTED TEXT WAS------->", selectedRoom[0]);
+                    }
 
-                }
-            });
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
 
 
-            // attaching data adapter to spinner
-            spinner.setAdapter(dataAdapter);
-            check = 1;
+                // attaching data adapter to spinner
+                spinner.setAdapter(dataAdapter);
+                check = 1;
+            }
         } catch (SQLiteException e) {
 
         }
@@ -340,10 +345,6 @@ public class Map extends Activity {
         }
     }
 
-    public void getFloor(Float getFloor) {
-
-
-    }
 
 
 }

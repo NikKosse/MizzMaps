@@ -159,8 +159,10 @@ public class MainActivity extends Activity {
                     yesButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            databaseH.deleteStoreData();
                             for (int i = 0; i < arrayList.size(); i++) {
                                 databaseH.store(new GetObject(arrayList.get(i)));
+                                System.out.println(arrayList.get(i));
                             }
                             Intent intent = new Intent(v.getContext(), Map.class);
                             startActivityForResult(intent, 0);
@@ -190,9 +192,8 @@ public class MainActivity extends Activity {
 
     public void showDialog() {
 
-        CustomAlert customAlert = new CustomAlert();
-        customAlert.show(getFragmentManager(), "My Alert");
-
+        CustomAlertDelete customAlertDelete = new CustomAlertDelete();
+        customAlertDelete.show(getFragmentManager(), "My Alert");
 
     }
 
