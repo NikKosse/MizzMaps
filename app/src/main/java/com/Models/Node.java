@@ -16,6 +16,8 @@ public class Node {
     private long buildingId;
     private double x;
     private double y;
+    private float xNodeCoord;
+    private float yNodeCoord;
 
     private int priority; //used when evaluating which node to explore next
     private Node prevNode;
@@ -102,6 +104,22 @@ public class Node {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public float getxNodeCoord() {
+        return xNodeCoord;
+    }
+
+    public void setxNodeCoord(float xNodeCoord) {
+        this.xNodeCoord = xNodeCoord;
+    }
+
+    public float getyNodeCoord() {
+        return yNodeCoord;
+    }
+
+    public void setyNodeCoord(float yNodeCoord) {
+        this.yNodeCoord = yNodeCoord;
     }
 
     public long getBuildingId() {
