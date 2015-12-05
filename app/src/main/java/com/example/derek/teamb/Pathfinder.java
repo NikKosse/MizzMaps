@@ -47,7 +47,7 @@ public class Pathfinder {
      * @param goalId long id of the goal node
      * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    public List<Long> search(long startId, long goalId){
+    public List<Node> search(long startId, long goalId){
 
         //initialize data structures
         fringe = new PriorityQueue<>(25, Node.nodeComparator);
@@ -118,10 +118,10 @@ public class Pathfinder {
      * @param currentNode node at the end of the current path being analyzed
      * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    private List<Long> getPath(Node currentNode) {
-        ArrayList<Long> path = new ArrayList<>();
+    private List<Node> getPath(Node currentNode) {
+        ArrayList<Node> path = new ArrayList<>();
         while (currentNode != null) {
-            path.add(currentNode.getNode_id());
+            path.add(currentNode);
             currentNode = currentNode.getPrevNode();
         }
         Collections.reverse(path);
