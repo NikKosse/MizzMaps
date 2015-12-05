@@ -10,7 +10,7 @@ import android.widget.Toast;
 /**
  * Created by Derek on 11/15/2015.
  */
-public class CustomAlert extends DialogFragment {
+public class CustomAlertLoad extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -18,12 +18,12 @@ public class CustomAlert extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 
-        builder.setTitle("Too Many Classes");
-        builder.setMessage("Only five classes allowed");
+        builder.setTitle("No Schedule Saved");
+        builder.setMessage("Please save a schedule to access this feature");
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "Click a class in order to delete", Toast.LENGTH_LONG).show();
+
             }
         });
         Dialog dialog = builder.create();

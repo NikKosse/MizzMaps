@@ -33,6 +33,9 @@ public class DbFileReader {
                 values.put(DbHelper.Room_number, currentLine[0]);
                 values.put(DbHelper.Room_type, currentLine[1]);
                 values.put(DbHelper.Node_id, currentLine[2]);
+                values.put(DbHelper.xCoord, currentLine[3]);
+                values.put(DbHelper.yCoord, currentLine[4]);
+                values.put(DbHelper.Room_floor, currentLine[5]);
                 long room_id = db.insert(DbHelper.Table_Room, null, values);
                 Log.i(TAG, "Room line inserted, id: " + room_id);
             }
@@ -59,6 +62,8 @@ public class DbFileReader {
                 values.put(DbHelper.Building_id, currentLine[2]);
                 values.put(DbHelper.Reachable_nodes, currentLine[3]);
                 values.put(DbHelper.Node_coordinates, currentLine[4]);
+                values.put(DbHelper.xNodeCoord, currentLine[5]);
+                values.put(DbHelper.yNodeCoord, currentLine[6]);
                 long node_id = db.insert(DbHelper.Table_Node, null, values);
                 Log.i(TAG, "Node line inserted, id: " + node_id);
             }

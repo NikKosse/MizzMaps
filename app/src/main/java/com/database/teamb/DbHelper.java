@@ -28,6 +28,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String Room_number = "room_number";
     public static final String Room_type = "type";
     public static final String Node_id = "node_id";
+    public static final String xCoord = "x_coord";
+    public static final String yCoord = "y_coord";
+    public static final String Room_floor = "floor";
 
     //Columns in database for Node Table
     public static final String Table_Node = "Node";
@@ -40,6 +43,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String Course_id = "course_id";
     public static final String Course_name = "course_name";
     public static final String Course_room = "course_room";
+    public static final String xNodeCoord = "x__node_coord";
+    public static final String yNodeCoord = "y_node_coord";
     public static final String Course_building = "course_building_name";
 
     //Columns in database for storage table
@@ -54,11 +59,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //should be: CREATE TABLE Room(room_id integer PRIMARY KEY AUTOINCREMENT, room_number text, type test, Node_id integer, FOREIGN KEY (Node_id) REFERENCES Node(Node_id));
     private static final String SQL_CREATE_TABLE_Room = "CREATE TABLE " + Table_Room + "(" + Room_id + " integer PRIMARY KEY, " +
-            Room_number + " text, " + Room_type + " text, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
+            Room_number + " text, " + Room_type + " text, " + xCoord +" float, " + yCoord + " float, " + Room_floor + " float, " + Node_id + " integer, FOREIGN KEY (" + Node_id + ") REFERENCES " + Table_Node + "(" + Node_id + "));";
 
     //should be: CREATE TABLE Node(Node_id integer PRIMARY KEY AUTOINCREMENT, floor integer, building_id integer, reachable_nodes bloc, coordinates, FOREIGN KEY (Building_id) REFERENCES Building(Building_id));
     private static final String SQL_CREATE_TABLE_Node = "CREATE TABLE " + Table_Node + "("
-            + Node_id + " integer PRIMARY KEY, " + Node_floor + " integer, " + Building_id + " integer, " + Reachable_nodes + " text, " + Node_coordinates + " text, FOREIGN KEY" +
+            + Node_id + " integer PRIMARY KEY, " + Node_floor + " integer, " + Building_id + " integer, " + Reachable_nodes + " text, " + xNodeCoord +" float, " + yNodeCoord + " float, " +  Node_coordinates + " text, FOREIGN KEY" +
             " (" + Building_id + ") REFERENCES " + Table_Building + "(" + Building_id + "));";
 
     //should be: CREATE TABLE Course(course_id integer PRIMARY KEY AUTOINCREMENT, course_name text, course_room text, course_building_id integer);
@@ -69,7 +74,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_Storage = "CREATE TABLE " + Table_Storage + "(" + Storage_id + "integer PRIMARY KEY, "
             + Storage_room + " text);";
 
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 17;
     public static final String DATABASE_NAME = "MizzMaps.db";
 
     Context context;
@@ -102,6 +107,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Table_Room);
         db.execSQL("DROP TABLE IF EXISTS " + Table_Node);
         db.execSQL("DROP TABLE IF EXISTS " + Table_Course);
+        db.execSQL("DROP TABLE IF EXISTS " + Table_Storage);
         onCreate(db);
     }
 
@@ -209,6 +215,26 @@ public class DbHelper extends SQLiteOpenHelper {
         return recordExists;
     }
 
+    public boolean checkIfStorageExists(String objectName){
+
+        boolean recordExists = false;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + Storage_room + " FROM " + Table_Storage + " WHERE " + Storage_room + " = '" + objectName + "'", null);
+
+        if(cursor!=null) {
+
+            if(cursor.getCount()>0) {
+                recordExists = true;
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return recordExists;
+    }
+
     public List<String> getRooms(){
         List<String> labels = new ArrayList<String>();
 
@@ -240,29 +266,30 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void deleteStorageData()
+    public void deleteStoreData()
     {
         SQLiteDatabase sdb= this.getWritableDatabase();
         sdb.delete(Table_Storage, null, null);
 
     }
 
+
     public boolean store(GetObject myObj) {
 
         boolean createSuccessful = false;
 
-        if(!checkIfExists(myObj.objectName)){
+        if(!checkIfStorageExists(myObj.objectName)){
 
             SQLiteDatabase db = this.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(Course_name, myObj.objectName);
+            values.put(Storage_room, myObj.objectName);
             createSuccessful = db.insert(Table_Storage, null, values) > 0;
 
             db.close();
 
             if(createSuccessful){
-                Log.e(TAG, myObj.objectName + " created.");
+                Log.e(TAG, myObj.objectName + " created in storage.");
             }
         }
 
@@ -292,6 +319,40 @@ public class DbHelper extends SQLiteOpenHelper {
         // returning lables
         return labels;
     }
+
+    public Float[] getXY(String room){
+
+        Float[] xY = new Float[3];
+
+        String sql = "";
+        sql += "SELECT " + xCoord + ", " + yCoord + ", " + Room_floor + " FROM " + Table_Room;
+        sql += " WHERE " + Room_number + " LIKE '%" + room + "%'";
+        sql += " ORDER BY " + Room_id + " DESC";
+
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+                xY[0]= cursor.getFloat(cursor.getColumnIndex(xCoord));
+                xY[1]= cursor.getFloat(cursor.getColumnIndex(yCoord));
+                xY[2]= cursor.getFloat(cursor.getColumnIndex(Room_floor));
+        }
+
+
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning XY
+        System.out.print(xY[0]+ xY[1]);
+        return xY;
+    }
+
+
 
 
 

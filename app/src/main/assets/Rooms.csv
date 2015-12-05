@@ -1,498 +1,438 @@
-W106E,Staff Office,"1, 10, 3, 16"
-W1026F,Staff Office,1
-W1026D,Staff Office,2
-W1026G,Staff Office,4
-W1026H,Staff Office,4
-W1026C,Staff Office,5
-W1026B,Staff Office,5
-W1026A,Staff Office,5
-W1026I,Staff Office,6
-W1036,Staff Office,7
-W1035,Staff Office,7
-W1037,Conference Room,8
-W1024B,Conference Room,8
-W1038,Staff Office,9
-W1039,Staff Office,9
-W1040,Staff Office,10
-W1041H,Staff Office,10
-W1043,Staff Office,11
-W1042,Staff Office,11
-W1044,Staff Office,11
-W1045,Staff Office,12
-W1048B,Office,13
-W1054,Conference Room,14
-W1050,Staff Office,15
-W1051,Staff Office,16
-W1078,Research Lab,24
-W1077,Research Lab,24
-W1076,Research Lab,24
-W1075E, ,26
-W1075D, ,26
-W1075C, ,27
-W1075B, ,27
-W1075A,Computer Support,28
-W1077,Research Lab,33
-W1071,Research Lab,33
-W1068,Research Lab,35
-W1079,Research Lab,36
-W1080,Research Lab,37
-W1068,Research Lab,37
-W1067,Research Lab,38
-W1081,Research Lab,38
-W1067,Research Lab,39
-W1066,Research Lab,40
-W1065,Research Lab,41
-W1066,Research Lab,43
-W1083,Restroom,44
-W1065,Research Lab,44
-W1041D,Copy Room,48
-W1041C,Research Lab,48
-W1024A,Office,49
-W1041B,Graduate Office,49
-W1041A,Office,50
-W1042,Staff Office,50
-W1041E,Staff Office,51
-W1041F,Staff Office,52
-W1024B,Conference Room,53
-W1024,Student Services,54
-W1002,Faculty Office,56
-W1002A,Faculty Office,57
-W1002B,Faculty Office,57
-W1002C,Faculty Office,57
-W1019,Conference Room,57
-W1004,Seminar Room,58
-W1003,Conference Room,58
-W1005,Auditorium,59
-W1006,Staff Office,60
-W1007,Staff Office,62
-W1009,Staff Office,62
-W1010,Staff Office,62
-W1006C,Office,61
-W1006B,Office,61
-W1011,Staff Office,63
-W1012,Conference Room,64
-W1013,Office,64
-W1014,Staff Office,65
-W1015,Office,66
-W1016,Staff Office,68
-W1018,Office,69
-W1019,Conference Room,70
-W1018,Office,70
- ,Elevator,71
-W1064C,Laboratory,72
-W1064B,Laboratory,74
-W1064,Computer Lab,73
-W1061,Research Training,76
-W1060,Research Lab,78
-C1201,Research Lab,80
-C1202,Research Lab,80
-C1203,Research Lab,81
-C1204 ,Research Lab,81
-C1206 ,Research Lab,81
-C1207,Shop,82
-C1208,Research Lab,83
-C1209,Research Lab,85
-C1210,Graduate Office,86
-C1212,Computer Lab,86
-C1211,Research Lab,87
-C1213,Equipment Storage,88
-C1216,Classroom,90
-C1219,Teaching Lab,90
-C1218,Classroom,91
-C1217,Research Lab,91
-C1221,Office,92
-C1220,Teaching Lab,94
-C1215,Storage Area,94
-C1244,Class Lab,93
-C1244,Class Lab,100
-C1245,Class Lab,98
-C1246,Class Lab,99
-C1243,Class Lab,97
-C1250,Research Lab,100
-C1249,Classroom,103
-C1251,Classroom,104
- ,Elevator,108
-E1511,Research Lab,109
-E1510,Research Lab,109
-E1509,Research Lab,110
-E1507,Office,112
-E1505,Graduate Office,112
-E1506,Graduate Office,112
-E1503,Graduate Office,113
-E1504,Graduate Office,113
-E1501,Graduate Office,114
-E1502,Graduate Office,114
- ,Restroom,106
-C1240,Class Lab,95
-C1222,Mechanical Equipment,116
-E1427,Research Lab,117
-E1425,Classroom,118
-C1224,Research Lab,120
- ,Restroom,121
-C1422,Teaching Lab,122
-C1423,Mechanical Equipment,124
-E1419,Auditorium,125
-E1417,Teaching Lab,126
- ,Restroom,129
-E1404,Research Lab,129
-E1402,Mechanical Equipment,128
-E1414,Teaching Lab,131
-E1401,Office,131
-E14143,Teaching Lab,133
-E1410,Student Office,133
-E1411,Research Office,134
-W0005,Research Lab,136
-W0006,Mechanical Room,136
-W0003,Research Lab,137
- ,Elevator,138
-W0035,Research Lab,140
-W0032,Research Lab,141
- ,Restroom,141
-W0031,Shop,142
-W0030,Research Lab,142
-W0028,Shop,143
-W0029,Research Lab,144
-W0026,Teaching Lab,145
-W0025,Shop,150
-W0022,Teaching Lab,151
-W0024,Mechanical Room,152
-W0014A,Class Lab,154
-W0012,Manufacturing Lab,155
-W0021, ,156
-W0020, ,156
-W0019,Equipment Storage,157
-W0017,Equipment Storage,159
-W0018,Research Lab,159
-W0015,Classroom,160
-W0013,Classroom,160
-W0014,Teaching Lab,160
-W0010,Classroom,162
-W0009,Classroom,162
-WS2001J,Public Stairs,201
-WS2000Y,Public Stairs,202
-W2001H,Study Room,202
-W2001G,Study Room,203
-W2001F,Study Room,203
-W2001E,Study Room,203
-W2001I,Conference Room,204
-W2001J,Closet,204
-W2003J,Study Room,205
-W2003K,Study Room,205
-WS2000B,Public Stairs,206
-WS2000C,Public Stairs,206
-W2001A,Research/Non-class Lab,207
-W2001B,Research/Non-class Lab,207
-W2001C,Research Office,207
-W2001D,Research Office,208
-W2003L,Study Room,209
-W2003M,Study Room,209
-W2003N,Study Room,210
-W2003A, ,210
-W2003,Open Laboratory,211
-W2001,Open Study Room,212
-WE2000A,Public Elevator,212
-W2002,Janitorial Closet,212
-W2008,Conference Room,213
-W2009,Professor Office,213
-W2010,Faculty Office,213
-W2006,Research/Non-class Lab,214
-W2007,Research/Non-class Lab,214
-W2004,Office,215
-W2005,Office,215
-W2011,Faculty Office,216
-W2015,Faculty Office,216
-W2012B,Computer Lab- Restricted,216
-W2013,Research/Non-class Lab,217
-W2014,Janitorial Closet,218
-W2012E,Classroom,218
-W2016,Faculty Office,219
-W2017,Faculty Office,219
-WC2000J,Public Corridor,219
-W2012A,Electrical Closet,220
-W2018,Faculty Office,221
-W2024,Professor Office,221
-W2019,Research/Non-class Lab,222
-W2026,Faculty Office,222
-W2026A,Break Room,222
-W2020,Research/Non-class Lab,223
-W2021,Research/Non-class Lab,223
-WC2000I,Public Corridor,223
-W2022,Research/Non-class Lab,224
-W2023,Research/Non-class Lab,224
-WC2000H,Public Corridor,224
-W2025,Faculty Office,225
-W2027,Faculty Office,225
-W2028,Faculty Office,226
-W2029,Faculty Office,226
-W2030,Faculty Office,227
-W2031,Kitchenette,227
-W2032,Office Service,227
-W2032A,Office Supply Room,227
-W2033,Administrative Office,228
-W2033A,Faculty Office,228
-W2034,Research/Non-class Lab,229
-W2035,Research/Non-class Lab,229
-WC2000G,Public Corridor,229
-W2037,Research/Non-class Lab,230
-W2038,Research/Non-class Lab,230
-WS2000X,Public Stairs,231
-C2205, ,232
-C2201,Research/Non-class Lab,233
-CS2200A,Public Stairs,233
-C2202,Research/Non-class Lab,234
-C2203,Teaching Lab,235
-C2204,Research/Non-class Lab,235
-C2206,Teaching Lab,235
-C2207,Teaching Lab,236
-C2260,Research/Non-class Lab,237
-C2061,Research/Non-class Lab,237
-CC2200X,Public Corridor,237
-C2061A,Storage Area,237
-CS2200D,Public Stairs,238
-CC2200Y,Public Corridor,238
-C2262,Research/Non-class Lab,238
- , ,239
-C2212,Student Office,240
-C2211,Student Office,241
-C2210,TA Office,242
-C2209,TA Office,243
-C2266,Change Room,244
-CC2266A,Public Corridor,245
-C2266B, ,245
-C2265,Clean Room,246
-C2264,TA Office,247
-C2263,TA Office,247
-CC2000V,Public Corridor,247
- , ,248
-C2213,TA Office,249
-C2214,TA Office,249
-C2215,Shop,249
-C2216,Material Storage,250
-C2217,TA Office,250
-C2218,Research/Non-class Lab,250
-CC2200E,Public Corridor,250
-C2219,Research/Non-class Lab,251
-C2220,Research/Non-class Lab,251
-C2268,TA Office,252
-C2269,TA Office,252
-C2267,Office,253
-CC2200U,Public Corridor,253
- , ,254
-C2223,TA Office,255
-C2222,TA Office,256
-C2221,TA Office,257
- , ,258
-W2059,Office,259
-W2060,Preparation,259
-W2061,Preparation,259
-WC2000F,Public Corridor,259
-CS2200B,Public Stairs,260
-C2224,TA Office,261
-C2225,Research/Non-class Lab,261
-C2226,Student Office,262
-C2227,TA Office,262
-C2228,TA Office,263
-C2229,Student Office,263
-C2230,Student Office,264
-C2231, ,265
-W2062,Public Restroom Male,266
-W2063,Public Restroom Female,266
-W2064,Preparation,267
-W2065,Research/Non-class Lab,268
-W2066,Research/Non-class Lab,268
-W2067,Research/Non-class Lab,268
-C2655A,Research Office,269
-C2655,Research/Non-class Lab,270
-C2656,Research/Non-class Lab,271
-C2656A,Research/Non-class Lab,271
-W2068,Research/Non-class Lab,272
-W2069,Research/Non-class Lab,272
-WC2000E,Public Corridor,272
-W2068A, ,273
-C2654,Research/Non-class Lab,274
-C2653,Research/Non-class Lab,275
-C2653A,Research/Non-class Lab,275
-CC2600F,Public Corridor,276
-W2070,Research/Non-class Lab,277
-W2071,Teaching Lab,278
-W2072,Research/Non-class Lab,279
-W2073,Research/Non-class Lab,280
-W2074, ,280
-WS2000S,Public Stairs,280
-C2650,Conference Room,281
-C2651, ,281
-C2652,TA office,282
-CS2200E,Public Stairs,283
-C2649,Research/Non-class Lab,284
-CC2600C,Public Corridor,284
-C2647,Faculty Office,285
-C2648,Faculty Office,285
-C2644,Faculty Office,286
-C2645,Faculty Office,286
-C2643,Research/Non-class Lab,286
-C2640,Faculty Office,287
-C2641,Faculty Office,287
-C2642,Research/Non-class Lab,287
-EC2601A,Public Corridor,288
-ES2400F,Public Stairs,288
-EE2400,Public Elevator,289
-E2622,Class lab service,290
-E2509F,Faculty Office,291
-E2509E,Copy & Fax Room,292
-E2509A,Faculty Office,293
-E2509B,Conference Room,293
-E2509D,Staff Office,293
-E2509,Administrative Office,294
- , ,295
-E2500A,Public Stairs,296
-E2508, ,296
-E2505,Faculty Office,297
-E2506,Faculty Office,297
-E2503,Faculty Office,298
-E2504,Faculty Office,298
-E2501,Faculty Office,299
-E2502,Faculty Office,299
-E2507,Public Restroom Male,300
-E2510,Classroom,301
-E2511,Conference Room,301
-E2623,Public Restroom Male,302
-E2624,Public Restroom Female,302
-C2657,Research/Non-class Lab,303
-C2658,Closet,304
- , ,305
-E2511A, ,306
-E2425,Vending Room,307
-E2424,Closet,308
-ES2400G,Public Stairs,309
-E2422,Faculty Office,310
-C2200G, ,311
-E2421,Faculty Office,312
-E2426,TA office,312
-E2420,Faculty Office,313
-E2427,Faculty Office,313
-E2428,Closet,314
-ES2400G,Public Stairs,315
-E2428A,Conference Room,316
-E2429,Office Service,317
-E2429A,Office Library,317
-E2430,Public Restroom Female,318
-E2443,Staff Office,318
-E2440,Conference Room,319
-E2431,Computer Room,319
-E2432,Faculty Office,320
-E2434,Faculty Office,321
-E2439,Faculty Office,321
-E2435,Faculty Office,322
-E2438,Faculty Office,322
-E2436,Faculty Office,323
-E2437,Faculty Office,323
-E2417,Mechanical Equipment Room,324
-E2416,Classroom,325
-E2414, ,326
-E2415, ,326
-E2402,Faculty Office,327
-E2405,Public Restroom Male,328
-E2404A,Faculty Office,329
-E2404B,Faculty Office,329
-E2404C,Faculty Office,329
-E2403A,Faculty Office,330
-E2403B,Faculty Office,330
-E2403C,Faculty Office,330
-E2403D,Faculty Office,330
-ES2400A,Public Stairs,331
-E2406,Classroom/Conference room,331
- , ,332
-ES2400B,Public Stairs,333
-E2407,Classroom/Conference room,334
-E2409,Copy & Fax Room,335
-E2410,Faculty Office,335
-E2412,Administrative Office,336
-E2411,Faculty Office,337
-E2411A,Faculty Office,337
-E2413,Faculty Office,338
-E2413A,Faculty Office,338
-E2412A,Faculty Office,339
-E3437G,Faculty Office,340
-E3437H,Faculty Office,341
-E3437E,Faculty Office,342
-E3437F,Faculty Office,342
-E3437I,Faculty Office,343
-E3437J,Faculty Office,343
-E3437C,Faculty Office,344
-E3437D,Faculty Office,344
-E3437K,Faculty Office,345
-E3437A,Faculty Office,346
-E3437B,Faculty Office,346
-E3437L,Conference room,347
-E3438, ,348
-E3441, ,348
-E3440,Public Restroom Male,349
-E3445,Research/Non-class Lab,350
-ES3400C,Public Stairs,350
-E3434,Research/Non-class Lab,351
- , ,352
-E3418A, ,353
-E3420,Mechanical Equipment Room,353
-E3419,Office,354
-E3406,Office,354
-E3421,Office,354
-E3422,Office,354
-E3418, ,354
-E3417, ,355
-E3403,classroom,356
-E3404,lab,356
-E3405,Public Restroom Female,356
-E3402,Faculty Office,357
-ES3400A,Public Stairs,357
-E3401,Faculty Office,358
-ES3400B,Public Stairs,359
-E3407,Faculty Office,360
-E3408,Faculty Office,360
-E3409,Faculty Office,360
-E3410,Faculty Office,360
-E3411,Faculty Office,361
-E3412,Faculty Office,361
-E3413,Faculty Office,361
-E3414,Faculty Office,362
-E3415,Faculty Office,362
-E3425,Research/Non-class Lab,363
-E3433,Research/Non-class Lab,363
-E3426,Research/Non-class Lab,364
- , ,365
-E3203,Public Restroom male,366
-E3204,Public Restroom Female,366
-ES3600F,Public Stairs,367
- , ,368
-E3510,Classroom,369
-E3511,Classroom,369
-E3512,Conference Room,369
-E3508,Classroom,370
-E3509,Classroom,370
-ES3600A,Public Stairs,371
-E3506,office,372
-E3501,office,373
-E3502,office,373
-E3503,office,373
-E3504,office,373
-E3505,office,373
-C3206,Faculty Office,374
-C3207,Faculty Office,374
-C3208,Faculty Office,374
-C3209,Research/Non-class Lab,375
-CV3209,Vestibule,376
-CV3210,Vestibule,376
-C3211,Faculty Office,377
-C3212,Faculty Office,377
-C3213,Faculty Office,377
-C3210,Research/Non-class Lab,378
-C3214,Research/Non-class Lab,379
-CS3200E,Public Stairs,380
-C3218,Research/Non-class Lab,381
-C3216,Conference room,382
-C3217, ,382
-C3219,Research/Non-class Lab,383
-C3220,Research/Non-class Lab,384
-C3221,Research/Non-class Lab,385
-C3222,Research/Non-class Lab,385
-C3223,Research/Non-class Lab,387
-C3224,vestibule,388
+W1026E,Staff Office,"1, 10, 3, 16",260,770,1
+W1026F,Staff Office,1,252,703,1
+W1026D,Staff Office,2,266,832,1
+W1026G,Staff Office,4,480,924,1
+W1026H,Staff Office,4,436,959,1
+W1026C,Staff Office,5,339,862,1
+W1026B,Staff Office,5,278,891,1
+W1026A,Staff Office,5,278,951,1
+W1026I,Staff Office,6,397,1007,1
+W1036,Staff Office,7,178,972,1
+W1035,Staff Office,7,197,898,1
+W1037,Conference Room,8,265,1043,1
+W1024B,Conference Room,8,402,1107,1
+W1038,Staff Office,9,265,1110,1
+W1039,Staff Office,9,265,1183,1
+W1040,Staff Office,10,265,1251,1
+W1041H,Staff Office,10,400,1237,1
+W1043,Staff Office,11,265,1317,1
+W1042,Staff Office,11,408,1346,1
+W1044,Staff Office,11,262,1390,1
+W1045,Staff Office,12,261,1455,1
+W1048B,Office,13,330,1597,1
+W1054,Conference Room,14,259,1456,1
+W1050,Staff Office,15,464,1599,1
+W1051,Staff Office,16,621,1462,1
+W1078,Research Lab,24,934,1847,1
+W1077,Research Lab,24,1140,1914,1
+W1076,Research Lab,24,934,1960,1
+W1075E, ,26,907,2104,1
+W1075D, ,26,980,2104,1
+W1075C, ,27,1052,2104,1
+W1075B, ,27,1125,2104,1
+W1075A,Computer Support,28,1192,2104,1
+W1071,Research Lab,33,1140,1657,1
+W1068,Research Lab,35,1150,1521,1
+W1079,Research Lab,36,937,1640,1
+W1080,Research Lab,37,937,1487,1
+W1067,Research Lab,38,1154,1415,1
+W1081,Research Lab,38,935,1363,1
+W1066,Research Lab,40,1151,1284,1
+W1065,Research Lab,41,1148,1162,1
+W1083,Restroom,44,981,1166,1
+W1041D,Copy Room,48,750,1207,1
+W1041C,Research Lab,48,733,1399,1
+W1024A,Office,49,666,1201,1
+W1041B,Graduate Office,49,624,1373,1
+W1041A,Office,50,515,1366,1
+W1042,Staff Office,50,404,1335,1
+W1041E,Staff Office,51,581,1254,1
+W1041F,Staff Office,52,581,1182,1
+W1024B,Conference Room,53,399,1109,1
+W1024,Student Services,54,532,1042,1
+W1002,Faculty Office,56,654,683,1
+W1002A,Faculty Office,57,613,613,1
+W1002B,Faculty Office,57,700,613,1
+W1002C,Faculty Office,57,618,755,1
+W1019,Conference Room,57,696,767,1
+W1004,Seminar Room,58,623,377,1
+W1003,Conference Room,58,590,523,1
+W1005,Auditorium,59,279,174,1
+W1006,Staff Office,60,552,198,1
+W1007,Staff Office,62,515,62,1
+W1009,Staff Office,62,614,62,1
+W1010,Staff Office,62,684,62,1
+W1006C,Office,61,706,194,1
+W1006B,Office,61,707,262,1
+W1011,Staff Office,63,758,62,1
+W1012,Conference Room,64,826,62,1
+W1013,Office,64,896,62,1
+W1014,Staff Office,65,826,212,1
+W1015,Office,66,824,318,1
+W1016,Staff Office,68,824,513,1
+W1018,Office,69,824,680,1
+ WE1000Z,Elevator,71,838,929,1
+W1064C,Laboratory,72,1099,589,1
+W1064B,Laboratory,74,923,591,1
+W1064,Computer Lab,73,1054,761,1
+W1061,Research Training,76,991,461,1
+W1060,Research Lab,78,1042,311,1
+C1201,Research Lab,80,1373,97,1
+C1202,Research Lab,80,1416,384,1
+C1203,Research Lab,81,1519,97,1
+C1204 ,Research Lab,81,1640,362,1
+C1206 ,Research Lab,81,1767,97,1
+C1207,Shop,82,1973,131,1
+C1208,Research Lab,83,1764,524,1
+C1209,Research Lab,85,1686,597,1
+C1210,Graduate Office,86,1571,567,1
+C1212,Computer Lab,86,1466,818,1
+C1211,Research Lab,87,1388,632,1
+C1213,Equipment Storage,88,1711,898,1
+C1216,Classroom,90,1624,984,1
+C1219,Teaching Lab,90,1717,1199,1
+C1218,Classroom,91,1431,984,1
+C1217,Research Lab,91,1489,1199,1
+C1221,Office,92,1763,1366,1
+C1220,Teaching Lab,94,1672,1366,1
+C1215,Storage Area,94,1476,1362,1
+C1244,Class Lab,93,1710,1629,1
+C1245,Class Lab,98,1443,1564,1
+C1246,Class Lab,99,1471,1746,1
+C1243,Class Lab,97,1943,1568,1
+C1250,Research Lab,100,2032,1754,1
+C1249,Classroom,103,1831,1977,1
+C1251,Classroom,104,2061,1977,1
+E1511,Research Lab,109,2509,1976,1
+E1510,Research Lab,109,2377,1618,1
+E1509,Research Lab,110,2515,1640,1
+E1507,Office,112,2677,1824,1
+E1505,Graduate Office,112,2747,1693,1
+E1506,Graduate Office,112,2748,1853,1
+E1503,Graduate Office,113,2838,1690,1
+E1504,Graduate Office,113,2838,1851,1
+E1501,Graduate Office,114,2950,1687,1
+E1502,Graduate Office,114,2940,1853,1
+ E1431,Restroom,106,2172,1592,1
+C1240,Class Lab,95,1987,1261,1
+C1222,Mechanical Equipment,116,1982,996,1
+E1427,Research Lab,117,2200,1188,1
+E1425,Classroom,118,2235,874,1
+C1224,Research Lab,120,1990,602,1
+ E1421,Restroom,121,2235,525,1
+E1422,Teaching Lab,122,2234,338,1
+E1423,Mechanical Equipment,124,2233,111,1
+E1419,Auditorium,125,2371,520,1
+E1417,Teaching Lab,126,2527,493,1
+E1406,Restroom,129,2667,839,1
+E1404,Research Lab,129,2718,945,1
+E1402,Mechanical Equipment,128,2896,722,1
+E1414,Teaching Lab,131,2661,488,1
+E1401,Office,131,2895,521,1
+E1413,Teaching Lab,133,2682,186,1
+E1410,Student Office,133,2901,321,1
+E1411,Research Office,134,2901,150,1
+W0005,Research Lab,136,457,273,0
+W0006,Mechanical Room,136,543,54,0
+W0003,Research Lab,137,446,507,0
+ WE0000,Elevator,138,700,783,0
+W0035,Research Lab,140,1000,896,0
+W0032,Research Lab,141,1000,1061,0
+W0034,Restroom,141,831,1037,0
+W0031,Shop,142,790,1138,0
+W0030,Research Lab,142,1000,1224,0
+W0028,Shop,143,1068,1512,0
+W0029,Research Lab,144,971,1426,0
+W0026,Teaching Lab,145,882,1704,0
+W0025,Shop,150,789,1288,0
+W0022,Teaching Lab,151,533,1525,0
+W0024,Mechanical Room,152,556,1703,0
+W0014A,Class Lab,154,626,1139,0
+W0012,Manufacturing Lab,155,417,997,0
+W0021, ,156,639,1356,0
+W0020, ,156,561,1353,0
+W0019,Equipment Storage,157,456,1355,0
+W0017,Equipment Storage,159,302,1405,0
+W0018,Research Lab,159,297,1513,0
+W0015,Classroom,160,211,1205,0
+W0013,Classroom,160,211,1019,0
+W0014,Teaching Lab,160,487,1141,0
+W0010,Classroom,162,211,839,0
+W0009,Classroom,162,211,665,0
+W2001H,Study Room,202,754,251,2
+W2001G,Study Room,203,754,377,2
+W2001F,Study Room,203,754,464,2
+W2001E,Study Room,203,732,533,2
+W2001I,Conference Room,204,211,547,2
+W2001J,Closet,204,142,594,2
+W2003J,Study Room,205,161,675,2
+W2003K,Study Room,205,161,742,2
+W2001A,Research/Non-class Lab,207,662,609,2
+W2001B,Research/Non-class Lab,207,751,612,2
+W2001C,Research Office,207,750,687,2
+W2001D,Research Office,208,750,812,2
+W2003L,Study Room,209,165,805,2
+W2003M,Study Room,209,166,868,2
+W2003N,Study Room,210,166,945,2
+W2003A, ,210,278,1053,2
+W2003,Open Laboratory,211,344,896,2
+W2001,Open Study Room,212,428,274,2
+WE2000A,Public Elevator,212,760,914,2
+W2002,Janitorial Closet,212,766,974,2
+W2008,Conference Room,213,292,1150,2
+W2009,Professor Office,213,165,1051,2
+W2010,Faculty Office,213,164,1134,2
+W2006,Research/Non-class Lab,214,523,1156,2
+W2007,Research/Non-class Lab,214,401,1185,2
+W2004,Office,215,696,1125,2
+W2005,Office,215,629,1130,2
+W2011,Faculty Office,216,165,1200,2
+W2015,Faculty Office,216,165,1265,2
+W2012B,Computer Lab- Restricted,216,372,1292,2
+W2013,Research/Non-class Lab,217,617,1201,2
+W2014,Janitorial Closet,218,662,1219,2
+W2012E,Classroom,218,582,1292,2
+W2016,Faculty Office,219,167,1332,2
+W2017,Faculty Office,219,165,1391,2
+W2012A,Electrical Closet,220,291,1381,2
+W2018,Faculty Office,221,164,1461,2
+W2024,Professor Office,221,165,1520,2
+W2019,Research/Non-class Lab,222,307,1434,2
+W2026,Faculty Office,222,293,1598,2
+W2026A,Break Room,222,353,1707,2
+W2020,Research/Non-class Lab,223,452,1436,2
+W2021,Research/Non-class Lab,223,451,1610,2
+W2022,Research/Non-class Lab,224,602,1437,2
+W2023,Research/Non-class Lab,224,602,1614,2
+W2025,Faculty Office,225,165,1590,2
+W2027,Faculty Office,225,165,1648,2
+W2028,Faculty Office,226,166,1718,2
+W2029,Faculty Office,226,165,1780,2
+W2030,Faculty Office,227,165,1844,2
+W2031,Kitchenette,227,228,1866,2
+W2032,Office Service,227,294,1728,2
+W2032A,Office Supply Room,227,352,1782,2
+W2033,Administrative Office,228,278,1884,2
+W2033A,Faculty Office,228,189,1915,2
+W2034,Research/Non-class Lab,229,392,1893,2
+W2035,Research/Non-class Lab,229,450,1716,2
+W2037,Research/Non-class Lab,230,603,1715,2
+W2038,Research/Non-class Lab,230,603,1900,2
+C2205, ,232,1699,129,2
+C2201,Research/Non-class Lab,233,1256,128,2
+C2202,Research/Non-class Lab,234,1346,131,2
+C2203,Teaching Lab,235,1483,130,2
+C2204,Research/Non-class Lab,235,1398,328,2
+C2206,Teaching Lab,235,1593,294,2
+C2207,Teaching Lab,236,1602,178,2
+C2260,Research/Non-class Lab,237,862,486,2
+C2061,Research/Non-class Lab,237,991,495,2
+C2261A,Storage Area,237,1090,540,2
+C2262,Research/Non-class Lab,238,1163,496,2
+C2212,Student Office,240,1326,500,2
+C2211,Student Office,241,1434,502,2
+C2210,TA Office,242,1519,496,2
+C2209,TA Office,243,1602,498,2
+C2266,Change Room,244,842,584,2
+C2266B, ,245,915,584,2
+C2265,Clean Room,246,976,584,2
+C2264,TA Office,247,1063,584,2
+C2263,TA Office,247,1161,584,2
+C2213,TA Office,249,1305,738,2
+C2214,TA Office,249,1380,738,2
+C2215,Shop,249,1328,584,2
+C2216,Material Storage,250,1478,584,2
+C2217,TA Office,250,1456,738,2
+C2218,Research/Non-class Lab,250,1521,738,2
+C2219,Research/Non-class Lab,251,1606,738,2
+C2220,Research/Non-class Lab,251,1603,584,2
+C2268,TA Office,252,1031,918,2
+C2269,TA Office,252,864,918,2
+C2267,Office,253,1160,918,2
+C2223,TA Office,255,1323,918,2
+C2222,TA Office,256,1424,922,2
+C2221,TA Office,257,1550,920,2
+W2059,Office,259,1155,1003,2
+W2060,Preparation,259,1067,1141,2
+W2061,Preparation,259,1161,1141,2
+C2224,TA Office,261,1290,1164,2
+C2225,Research/Non-class Lab,261,1324,1002,2
+C2226,Student Office,262,1425,1002,2
+C2227,TA Office,262,1441,1166,2
+C2228,TA Office,263,1580,1164,2
+C2229,Student Office,263,1515,1002,2
+C2230,Student Office,264,1602,1002,2
+C2231, ,265,1665,1229,2
+W2062,Public Restroom Male,266,873,1122,2
+W2063,Public Restroom Female,266,874,1229,2
+W2064,Preparation,267,1113,1252,2
+W2065,Research/Non-class Lab,268,879,1313,2
+W2066,Research/Non-class Lab,268,1114,1393,2
+W2067,Research/Non-class Lab,268,880,1435,2
+C2655A,Research Office,269,1253,1402,2
+C2655,Research/Non-class Lab,270,1360,1402,2
+C2656,Research/Non-class Lab,271,1567,1528,2
+C2656A,Research/Non-class Lab,271,1601,1429,2
+W2068,Research/Non-class Lab,272,1067,1566,2
+W2069,Research/Non-class Lab,272,853,1557,2
+W2068A, ,273,1160,1610,2
+C2654,Research/Non-class Lab,274,1329,1525,2
+C2653,Research/Non-class Lab,275,1350,1635,2
+C2653A,Research/Non-class Lab,275,1421,1679,2
+W2070,Research/Non-class Lab,277,1032,1670,2
+W2071,Teaching Lab,278,850,1809,2
+W2072,Research/Non-class Lab,279,1026,1788,2
+W2073,Research/Non-class Lab,280,1026,1925,2
+W2074, ,280,1160,1775,2
+C2650,Conference Room,281,1253,1887,2
+C2651, ,281,1237,1769,2
+C2652,TA office,282,1354,1742,2
+C2649,Research/Non-class Lab,284,1567,1652,2
+C2647,Faculty Office,285,1671,1889,2
+C2648,Faculty Office,285,1596,1890,2
+C2644,Faculty Office,286,1806,1889,2
+C2645,Faculty Office,286,1739,1889,2
+C2643,Research/Non-class Lab,286,1736,1653,2
+C2640,Faculty Office,287,1943,1891,2
+C2641,Faculty Office,287,1875,1887,2
+C2642,Research/Non-class Lab,287,1908,1653,2
+EE2400,Public Elevator,289,2064,1760,2
+E2622,Class lab service,290,2054,1657,2
+E2509F,Faculty Office,291,2193,1746,2
+E2509E,Copy & Fax Room,292,2194,1809,2
+E2509A,Faculty Office,293,2336,1949,2
+E2509B,Conference Room,293,2209,1957,2
+E2509D,Staff Office,293,2194,1875,2
+E2509,Administrative Office,294,2317,1798,2
+E2508, ,296,2400,1735,2
+E2505,Faculty Office,297,2504,1599,2
+E2506,Faculty Office,297,2503,1758,2
+E2503,Faculty Office,298,2584,1594,2
+E2504,Faculty Office,298,2586,1758,2
+E2501,Faculty Office,299,2680,1597,2
+E2502,Faculty Office,299,2680,1758,2
+E2507,Public Restroom Male,300,2424,1781,2
+E2510,Classroom,301,2226,1545,2
+E2511,Conference Room,301,2257,1391,2
+E2623,Public Restroom Male,302,1935,1445,2
+E2624,Public Restroom Female,302,1923,1570,2
+C2657,Research/Non-class Lab,303,1737,1527,2
+C2658,Closet,304,1865,1433,2
+E2511A, ,306,2125,1319,2
+E2425,Vending Room,307,1950,1309,2
+E2424,Closet,308,2080,1324,2
+E2422,Faculty Office,310,2042,967,2
+C2200G, ,311,1857,982,2
+E2421,Faculty Office,312,2039,875,2
+E2426,TA office,312,1956,880,2
+E2420,Faculty Office,313,2039,785,2
+E2427,Faculty Office,313,1854,796,2
+E2428,Closet,314,1881,706,2
+E2428A,Conference Room,316,1820,706,2
+E2429,Office Service,317,1879,622,2
+E2429A,Office Library,317,1822,624,2
+E2430,Public Restroom Female,318,1852,544,2
+E2443,Staff Office,318,2060,544,2
+E2440,Conference Room,319,2041,402,2
+E2431,Computer Room,319,1852,461,2
+E2432,Faculty Office,320,1882,373,2
+E2434,Faculty Office,321,1855,282,2
+E2439,Faculty Office,321,2042,284,2
+E2435,Faculty Office,322,1853,195,2
+E2438,Faculty Office,322,2042,200,2
+E2436,Faculty Office,323,1855,116,2
+E2437,Faculty Office,323,2042,117,2
+E2417,Mechanical Equipment Room,324,2173,497,2
+E2416,Classroom,325,2320,502,2
+E2402,Faculty Office,327,2652,722,2
+E2405,Public Restroom Male,328,2442,825,2
+E2404A,Faculty Office,329,2532,958,2
+E2404B,Faculty Office,329,2440,974,2
+E2404C,Faculty Office,329,2443,896,2
+E2403A,Faculty Office,330,2615,805,2
+E2403B,Faculty Office,330,2680,810,2
+E2403C,Faculty Office,330,2680,929,2
+E2403D,Faculty Office,330,2615,928,2
+E2406,Classroom/Conference room,331,2443,556,2
+E2407,Classroom/Conference room,334,2449,453,2
+E2409,Copy & Fax Room,335,2448,355,2
+E2410,Faculty Office,335,2647,350,2
+E2412,Administrative Office,336,2649,243,2
+E2411,Faculty Office,337,2448,268,2
+E2411A,Faculty Office,337,2452,189,2
+E2413,Faculty Office,338,2540,143,2
+E2413A,Faculty Office,338,2449,111,2
+E2412A,Faculty Office,339,2651,155,2
+E3437G,Faculty Office,340,754,50,3
+E3437H,Faculty Office,341,965,58,3
+E3437E,Faculty Office,342,754,182,3
+E3437F,Faculty Office,342,754,114,3
+E3437I,Faculty Office,343,965,155,3
+E3437J,Faculty Office,343,965,227,3
+E3437C,Faculty Office,344,751,314,3
+E3437D,Faculty Office,344,754,244,3
+E3437K,Faculty Office,345,965,291,3
+E3437A,Faculty Office,346,754,435,3
+E3437B,Faculty Office,346,754,376,3
+E3437L,Conference room,347,949,377,3
+E3436, ,348,815,494,3
+E3441, ,348,904,485,3
+E3440,Public Restroom Male,349,979,501,3
+E3445,Research/Non-class Lab,350,758,517,3
+E3434,Research/Non-class Lab,351,758,631,3
+E3418A, ,353,1098,590,3
+E3420,Mechanical Equipment Room,353,1084,431,3
+E3419,Office,354,1218,457,3
+E3406,Office,354,1370,564,3
+E3421,Office,354,1302,412,3
+E3422,Office,354,1370,470,3
+E3418, ,354,1322,698,3
+E3417, ,355,1384,699,3
+E3403,classroom,356,1555,793,3
+E3404,lab,356,1391,858,3
+E3405,Public Restroom Female,356,1343,768,3
+E3402,Faculty Office,357,1555,655,3
+E3401,Faculty Office,358,1552,472,3
+E3407,Faculty Office,360,1355,297,3
+E3408,Faculty Office,360,1558,291,3
+E3409,Faculty Office,360,1355,228,3
+E3410,Faculty Office,360,1561,210,3
+E3411,Faculty Office,361,1354,166,3
+E3412,Faculty Office,361,1558,152,3
+E3413,Faculty Office,361,1353,105,3
+E3414,Faculty Office,362,1555,86,3
+E3415,Faculty Office,362,1354,41,3
+E3425,Research/Non-class Lab,363,949,753,3
+E3433,Research/Non-class Lab,363,764,769,3
+E3426,Research/Non-class Lab,364,942,928,3
+E3203,Public Restroom male,366,844,1368,3
+E3204,Public Restroom Female,366,844,1496,3
+E3510,Classroom,369,1125,1465,3
+E3511,Classroom,369,1138,1311,3
+E3512,Conference Room,369,1243,1294,3
+E3508,Classroom,370,1156,1855,3
+E3509,Classroom,370,1156,1698,3
+E3506,office,372,1409,1517,3
+E3501,office,373,1601,1599,3
+E3502,office,373,1585,1519,3
+E3503,office,373,1588,1675,3
+E3504,office,373,1485,1513,3
+E3505,office,373,1444,1668,3
+C3206,Faculty Office,374,858,1811,3
+C3207,Faculty Office,374,845,1891,3
+C3208,Faculty Office,374,737,1804,3
+C3209,Research/Non-class Lab,375,822,1564,3
+C3211,Faculty Office,377,641,1803,3
+C3212,Faculty Office,377,532,1890,3
+C3213,Faculty Office,377,515,1799,3
+C3210,Research/Non-class Lab,378,652,1568,3
+C3214,Research/Non-class Lab,379,482,1577,3
+C3218,Research/Non-class Lab,381,282,1662,3
+C3216,Conference room,382,172,1804,3
+C3217, ,382,155,1700,3
+C3219,Research/Non-class Lab,383,283,1567,3
+C3220,Research/Non-class Lab,384,260,1438,3
+C3221,Research/Non-class Lab,385,255,1324,3
+C3222,Research/Non-class Lab,385,283,1455,3
+C3223,Research/Non-class Lab,387,652,1456,3
+C3224,vestibule,388,775,1362,3
