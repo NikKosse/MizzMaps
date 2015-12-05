@@ -33,7 +33,10 @@ public class Map extends Activity {
 
     final String[] locatation = {""};
     final String[] selectedRoom = {""};
-    Float[] xyCoords = {0f, 0f, -1f};
+    String currentMap = "lvl0";
+    Float[] blueCoords = {0f, 0f, -1f};
+    Float[] redCoords = {0f, 0f, -1f};
+
 
 
     @Override
@@ -69,6 +72,7 @@ public class Map extends Activity {
                 dialog.show();
                 final Button cancelButton = (Button) dialog.findViewById(R.id.btnCancel);
 
+
                 try {
 
                     // instantiate database handler
@@ -87,26 +91,42 @@ public class Map extends Activity {
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
                             locationText.setText(locatation[0]);
-                            xyCoords = databaseH.getXY(locatation[0]);
-                            switch (Math.round(xyCoords[2])) {
+                            blueCoords = databaseH.getXY(locatation[0]);
+                            switch (Math.round(blueCoords[2])) {
                                 case 0:
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    currentMap = "1v10";
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==1){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }
                                     spinnerFloor.setSelection(0);
                                     break;
                                 case 1:
                                     imageView.setImage(ImageSource.asset("lvl1.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    currentMap = "1v11";
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==1){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }
                                     spinnerFloor.setSelection(1);
                                     break;
                                 case 2:
                                     imageView.setImage(ImageSource.asset("lvl2.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    currentMap = "1v12";
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==1){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }
                                     spinnerFloor.setSelection(2);
                                     break;
                                 case 3:
                                     imageView.setImage(ImageSource.asset("lvl3.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    currentMap = "1v13";
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==1){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }
                                     spinnerFloor.setSelection(3);
                                     break;
                             }
@@ -147,8 +167,10 @@ public class Map extends Activity {
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.setContentView(R.layout.inside_location_dialog);
                 dialog.show();
+                final Button cancelButton = (Button) dialog.findViewById(R.id.btnCancel);
                 try {
 
                     // instantiate database handler
@@ -167,26 +189,46 @@ public class Map extends Activity {
                             TextView tv = (TextView) rl.getChildAt(0);
                             locatation[0] = (tv.getText().toString());
                             locationText.setText(locatation[0]);
-                            xyCoords = databaseH.getXY(locatation[0]);
-                            switch (Math.round(xyCoords[2])) {
+                            blueCoords = databaseH.getXY(locatation[0]);
+                            switch (Math.round(blueCoords[2])) {
                                 case 0:
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==0){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }else{
+                                        imageView.setRedPin(null);
+                                    }
                                     spinnerFloor.setSelection(0);
                                     break;
                                 case 1:
                                     imageView.setImage(ImageSource.asset("lvl1.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==1){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }else{
+                                        imageView.setRedPin(null);
+                                    }
                                     spinnerFloor.setSelection(1);
                                     break;
                                 case 2:
                                     imageView.setImage(ImageSource.asset("lvl2.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==2){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }else{
+                                        imageView.setRedPin(null);
+                                    }
                                     spinnerFloor.setSelection(2);
                                     break;
                                 case 3:
                                     imageView.setImage(ImageSource.asset("lvl3.png"));
-                                    imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
+                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                                    if(Math.round(redCoords[2])==3){
+                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                                    }else{
+                                        imageView.setRedPin(null);
+                                    }
                                     spinnerFloor.setSelection(3);
                                     break;
                             }
@@ -215,6 +257,14 @@ public class Map extends Activity {
                     e.printStackTrace();
                 }
 
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+
             }
         });
 
@@ -225,62 +275,7 @@ public class Map extends Activity {
         spinnerFloor.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items));
 
         // Loading spinner data from database
-        loadSpinnerData();
-
-        spinnerFloor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        imageView.setImage(ImageSource.asset("lvl0.png"));
-                        if (Math.round(xyCoords[2]) != 0){
-                            imageView.setPin(null);
-                        }else{
-                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
-                        }
-                        break;
-                    case 1:
-                        imageView.setImage(ImageSource.asset("lvl1.png"));
-                        if (Math.round(xyCoords[2]) != 1){
-                            imageView.setPin(null);
-                        }else{
-                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
-                        }
-                        break;
-                    case 2:
-                        imageView.setImage(ImageSource.asset("lvl2.png"));
-                        if (Math.round(xyCoords[2]) != 2){
-                            imageView.setPin(null);
-                        }else{
-                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
-                        }
-                        break;
-                    case 3:
-                        imageView.setImage(ImageSource.asset("lvl3.png"));
-                        if (Math.round(xyCoords[2]) != 3){
-                            imageView.setPin(null);
-                        }else{
-                            imageView.setPin(new PointF(xyCoords[0], xyCoords[1]));
-                        }
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-    }
-
-
-    private void loadSpinnerData() {
-        // database handler
-        DbHelper db = new DbHelper(getApplicationContext());
+        final DbHelper db = new DbHelper(getApplicationContext());
         int check = 0;
         try {
             // Spinner Drop down elements
@@ -295,16 +290,20 @@ public class Map extends Activity {
                 // Drop down layout style - list view with radio button
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View arg1, int position, long id) {
                         selectedRoom[0] = parent.getItemAtPosition(position).toString();
-                        Log.i("SELECTED TEXT WAS------->", selectedRoom[0]);
+                        Log.i("SELECTED Room WAS------->", selectedRoom[0]);
+                        redCoords = db.getXY(selectedRoom[0]);
+                        imageView.setRedPin(new PointF(-1f,-1f));
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-
+                        String getRed = parent.getItemAtPosition(0).toString();
+                        redCoords = db.getXY(getRed);
                     }
                 });
 
@@ -331,19 +330,132 @@ public class Map extends Activity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View arg1, int position, long id) {
                     selectedRoom[0] = parent.getItemAtPosition(position).toString();
-                    Log.i("SELECTED TEXT WAS------->", selectedRoom[0]);
+                    Log.i("SELECTED Room WAS------->", selectedRoom[0]);
+                    redCoords = db.getXY(selectedRoom[0]);
+                    switch (Math.round(redCoords[2])) {
+                        case 0:
+                            if (currentMap == "1v10") {
+                                imageView.setImage(ImageSource.asset("lvl0.png"));
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+
+                                break;
+                            }
+                        case 1:
+                            if (currentMap == "1v11") {
+                                imageView.setImage(ImageSource.asset("lvl1.png"));
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+
+                                break;
+                            }
+                        case 2:
+                            if (currentMap == "1v12") {
+                                imageView.setImage(ImageSource.asset("lvl2.png"));
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+
+                                break;
+                            }
+                        case 3:
+                            if (currentMap == "1v13") {
+                                imageView.setImage(ImageSource.asset("lvl3.png"));
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+
+                                break;
+                            }
+
+                    }
+
+
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
+                    String getRed = parent.getItemAtPosition(0).toString();
+                    redCoords = db.getXY(getRed);
                 }
             });
 
             // attaching data adapter to spinner
             spinner.setAdapter(dataAdapter);
+
         }
+
+        spinnerFloor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        currentMap = "1v10";
+                        imageView.setImage(ImageSource.asset("lvl0.png"));
+                        if (Math.round(blueCoords[2]) != 0){
+                            imageView.setPinBlue(null);
+                        }else{
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                        }
+                        if (Math.round(redCoords[2]) != 0){
+                            imageView.setRedPin(null);
+                        }else{
+                            imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                        }
+                        break;
+                    case 1:
+                        currentMap = "1v11";
+                        imageView.setImage(ImageSource.asset("lvl1.png"));
+                        if (Math.round(blueCoords[2]) != 1){
+                            imageView.setPinBlue(null);
+                        }else{
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                        }
+                        if (Math.round(redCoords[2]) != 1){
+                            imageView.setRedPin(null);
+                        }else{
+                            imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                        }
+
+                        break;
+                    case 2:
+                        currentMap = "1v12";
+                        imageView.setImage(ImageSource.asset("lvl2.png"));
+                        if (Math.round(blueCoords[2]) != 2){
+                            imageView.setPinBlue(null);
+                        }else{
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+
+                        }
+                        if (Math.round(redCoords[2]) != 2){
+                            imageView.setRedPin(null);
+                        }else{
+                            imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                        }
+                        break;
+                    case 3:
+                        currentMap = "1v13";
+                        imageView.setImage(ImageSource.asset("lvl3.png"));
+                        if (Math.round(blueCoords[2]) != 3){
+                            imageView.setPinBlue(null);
+                        }else{
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+
+                        }
+                        if (Math.round(redCoords[2]) != 3){
+                            imageView.setRedPin(null);
+                        }else{
+                            imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                        }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
     }
+
 
 
 
