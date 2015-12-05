@@ -43,11 +43,11 @@ public class Pathfinder {
      * Note: Once this method is run, the total path distance can be obtained by executing the
      *   getTotalDistance() method.
      *
-     * @param startId long id of the beginning node
-     * @param goalId long id of the goal node
+     * @param startRoom name of the beginning room
+     * @param goalRoom name of the goal room
      * @return an ArrayList of the long id's of the nodes along the optimal path
      */
-    public List<Node> search(long startId, long goalId){
+    public List<Node> search(String startRoom, String goalRoom){
 
         //initialize data structures
         fringe = new PriorityQueue<>(25, Node.nodeComparator);
@@ -55,15 +55,17 @@ public class Pathfinder {
         idMap = new HashMap<>();
 
         //get proper nodes
+        List<Long> startAndGoalIds = nodesDAO.getNodeIds(startRoom, goalRoom);
+        if (startAndGoalIds == null) return null;
         List<Integer> startAndEndFloor = new ArrayList<>();
-        long buildingID = nodesDAO.getBuildingAndFloors(startId, goalId, startAndEndFloor);
+        long buildingID = nodesDAO.getBuildingAndFloors(startAndGoalIds.get(0), startAndGoalIds.get(1), startAndEndFloor);
         if (startAndEndFloor.size() == 0 || buildingID == -1) {
             return null;
         }
         nodes = nodesDAO.getPathfinderNodes(buildingID, idMap, startAndEndFloor);
-        goalNode = nodes.get(idMap.get(goalId));
+        goalNode = nodes.get(idMap.get(startAndGoalIds.get(1)));
 
-        fringe.add(nodes.get(idMap.get(Long.valueOf(startId))));
+        fringe.add(nodes.get(idMap.get(startAndGoalIds.get(0))));
         while ( ! fringe.isEmpty()){
             current = fringe.poll();
             if (current == goalNode) {
