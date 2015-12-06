@@ -86,13 +86,13 @@ public class Pathfinder {
      */
     private void expand(Node nodeToExpand) {
         int costUntilNow, priority;
-        Node nodeToInsert;
+        Node nodeToInsert = null;
         ArrayList<Long> adjacents = nodeToExpand.getReachable_nodes();
         int numAdjacents = adjacents.size();
         int costFromPrev = nodeToExpand.getCostFromPrev();
 
         for (int i=0; i < numAdjacents; i++) {
-            nodeToInsert = nodes.get( idMap.get(adjacents.get(i)));
+            if (idMap.containsKey(adjacents.get(i))) nodeToInsert = nodes.get( idMap.get(adjacents.get(i)));
             if (nodeToInsert != null && !closedSet.contains(nodeToInsert)){
                 costUntilNow = costFromPrev + nodeToExpand.getDistances().get(i);
                 priority = (int) Math.round( costUntilNow + Math.sqrt(
@@ -110,6 +110,7 @@ public class Pathfinder {
                     //Update these weights?  Would this ever happen?
                 }
             }
+            nodeToInsert = null;
         }
         closedSet.add(nodeToExpand);
     }
