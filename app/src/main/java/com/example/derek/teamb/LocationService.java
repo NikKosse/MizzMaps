@@ -50,6 +50,17 @@ public class LocationService implements GoogleApiClient.ConnectionCallbacks, Goo
         Log.d(TAG, "Accuracy is: " + accuracy);
     }
 
+    public String checkIfInside(){
+        if(ebwBounds.contains(new LatLng(latitude,longitude))){
+            return "EBW";
+        }
+        else if(lafferreBounds.contains(new LatLng(latitude,longitude))){
+            return "Lafferre";
+        }
+        else
+            return "outside";
+    }
+
     protected synchronized void buildGoogleApiClient() {
         googleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)

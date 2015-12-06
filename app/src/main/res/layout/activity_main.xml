@@ -24,14 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <!--<Button-->
-                <!--style="?android:attr/buttonStyleSmall"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="go to maps"-->
-                <!--android:id="@+id/button"-->
-                <!--android:onClick="goToOutsideMap"-->
-                <!--android:layout_gravity="center_horizontal" />-->
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="go to maps"
+                android:id="@+id/button"
+                android:onClick="goToOutsideMap"
+                android:layout_gravity="center_horizontal" />
 
 
             <com.example.derek.teamb.CustomView
