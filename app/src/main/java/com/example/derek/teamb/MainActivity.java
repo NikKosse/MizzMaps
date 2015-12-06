@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             save.cancel();
-                            if(inOrOut.equals("Lafferre")) {
+                            if(!inOrOut.equals("Lafferre")) {
                                 Log.d(TAG, "Inside Laffere!");
                                 Intent intent = new Intent(v.getContext(), Map.class);
                                 startActivityForResult(intent, 0);
@@ -182,7 +182,7 @@ public class MainActivity extends Activity {
                                 databaseH.store(new GetObject(arrayList.get(i)));
                                 System.out.println(arrayList.get(i));
                             }
-                            if(inOrOut.equals("Lafferre")) {
+                            if(!inOrOut.equals("Lafferre")) {
                                 Log.d(TAG, "Inside Laffere!");
                                 Intent intent = new Intent(v.getContext(), Map.class);
                                 startActivityForResult(intent, 0);
