@@ -17,6 +17,7 @@ public class LocationService implements GoogleApiClient.ConnectionCallbacks, Goo
     private final String TAG = "LocationService";
     protected GoogleApiClient googleApiClient;
     protected Location lastLocation;
+    protected LatLng lastLocationLatLng;
     protected double latitude;
     protected double longitude;
 
@@ -39,6 +40,24 @@ public class LocationService implements GoogleApiClient.ConnectionCallbacks, Goo
         return lastLocation;
     }
 
+    public LatLng getLastLocationLatLng(){
+       lastLocationLatLng = (new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude()));
+        return lastLocationLatLng;
+    }
+
+    public String checkIfInside(){
+        Log.d(TAG, "checking if inside");
+        if(lafferreBounds.contains(lastLocationLatLng)){
+            Log.d(TAG, "inside Lafferre!");
+            return "Lafferre";
+        }
+        else{
+            Log.d(TAG, "outside Lafferre!");
+            return "Outside";
+        }
+
+    }
+
     private void findLastLocation(){
         lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         Log.d(TAG, "Availability is: " + LocationServices.FusedLocationApi.getLocationAvailability(googleApiClient));
@@ -48,7 +67,10 @@ public class LocationService implements GoogleApiClient.ConnectionCallbacks, Goo
         Log.d(TAG, "Latitude is: " + latitude);
         Log.d(TAG, "Longitude is: " + longitude);
         Log.d(TAG, "Accuracy is: " + accuracy);
+        lastLocationLatLng = (new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude()));
     }
+
+
 
     protected synchronized void buildGoogleApiClient() {
         googleApiClient = new GoogleApiClient.Builder(context)

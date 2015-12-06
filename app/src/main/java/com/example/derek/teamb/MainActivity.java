@@ -1,9 +1,11 @@
 package com.example.derek.teamb;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +38,8 @@ public class MainActivity extends Activity {
 
     int i = 0;
     String[] classList = new String[5];
+    private final String TAG = "MainActivity";
+    LocationService locationService;
 
 
     @Override
@@ -45,7 +49,8 @@ public class MainActivity extends Activity {
 
         list = (ListView) findViewById(R.id.list);
         arrayList = new ArrayList<String>();
-
+        final Context context = this;
+        locationService = new LocationService(context);
         try {
 
             // instantiate database handler
@@ -141,6 +146,8 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
+
+                final String inOrOut = locationService.checkIfInside();
                 if (arrayList.size() != 0) {
                     databaseH.deleteRoomData();
                     for (int i = 0; i < arrayList.size(); i++) {
@@ -151,8 +158,16 @@ public class MainActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             save.cancel();
-                            Intent intent = new Intent(v.getContext(), Map.class);
-                            startActivityForResult(intent, 0);
+                            if(inOrOut.equals("Lafferre")) {
+                                Log.d(TAG, "Inside Laffere!");
+                                Intent intent = new Intent(v.getContext(), Map.class);
+                                startActivityForResult(intent, 0);
+                            }
+                            else{ //TODO: direct to Google Map if not in Lafferre
+                                Log.d(TAG, "Outside Lafferre!");
+                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
+                                startActivityForResult(intent, 0);
+                            }
                         }
                     });
 
@@ -164,8 +179,16 @@ public class MainActivity extends Activity {
                                 databaseH.store(new GetObject(arrayList.get(i)));
                                 System.out.println(arrayList.get(i));
                             }
-                            Intent intent = new Intent(v.getContext(), Map.class);
-                            startActivityForResult(intent, 0);
+                            if(inOrOut.equals("Lafferre")) {
+                                Log.d(TAG, "Inside Laffere!");
+                                Intent intent = new Intent(v.getContext(), Map.class);
+                                startActivityForResult(intent, 0);
+                            }
+                            else{ //TODO: direct to Google Map if not in Lafferre
+                                Log.d(TAG, "Outside Lafferre!");
+                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
+                                startActivityForResult(intent, 0);
+                            }
                         }
                     });
 

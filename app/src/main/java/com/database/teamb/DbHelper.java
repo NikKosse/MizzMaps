@@ -289,7 +289,7 @@ public class DbHelper extends SQLiteOpenHelper {
             db.close();
 
             if(createSuccessful){
-                Log.e(TAG, myObj.objectName + " created in storage.");
+                Log.d(TAG, myObj.objectName + " created in storage.");
             }
         }
 
