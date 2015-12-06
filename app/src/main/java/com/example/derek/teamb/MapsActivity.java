@@ -36,6 +36,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.moveCamera(CameraUpdateFactory.newLatLng(startingPoint));
         map.moveCamera(CameraUpdateFactory.zoomTo(18));
         testLocationServices();
+
+        PathGoogleMapActivity pathActivity = new PathGoogleMapActivity();
+        pathActivity.testConnectionToClass();
     }
 
     public void testLocationServices(){

@@ -70,6 +70,10 @@ public class PathGoogleMapActivity extends FragmentActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    public void testConnectionToClass(){
+        Log.d(TAG,"Connected to file!");
+    }
+
     private String getMapsApiDirectionsUrl() {
         String waypoints = "waypoints=optimize:true|"
                 + currentLocation.latitude + "," + currentLocation.longitude
