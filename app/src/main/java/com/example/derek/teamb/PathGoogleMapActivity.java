@@ -31,8 +31,7 @@ package com.example.derek.teamb;
 public class PathGoogleMapActivity extends FragmentActivity {
 
     LocationService locationService = new LocationService(this);
-    Location currentLocation = locationService.getLastLocation();
-    LatLng currentLocationLatLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+    LatLng currentLocation = locationService.getLastLocationLatLng();
 //    private static final LatLng currentLocation = new LatLng(40.722543,
 //            -73.998585);
     private static final LatLng Destination = new LatLng(38.946063, -92.330073);
@@ -54,7 +53,7 @@ public class PathGoogleMapActivity extends FragmentActivity {
         googleMap = fm.getMap();
 
         MarkerOptions options = new MarkerOptions();
-        options.position(currentLocationLatLng);
+        options.position(currentLocation);
         options.position(Destination);
         googleMap.addMarker(options);
         String url = getMapsApiDirectionsUrl();
@@ -73,7 +72,7 @@ public class PathGoogleMapActivity extends FragmentActivity {
 
     private String getMapsApiDirectionsUrl() {
         String waypoints = "waypoints=optimize:true|"
-                + currentLocationLatLng.latitude + "," + currentLocationLatLng.longitude
+                + currentLocation.latitude + "," + currentLocation.longitude
                 + "|" + "|" + Destination.latitude + ","
                 + Destination.longitude;
 
@@ -89,7 +88,7 @@ public class PathGoogleMapActivity extends FragmentActivity {
         if (googleMap != null) {
             googleMap.addMarker(new MarkerOptions().position(Destination)
                     .title("First Point"));
-            googleMap.addMarker(new MarkerOptions().position(currentLocationLatLng)
+            googleMap.addMarker(new MarkerOptions().position(currentLocation)
                     .title("Second Point"));
         }
     }
