@@ -20,6 +20,7 @@ import com.database.teamb.DbHelper;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 
 public class Map extends Activity {
+    private final String TAG = "Map";
 
     Spinner spinner, spinnerFloor;
 
@@ -47,7 +48,7 @@ public class Map extends Activity {
 
         dialog.setContentView(R.layout.position_dialog);
 
-        dialog.show();
+        //dialog.show();
 
         final Button insideButton = (Button) dialog.findViewById(R.id.btnInside);
         final Button outsideButton = (Button) dialog.findViewById(R.id.btnOutside);
@@ -111,7 +112,7 @@ public class Map extends Activity {
                                     break;
                             }
                             dialog.cancel();
-                            Log.i("SELECTED TEXT WAS------->", locatation[0]);
+                            Log.i(TAG, "SELECTED TEXT WAS------->" + locatation[0]);
 
                         }
                     });

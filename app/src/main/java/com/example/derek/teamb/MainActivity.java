@@ -3,6 +3,7 @@ package com.example.derek.teamb;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -163,10 +164,14 @@ public class MainActivity extends Activity {
                                 Intent intent = new Intent(v.getContext(), Map.class);
                                 startActivityForResult(intent, 0);
                             }
-                            else{ //TODO: direct to Google Map if not in Lafferre
+                            else{
                                 Log.d(TAG, "Outside Lafferre!");
-                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
-                                startActivityForResult(intent, 0);
+                                Uri gmmIntentUri = Uri.parse("google.navigation:q=Lafferre+Hall+Columbia+Missouri");
+                                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                                mapIntent.setPackage("com.google.android.apps.maps");
+                                startActivity(mapIntent);
+//                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
+//                                startActivityForResult(intent, 0);
                             }
                         }
                     });
@@ -184,10 +189,14 @@ public class MainActivity extends Activity {
                                 Intent intent = new Intent(v.getContext(), Map.class);
                                 startActivityForResult(intent, 0);
                             }
-                            else{ //TODO: direct to Google Map if not in Lafferre
+                            else{
                                 Log.d(TAG, "Outside Lafferre!");
-                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
-                                startActivityForResult(intent, 0);
+                                Uri gmmIntentUri = Uri.parse("google.navigation:q=Lafferre+Hall+Columbia+Missouri");
+                                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                                mapIntent.setPackage("com.google.android.apps.maps");
+                                startActivity(mapIntent);
+//                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
+//                                startActivityForResult(intent, 0);
                             }
                         }
                     });
