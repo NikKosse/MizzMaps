@@ -74,7 +74,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_Storage = "CREATE TABLE " + Table_Storage + "(" + Storage_id + "integer PRIMARY KEY, "
             + Storage_room + " text);";
 
-    public static final int DATABASE_VERSION = 19;
+    public static final int DATABASE_VERSION = 20;
     public static final String DATABASE_NAME = "MizzMaps.db";
 
     Context context;
