@@ -14,6 +14,7 @@ package com.example.derek.teamb;
     import android.util.Log;
 
     public class HttpConnection {
+        private final String TAG = "HttpConnection";
         public String readUrl(String mapsApiDirectionsUrl) throws IOException {
             String data = "";
             InputStream iStream = null;
@@ -33,7 +34,7 @@ package com.example.derek.teamb;
                 data = sb.toString();
                 br.close();
             } catch (Exception e) {
-                Log.d("Exception while reading url", e.toString());
+                Log.d(TAG, "Exception while reading url" + e.toString());
             } finally {
                 iStream.close();
                 urlConnection.disconnect();
