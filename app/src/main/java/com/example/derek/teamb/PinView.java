@@ -3,20 +3,26 @@ package com.example.derek.teamb;
 /**
  * Created by Derek on 11/28/2015.
  */
+
 import android.content.Context;
 import android.graphics.*;
-import android.graphics.Paint.Cap;
-import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 
+import com.Models.Node;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+
+import java.util.List;
 
 
 public class PinView extends SubsamplingScaleImageView {
 
+
     private PointF sPin;
-    private Bitmap pin;
+    private PointF rPin;
+    private Bitmap pinRed;
+    private Bitmap pinBlue;
     private int strokeWidth;
+    private List<Node> listPath;
 
     public PinView(Context context) {
         this(context, null);
@@ -27,68 +33,210 @@ public class PinView extends SubsamplingScaleImageView {
         initialise();
     }
 
-    public void setPin(PointF sPin) {
+    public void setRedPin(PointF rPin) {
+        this.rPin = rPin;
+        initialise();
+        invalidate();
+    }
+
+    public void setPinBlue(PointF sPin) {
         this.sPin = sPin;
         initialise();
         invalidate();
     }
 
-    public PointF getPin() {
+    public PointF getPinBlue() {
         return sPin;
+    }
+
+    public PointF getPinRed() {
+        return rPin;
+    }
+
+    public List<Node> getNodes(){
+        return listPath;
+    }
+
+    public void setNodes(List<Node> listPath){
+        this.listPath = listPath;
     }
 
     private void initialise() {
         float density = getResources().getDisplayMetrics().densityDpi;
-        pin = BitmapFactory.decodeResource(this.getResources(), R.drawable.pushpin_blue);
-        float w = (density/420f) * pin.getWidth();
-        float h = (density/420f) * pin.getHeight();
-        strokeWidth = (int)(density/120f);
-        pin = Bitmap.createScaledBitmap(pin, (int)w/3, (int)h/3, true);
+        pinBlue = BitmapFactory.decodeResource(this.getResources(), R.drawable.pushpin_blue);
+        float w = (density / 420f) * pinBlue.getWidth();
+        float h = (density / 420f) * pinBlue.getHeight();
+        strokeWidth = (int) (density / 120f);
+        pinBlue = Bitmap.createScaledBitmap(pinBlue, (int) w / 3, (int) h / 3, true);
+        pinRed = BitmapFactory.decodeResource(this.getResources(), R.drawable.pushpin_red);
+        strokeWidth = (int) (density / 120f);
+        pinRed = Bitmap.createScaledBitmap(pinRed, (int) w / 3, (int) h / 3, true);
+
+    }
+
+    private void drawGround(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(strokeWidth);
+        paint.setColor(Color.RED);
+
+        int i = 0;
+        int k = 0;
+        int it = 0;
+
+        if (listPath != null) {
+            for (Node element : listPath) {
+
+                i++;
+            }
+        }
+
+        if (listPath != null) {
+            PointF[] vLine = new PointF[100];
+
+
+            for (int j = 0; j < i; j++) {
+
+                if (listPath.get(j).getFloor() == 0) {
+                    vLine[j] = sourceToViewCoord(new PointF(listPath.get(j).getxNodeCoord(), listPath.get(j).getyNodeCoord()));
+                    it++;
+                }
+
+            }
+
+            //float x[] = {vLine[0].x, vLine[0].y, vLine[1].x, vLine[1].y};
+
+            float[] y = new float[100];
+
+            double factoral;
+            if (i < 4) {
+                factoral = 2.5;
+            } else if (i < 6) {
+                factoral = 3;
+            } else {
+                factoral = 3.5;
+            }
+
+            for (int j = 0; j < (it - 1) * factoral; j = j + 4) {
+                y[j] = vLine[k].x;
+                y[j + 1] = vLine[k].y;
+                y[j + 2] = vLine[k + 1].x;
+                y[j + 3] = vLine[k + 1].y;
+                k++;
+            }
+
+
+            //for(int j = 0; j < i; j++){
+
+            canvas.drawLines(y, paint);
+        }
+    }
+    private void drawFirst(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(strokeWidth );
+        paint.setColor(Color.RED);
+
+        int i=0;
+        int k=0;
+        int it=0;
+
+        if(listPath != null) {
+            for (Node element : listPath) {
+
+                i++;
+            }
+        }
+
+        if(listPath != null) {
+            PointF[] vLine = new PointF[100];
+
+
+            for(int j=0; j < i; j++) {
+
+                if (listPath.get(j).getFloor() == 0){
+                    vLine[j] = sourceToViewCoord(new PointF(listPath.get(j).getxNodeCoord(), listPath.get(j).getyNodeCoord()));
+                    it++;
+                }
+
+            }
+
+            //float x[] = {vLine[0].x, vLine[0].y, vLine[1].x, vLine[1].y};
+
+            float[] y = new float[100];
+
+            double factoral;
+            if(i<4){
+                factoral = 2.5;
+            }else if (i<6){
+                factoral = 3;
+            }else{
+                factoral = 3.5;
+            }
+
+            for (int j=0; j <(it-1)* factoral; j=j+4) {
+                y[j]=vLine[k].x;
+                y[j+1]=vLine[k].y;
+                y[j+2]=vLine[k+1].x;
+                y[j+3]=vLine[k+1].y;
+                k++;
+            }
+
+
+
+            //for(int j = 0; j < i; j++){
+
+            canvas.drawLines(y, paint );
+        }
+
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // Don't draw pin before image is ready so it doesn't move around during setup.
+        // Don't draw pinBlue before image is ready so it doesn't move around during setup.
         if (!isReady()) {
             return;
         }
 
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        PointF sCenter = new PointF(getSWidth()/2, getSHeight()/2);
-        PointF vCenter = sourceToViewCoord(sCenter);
 
-
-        PointF[] vLine = new PointF[]{
-                sourceToViewCoord(new PointF(1718f,581f)),sourceToViewCoord(new PointF(1290f,741f))
-        };
-
-
-        float lY = vLine[0].y;
-        float lX = vLine[0].x;
-        float lY2 = vLine[1].y;
-        float lX2 = vLine[1].x;
-        float x[] = {vCenter.x, vCenter.y, lX, lY, lX, lY, lX2, lY2};
-
-        /*
         paint.setAntiAlias(true);
-        paint.setStyle(Style.STROKE);
-        paint.setStrokeCap(Cap.ROUND);
-        paint.setStrokeWidth(strokeWidth * 2);
-        paint.setColor(Color.BLACK);
-        canvas.drawLines(x,paint);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(strokeWidth );
+        paint.setColor(Color.RED);
+
+        drawGround(canvas);
+
         paint.setStrokeWidth(strokeWidth);
         paint.setColor(Color.argb(255, 51, 181, 229));
 
-*/
-        if (sPin != null && pin != null) {
-            PointF vPin = sourceToViewCoord(sPin);
-            float vX = vPin.x - (pin.getWidth()/2);
-            float vY = vPin.y - pin.getHeight();
-            canvas.drawBitmap(pin, vX, vY, paint);
+
+        if (sPin != null && pinBlue != null) {
+            PointF bPin = sourceToViewCoord(sPin);
+
+            float bX = bPin.x - (pinBlue.getWidth() / 2);
+            float bY = bPin.y - pinBlue.getHeight();
+
+            canvas.drawBitmap(pinBlue, bX, bY, paint);
+
         }
+
+        if (rPin != null && pinRed != null) {
+            PointF redPin = sourceToViewCoord(rPin);
+            float rX = redPin.x - (pinRed.getWidth() / 2);
+            float rY = redPin.y - pinRed.getHeight();
+            canvas.drawBitmap(pinRed, rX, rY, paint);
+        }
+
 
     }
 
