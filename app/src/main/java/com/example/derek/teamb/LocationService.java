@@ -39,6 +39,10 @@ public class LocationService implements GoogleApiClient.ConnectionCallbacks, Goo
         return lastLocation;
     }
 
+    public LatLng getLastLocationLatLng(){
+        return new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude());
+    }
+
     private void findLastLocation(){
         lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         Log.d(TAG, "Availability is: " + LocationServices.FusedLocationApi.getLocationAvailability(googleApiClient));
