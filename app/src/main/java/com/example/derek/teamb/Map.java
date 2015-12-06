@@ -335,6 +335,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (a1 || a2 || a3) {
+                                        getPath = pf.search(locatation[0],selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -347,6 +348,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl1.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (b1 || b2 || b3) {
+                                        getPath = pf.search(locatation[0],selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -359,6 +361,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl2.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (c1 || c2 || c3) {
+                                        getPath = pf.search(locatation[0],selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -371,6 +374,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl3.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (d1 || d2 || d3) {
+                                        getPath = pf.search(locatation[0],selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -438,6 +442,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
+                                    getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;
@@ -450,6 +455,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
+                                    getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;
@@ -462,6 +468,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
+                                    getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;
@@ -474,6 +481,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
+                                    getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;

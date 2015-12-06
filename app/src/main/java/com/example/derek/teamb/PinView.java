@@ -74,127 +74,7 @@ public class PinView extends SubsamplingScaleImageView {
 
     }
 
-    private void drawGround(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(strokeWidth);
-        paint.setColor(Color.RED);
 
-        int i = 0;
-        int k = 0;
-        int it = 0;
-
-        if (listPath != null) {
-            for (Node element : listPath) {
-
-                i++;
-            }
-        }
-
-        if (listPath != null) {
-            PointF[] vLine = new PointF[100];
-
-
-            for (int j = 0; j < i; j++) {
-
-                if (listPath.get(j).getFloor() == 0) {
-                    vLine[j] = sourceToViewCoord(new PointF(listPath.get(j).getxNodeCoord(), listPath.get(j).getyNodeCoord()));
-                    it++;
-                }
-
-            }
-
-            //float x[] = {vLine[0].x, vLine[0].y, vLine[1].x, vLine[1].y};
-
-            float[] y = new float[100];
-
-            double factoral;
-            if (i < 4) {
-                factoral = 2.5;
-            } else if (i < 6) {
-                factoral = 3;
-            } else {
-                factoral = 3.5;
-            }
-
-            for (int j = 0; j < (it - 1) * factoral; j = j + 4) {
-                y[j] = vLine[k].x;
-                y[j + 1] = vLine[k].y;
-                y[j + 2] = vLine[k + 1].x;
-                y[j + 3] = vLine[k + 1].y;
-                k++;
-            }
-
-
-            //for(int j = 0; j < i; j++){
-
-            canvas.drawLines(y, paint);
-        }
-    }
-    private void drawFirst(Canvas canvas){
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(strokeWidth );
-        paint.setColor(Color.RED);
-
-        int i=0;
-        int k=0;
-        int it=0;
-
-        if(listPath != null) {
-            for (Node element : listPath) {
-
-                i++;
-            }
-        }
-
-        if(listPath != null) {
-            PointF[] vLine = new PointF[100];
-
-
-            for(int j=0; j < i; j++) {
-
-                if (listPath.get(j).getFloor() == 0){
-                    vLine[j] = sourceToViewCoord(new PointF(listPath.get(j).getxNodeCoord(), listPath.get(j).getyNodeCoord()));
-                    it++;
-                }
-
-            }
-
-            //float x[] = {vLine[0].x, vLine[0].y, vLine[1].x, vLine[1].y};
-
-            float[] y = new float[100];
-
-            double factoral;
-            if(i<4){
-                factoral = 2.5;
-            }else if (i<6){
-                factoral = 3;
-            }else{
-                factoral = 3.5;
-            }
-
-            for (int j=0; j <(it-1)* factoral; j=j+4) {
-                y[j]=vLine[k].x;
-                y[j+1]=vLine[k].y;
-                y[j+2]=vLine[k+1].x;
-                y[j+3]=vLine[k+1].y;
-                k++;
-            }
-
-
-
-            //for(int j = 0; j < i; j++){
-
-            canvas.drawLines(y, paint );
-        }
-
-
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -207,15 +87,63 @@ public class PinView extends SubsamplingScaleImageView {
 
         Paint paint = new Paint();
         paint.setAntiAlias(true);
+        PointF sCenter = new PointF(getSWidth() / 2, getSHeight() / 2);
+        PointF vCenter = sourceToViewCoord(sCenter);
 
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(strokeWidth );
-        paint.setColor(Color.RED);
+        int i=0;
+        int k=0;
 
-        drawGround(canvas);
+        if(listPath != null) {
+            for (Node element : listPath) {
 
+                i++;
+            }
+        }
+
+
+
+        int[] floorLoc = {100};
+        long[] nodeID = {100};
+
+        if(listPath != null) {
+            PointF[] vLine = new PointF[100];
+
+            for(int j=0; j < i; j++){
+                vLine[j] = sourceToViewCoord(new PointF(listPath.get(j).getxNodeCoord(), listPath.get(j).getyNodeCoord()));
+            }
+
+            //float x[] = {vLine[0].x, vLine[0].y, vLine[1].x, vLine[1].y};
+
+            float[] y = new float[100];
+
+            double factoral;
+            if(i<3){
+                factoral = 2;
+            }else if (i<6){
+                factoral = 3;
+            }else{
+                factoral = 3.5;
+            }
+
+            for (int j=0; ((float) j) <i* factoral; j=j+4) {
+                y[j]=vLine[k].x;
+                y[j+1]=vLine[k].y;
+                y[j+2]=vLine[k+1].x;
+                y[j+3]=vLine[k+1].y;
+                k++;
+            }
+
+
+
+            paint.setAntiAlias(true);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeCap(Paint.Cap.ROUND);
+            paint.setStrokeWidth(strokeWidth );
+            paint.setColor(Color.RED);
+            //for(int j = 0; j < i; j++){
+
+            canvas.drawLines(y, paint );
+        }
         paint.setStrokeWidth(strokeWidth);
         paint.setColor(Color.argb(255, 51, 181, 229));
 
