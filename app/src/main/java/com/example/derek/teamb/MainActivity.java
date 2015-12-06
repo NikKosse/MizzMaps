@@ -170,8 +170,6 @@ public class MainActivity extends Activity {
                                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                                 mapIntent.setPackage("com.google.android.apps.maps");
                                 startActivity(mapIntent);
-//                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
-//                                startActivityForResult(intent, 0);
                             }
                         }
                     });
@@ -195,8 +193,6 @@ public class MainActivity extends Activity {
                                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                                 mapIntent.setPackage("com.google.android.apps.maps");
                                 startActivity(mapIntent);
-//                                Intent intent = new Intent(v.getContext(), MapsActivity.class);
-//                                startActivityForResult(intent, 0);
                             }
                         }
                     });
@@ -221,11 +217,6 @@ public class MainActivity extends Activity {
 
 
     }
-
-//    public void goToOutsideMap(View view){
-//        Intent intent = new Intent(this, MapsActivity.class);
-//        startActivity(intent);
-//    }
 
     public void showDialog() {
 
