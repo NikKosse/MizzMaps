@@ -40,7 +40,7 @@ public class Map extends Activity {
 
     final String[] locatation = {""};
     final String[] selectedRoom = {""};
-    String currentMap = "lvl0";
+    int currentMap = 0;
     Float[] blueCoords = {0f, 0f, -1f};
     Float[] redCoords = {-1000f, -1000f, -1f};
 
@@ -103,7 +103,8 @@ public class Map extends Activity {
                             switch (Math.round(blueCoords[2])) {
                                 case 0:
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
-                                    currentMap = "1v10";
+                                    currentMap = 0;
+                                    imageView.getFloor(currentMap);
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
                                     getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
@@ -114,7 +115,8 @@ public class Map extends Activity {
                                     break;
                                 case 1:
                                     imageView.setImage(ImageSource.asset("lvl1.png"));
-                                    currentMap = "1v11";
+                                    currentMap = 1;
+                                    imageView.getFloor(currentMap);
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
                                     getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
@@ -125,7 +127,8 @@ public class Map extends Activity {
                                     break;
                                 case 2:
                                     imageView.setImage(ImageSource.asset("lvl2.png"));
-                                    currentMap = "1v12";
+                                    currentMap = 2;
+                                    imageView.getFloor(currentMap);
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
                                     getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
@@ -136,7 +139,8 @@ public class Map extends Activity {
                                     break;
                                 case 3:
                                     imageView.setImage(ImageSource.asset("lvl3.png"));
-                                    currentMap = "1v13";
+                                    currentMap = 3;
+                                    imageView.getFloor(currentMap);
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
                                     getPath = pf.search(locatation[0],selectedRoom[0]);
                                     imageView.setNodes(getPath);
@@ -331,7 +335,8 @@ public class Map extends Activity {
 
                         switch (Math.round(redCoords[2])) {
                             case 0:
-                                if (currentMap == "1v10") {
+                                if (currentMap == 0) {
+                                    imageView.getFloor(currentMap);
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (a1 || a2 || a3) {
@@ -344,7 +349,8 @@ public class Map extends Activity {
                                     break;
                                 }
                             case 1:
-                                if (currentMap == "1v11") {
+                                if (currentMap == 1) {
+                                    imageView.getFloor(currentMap);
                                     imageView.setImage(ImageSource.asset("lvl1.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (b1 || b2 || b3) {
@@ -357,7 +363,8 @@ public class Map extends Activity {
                                     break;
                                 }
                             case 2:
-                                if (currentMap == "1v12") {
+                                if (currentMap == 2) {
+                                    imageView.getFloor(currentMap);
                                     imageView.setImage(ImageSource.asset("lvl2.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (c1 || c2 || c3) {
@@ -370,7 +377,8 @@ public class Map extends Activity {
                                     break;
                                 }
                             case 3:
-                                if (currentMap == "1v13") {
+                                if (currentMap == 3) {
+                                    imageView.getFloor(currentMap);
                                     imageView.setImage(ImageSource.asset("lvl3.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (d1 || d2 || d3) {
@@ -435,7 +443,8 @@ public class Map extends Activity {
 
                     switch (Math.round(redCoords[2])) {
                         case 0:
-                            if (currentMap == "1v10") {
+                            if (currentMap == 0) {
+                                imageView.getFloor(currentMap);
                                 imageView.setImage(ImageSource.asset("lvl0.png"));
                                 imageView.setRedPin(new PointF(-100f, -100f));
                                 if (a1 || a2 || a3) {
@@ -448,7 +457,8 @@ public class Map extends Activity {
                                 break;
                             }
                         case 1:
-                            if (currentMap == "1v11") {
+                            if (currentMap == 1) {
+                                imageView.getFloor(currentMap);
                                 imageView.setImage(ImageSource.asset("lvl1.png"));
                                 imageView.setRedPin(new PointF(-100f, -100f));
                                 if (b1 || b2 || b3) {
@@ -461,7 +471,8 @@ public class Map extends Activity {
                                 break;
                             }
                         case 2:
-                            if (currentMap == "1v12") {
+                            if (currentMap == 2) {
+                                imageView.getFloor(currentMap);
                                 imageView.setImage(ImageSource.asset("lvl2.png"));
                                 imageView.setRedPin(new PointF(-100f, -100f));
                                 if (c1 || c2 || c3) {
@@ -474,7 +485,8 @@ public class Map extends Activity {
                                 break;
                             }
                         case 3:
-                            if (currentMap == "1v13") {
+                            if (currentMap == 3) {
+                                imageView.getFloor(currentMap);
                                 imageView.setImage(ImageSource.asset("lvl3.png"));
                                 imageView.setRedPin(new PointF(-100f, -100f));
                                 if (d1 || d2 || d3) {
@@ -510,7 +522,8 @@ public class Map extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        currentMap = "1v10";
+                        currentMap = 0;
+                        imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl0.png"));
                         if (Math.round(blueCoords[2]) != 0){
                             imageView.setPinBlue(null);
@@ -524,7 +537,8 @@ public class Map extends Activity {
                         }
                         break;
                     case 1:
-                        currentMap = "1v11";
+                        currentMap = 1;
+                        imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl1.png"));
                         if (Math.round(blueCoords[2]) != 1){
                             imageView.setPinBlue(null);
@@ -539,7 +553,8 @@ public class Map extends Activity {
 
                         break;
                     case 2:
-                        currentMap = "1v12";
+                        currentMap = 2;
+                        imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl2.png"));
                         if (Math.round(blueCoords[2]) != 2){
                             imageView.setPinBlue(null);
@@ -554,7 +569,8 @@ public class Map extends Activity {
                         }
                         break;
                     case 3:
-                        currentMap = "1v13";
+                        currentMap = 3;
+                        imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl3.png"));
                         if (Math.round(blueCoords[2]) != 3){
                             imageView.setPinBlue(null);
