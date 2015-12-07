@@ -376,8 +376,25 @@ public class Map extends Activity {
                                 }
                             default:
                                 if (Math.round(blueCoords[2]) != -1) {
+                                    imageView.setRedPin(new PointF(-100f, -100f));
+                                    switch (currentMap) {
+                                        case 0:
+                                            imageView.setImage(ImageSource.asset("lvl0.png"));
+                                            break;
+                                        case 1:
+                                            imageView.setImage(ImageSource.asset("lvl1.png"));
+                                            break;
+                                        case 2:
+                                            imageView.setImage(ImageSource.asset("lvl2.png"));
+                                            break;
+                                        case 3:
+                                            imageView.setImage(ImageSource.asset("lvl3.png"));
+                                            break;
+
+                                    }
                                     getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
+                                    break;
                                 }
 
                         }
@@ -507,6 +524,7 @@ public class Map extends Activity {
                                 }
                                 getPath = pf.search(locatation[0], selectedRoom[0]);
                                 imageView.setNodes(getPath);
+                                break;
                             }
 
                     }
