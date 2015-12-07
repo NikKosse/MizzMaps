@@ -58,6 +58,15 @@ public class LocationService implements GoogleApiClient.ConnectionCallbacks, Goo
 
     }
 
+    public boolean getLocationAvailability(){
+        if(LocationServices.FusedLocationApi.getLocationAvailability(googleApiClient).equals(true)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     private void findLastLocation(){
         lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         Log.d(TAG, "Availability is: " + LocationServices.FusedLocationApi.getLocationAvailability(googleApiClient));
