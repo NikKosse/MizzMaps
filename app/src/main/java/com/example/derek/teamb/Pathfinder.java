@@ -51,7 +51,7 @@ public class Pathfinder {
 
         //initialize data structures
         fringe = new PriorityQueue<>(25, Node.nodeComparator);
-        closedSet = new HashSet<>();  //TODO: research performance for hashsets and priorityqueues; maybe specify max capacity?
+        closedSet = new HashSet<>();
         idMap = new HashMap<>();
 
         //get proper nodes
@@ -105,9 +105,6 @@ public class Pathfinder {
                     nodeToInsert.setCostFromPrev(costUntilNow);
                     nodeToInsert.setPriority(priority);
                     fringe.add(nodeToInsert);
-                }
-                else if (priority < nodeToInsert.getPriority()) {
-                    //Update these weights?  Would this ever happen?
                 }
             }
             nodeToInsert = null;

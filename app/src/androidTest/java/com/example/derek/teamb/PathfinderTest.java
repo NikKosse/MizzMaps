@@ -21,8 +21,6 @@ public class PathfinderTest extends AndroidTestCase {
         Pathfinder pf = new Pathfinder(context);
         List<Node> returnedPath, desiredPath;
 
-        //TODO: Find actual distances of paths and verify path node id's
-
         //TEST SEARCH 1
 
         returnedPath = pf.search("W1024", "W1066");
@@ -82,7 +80,7 @@ public class PathfinderTest extends AndroidTestCase {
         desiredPath.add(node164); desiredPath.add(node55); desiredPath.add(node56);
         assertEquals("Path is not optimal for pathfinder search 3.", desiredPath, returnedPath);
 
-        //make sure distance is roughly 86 ft
-        assertEquals("Distance is not correct for pathfinder search 3.", 86, pf.getTotalDistance());
+        //make sure distance is 76 ft
+        assertEquals("Distance is not correct for pathfinder search 3.", 76, pf.getTotalDistance());
     }
 }
