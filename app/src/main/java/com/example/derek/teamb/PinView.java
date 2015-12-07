@@ -142,7 +142,7 @@ public class PinView extends SubsamplingScaleImageView {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeCap(Paint.Cap.ROUND);
                 paint.setStrokeWidth(strokeWidth);
-                paint.setColor(Color.BLUE);
+                paint.setColor(Color.RED);
 
                 canvas.drawPath(path, paint);
             }
@@ -187,7 +187,7 @@ public class PinView extends SubsamplingScaleImageView {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeCap(Paint.Cap.ROUND);
                 paint.setStrokeWidth(strokeWidth);
-                paint.setColor(Color.GREEN);
+                paint.setColor(Color.RED);
 
                 canvas.drawPath(path, paint);
             }catch (NullPointerException e){
@@ -232,7 +232,7 @@ public class PinView extends SubsamplingScaleImageView {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeCap(Paint.Cap.ROUND);
                 paint.setStrokeWidth(strokeWidth);
-                paint.setColor(Color.CYAN);
+                paint.setColor(Color.RED);
 
                 canvas.drawPath(path, paint);
             }
