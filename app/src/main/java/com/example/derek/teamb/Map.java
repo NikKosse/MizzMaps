@@ -49,7 +49,6 @@ public class Map extends Activity {
     List<Node> getPath;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,127 +58,111 @@ public class Map extends Activity {
         final Pathfinder pf = new Pathfinder(Map.this);
         final Dialog dialog = new Dialog(Map.this);
 
-        dialog.setContentView(R.layout.position_dialog);
+        dialog.setContentView(R.layout.inside_location_dialog);
 
-        //dialog.show();
+        dialog.show();
 
-        final Button insideButton = (Button) dialog.findViewById(R.id.btnInside);
-        final Button outsideButton = (Button) dialog.findViewById(R.id.btnOutside);
         final Button changeButton = (Button) findViewById(R.id.btnChange);
         final TextView locationText = (TextView) findViewById(R.id.txtLocation);
 
-        outsideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
 
-        insideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-                dialog.setContentView(R.layout.inside_location_dialog);
-                dialog.show();
-                final Button cancelButton = (Button) dialog.findViewById(R.id.btnCancel);
+        final Button cancelButton = (Button) dialog.findViewById(R.id.btnCancel);
 
-                try {
+        try {
 
-                    // instantiate database handler
-                    databaseH = new DbHelper(Map.this);
+            // instantiate database handler
+            databaseH = new DbHelper(Map.this);
 
-                    // autocompletetextview is in activity_main.xml
-                    myAutoComplete = (CustomView) dialog.findViewById(R.id.myautocomplete2);
+            // autocompletetextview is in activity_main.xml
+            myAutoComplete = (CustomView) dialog.findViewById(R.id.myautocomplete2);
 
-                    myAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            myAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
 
-                            RelativeLayout rl = (RelativeLayout) arg1;
-                            TextView tv = (TextView) rl.getChildAt(0);
-                            locatation[0] = (tv.getText().toString());
-                            locationText.setText(locatation[0]);
-                            blueCoords = databaseH.getXY(locatation[0]);
-                            switch (Math.round(blueCoords[2])) {
-                                case 0:
-                                    imageView.setImage(ImageSource.asset("lvl0.png"));
-                                    currentMap = 0;
-                                    imageView.getFloor(currentMap);
-                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
-                                    imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==1){
-                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }
-                                    spinnerFloor.setSelection(0);
-                                    break;
-                                case 1:
-                                    imageView.setImage(ImageSource.asset("lvl1.png"));
-                                    currentMap = 1;
-                                    imageView.getFloor(currentMap);
-                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
-                                    imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==1){
-                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }
-                                    spinnerFloor.setSelection(1);
-                                    break;
-                                case 2:
-                                    imageView.setImage(ImageSource.asset("lvl2.png"));
-                                    currentMap = 2;
-                                    imageView.getFloor(currentMap);
-                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
-                                    imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==1){
-                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }
-                                    spinnerFloor.setSelection(2);
-                                    break;
-                                case 3:
-                                    imageView.setImage(ImageSource.asset("lvl3.png"));
-                                    currentMap = 3;
-                                    imageView.getFloor(currentMap);
-                                    imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
-                                    imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==1){
-                                        imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }
-                                    spinnerFloor.setSelection(3);
-                                    break;
+                    RelativeLayout rl = (RelativeLayout) arg1;
+                    TextView tv = (TextView) rl.getChildAt(0);
+                    locatation[0] = (tv.getText().toString());
+                    locationText.setText(locatation[0]);
+                    blueCoords = databaseH.getXY(locatation[0]);
+                    switch (Math.round(blueCoords[2])) {
+                        case 0:
+                            imageView.setImage(ImageSource.asset("lvl0.png"));
+                            currentMap = 0;
+                            imageView.getFloor(currentMap);
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                            getPath = pf.search(locatation[0], selectedRoom[0]);
+                            imageView.setNodes(getPath);
+                            if (Math.round(redCoords[2]) == 1) {
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                             }
-                            dialog.cancel();
-                            Log.i(TAG, "SELECTED TEXT WAS------->" + locatation[0]);
-
-                        }
-                    });
-
-                    // add the listener so it will tries to suggest while the user types
-                    myAutoComplete.addTextChangedListener(new ListenerForMap(Map.this));
-
-                    // ObjectItemData has no value at first
-                    GetObject[] ObjectItemData = new GetObject[0];
-
-                    // set our adapter
-                    myAdapter = new CustomMapArrayAdapter(Map.this, R.layout.list_view_row, ObjectItemData);
-                    myAutoComplete.setAdapter(myAdapter);
-
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        dialog.cancel();
+                            spinnerFloor.setSelection(0);
+                            break;
+                        case 1:
+                            imageView.setImage(ImageSource.asset("lvl1.png"));
+                            currentMap = 1;
+                            imageView.getFloor(currentMap);
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                            getPath = pf.search(locatation[0], selectedRoom[0]);
+                            imageView.setNodes(getPath);
+                            if (Math.round(redCoords[2]) == 1) {
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                            }
+                            spinnerFloor.setSelection(1);
+                            break;
+                        case 2:
+                            imageView.setImage(ImageSource.asset("lvl2.png"));
+                            currentMap = 2;
+                            imageView.getFloor(currentMap);
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                            getPath = pf.search(locatation[0], selectedRoom[0]);
+                            imageView.setNodes(getPath);
+                            if (Math.round(redCoords[2]) == 1) {
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                            }
+                            spinnerFloor.setSelection(2);
+                            break;
+                        case 3:
+                            imageView.setImage(ImageSource.asset("lvl3.png"));
+                            currentMap = 3;
+                            imageView.getFloor(currentMap);
+                            imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
+                            getPath = pf.search(locatation[0], selectedRoom[0]);
+                            imageView.setNodes(getPath);
+                            if (Math.round(redCoords[2]) == 1) {
+                                imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
+                            }
+                            spinnerFloor.setSelection(3);
+                            break;
                     }
-                });
+                    dialog.cancel();
+                    Log.i(TAG, "SELECTED TEXT WAS------->" + locatation[0]);
+
+                }
+            });
+
+            // add the listener so it will tries to suggest while the user types
+            myAutoComplete.addTextChangedListener(new ListenerForMap(Map.this));
+
+            // ObjectItemData has no value at first
+            GetObject[] ObjectItemData = new GetObject[0];
+
+            // set our adapter
+            myAdapter = new CustomMapArrayAdapter(Map.this, R.layout.list_view_row, ObjectItemData);
+            myAutoComplete.setAdapter(myAdapter);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
             }
         });
 
@@ -214,11 +197,11 @@ public class Map extends Activity {
                                 case 0:
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==0){
+                                    if (Math.round(redCoords[2]) == 0) {
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }else{
+                                    } else {
                                         imageView.setRedPin(null);
                                     }
                                     spinnerFloor.setSelection(0);
@@ -226,11 +209,11 @@ public class Map extends Activity {
                                 case 1:
                                     imageView.setImage(ImageSource.asset("lvl1.png"));
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==1){
+                                    if (Math.round(redCoords[2]) == 1) {
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }else{
+                                    } else {
                                         imageView.setRedPin(null);
                                     }
                                     spinnerFloor.setSelection(1);
@@ -238,11 +221,11 @@ public class Map extends Activity {
                                 case 2:
                                     imageView.setImage(ImageSource.asset("lvl2.png"));
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==2){
+                                    if (Math.round(redCoords[2]) == 2) {
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }else{
+                                    } else {
                                         imageView.setRedPin(null);
                                     }
                                     spinnerFloor.setSelection(2);
@@ -250,11 +233,11 @@ public class Map extends Activity {
                                 case 3:
                                     imageView.setImage(ImageSource.asset("lvl3.png"));
                                     imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
-                                    if(Math.round(redCoords[2])==3){
+                                    if (Math.round(redCoords[2]) == 3) {
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
-                                    }else{
+                                    } else {
                                         imageView.setRedPin(null);
                                     }
                                     spinnerFloor.setSelection(3);
@@ -305,7 +288,7 @@ public class Map extends Activity {
             // Spinner Drop down elements
             List<String> rooms = db.getRooms();
 
-            if(rooms.size()!=0) {
+            if (rooms.size() != 0) {
 
                 // Creating adapter for spinner
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
@@ -341,7 +324,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl0.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (a1 || a2 || a3) {
-                                        getPath = pf.search(locatation[0],selectedRoom[0]);
+                                        getPath = pf.search(locatation[0], selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -355,7 +338,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl1.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (b1 || b2 || b3) {
-                                        getPath = pf.search(locatation[0],selectedRoom[0]);
+                                        getPath = pf.search(locatation[0], selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -369,7 +352,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl2.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (c1 || c2 || c3) {
-                                        getPath = pf.search(locatation[0],selectedRoom[0]);
+                                        getPath = pf.search(locatation[0], selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -383,7 +366,7 @@ public class Map extends Activity {
                                     imageView.setImage(ImageSource.asset("lvl3.png"));
                                     imageView.setRedPin(new PointF(-100f, -100f));
                                     if (d1 || d2 || d3) {
-                                        getPath = pf.search(locatation[0],selectedRoom[0]);
+                                        getPath = pf.search(locatation[0], selectedRoom[0]);
                                         imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                     }
                                     if (Math.round(blueCoords[2]) != -1) {
@@ -452,7 +435,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;
@@ -466,7 +449,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;
@@ -480,7 +463,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;
@@ -494,7 +477,7 @@ public class Map extends Activity {
                                     imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                                 }
                                 if (Math.round(blueCoords[2]) != -1) {
-                                    getPath = pf.search(locatation[0],selectedRoom[0]);
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
                                     imageView.setNodes(getPath);
                                 }
                                 break;
@@ -526,14 +509,14 @@ public class Map extends Activity {
                         currentMap = 0;
                         imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl0.png"));
-                        if (Math.round(blueCoords[2]) != 0){
+                        if (Math.round(blueCoords[2]) != 0) {
                             imageView.setPinBlue(null);
-                        }else{
+                        } else {
                             imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
                         }
-                        if (Math.round(redCoords[2]) != 0){
+                        if (Math.round(redCoords[2]) != 0) {
                             imageView.setRedPin(null);
-                        }else{
+                        } else {
                             imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                         }
                         break;
@@ -541,14 +524,14 @@ public class Map extends Activity {
                         currentMap = 1;
                         imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl1.png"));
-                        if (Math.round(blueCoords[2]) != 1){
+                        if (Math.round(blueCoords[2]) != 1) {
                             imageView.setPinBlue(null);
-                        }else{
+                        } else {
                             imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
                         }
-                        if (Math.round(redCoords[2]) != 1){
+                        if (Math.round(redCoords[2]) != 1) {
                             imageView.setRedPin(null);
-                        }else{
+                        } else {
                             imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                         }
 
@@ -557,15 +540,15 @@ public class Map extends Activity {
                         currentMap = 2;
                         imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl2.png"));
-                        if (Math.round(blueCoords[2]) != 2){
+                        if (Math.round(blueCoords[2]) != 2) {
                             imageView.setPinBlue(null);
-                        }else{
+                        } else {
                             imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
 
                         }
-                        if (Math.round(redCoords[2]) != 2){
+                        if (Math.round(redCoords[2]) != 2) {
                             imageView.setRedPin(null);
-                        }else{
+                        } else {
                             imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
                         }
                         break;
@@ -573,15 +556,15 @@ public class Map extends Activity {
                         currentMap = 3;
                         imageView.getFloor(currentMap);
                         imageView.setImage(ImageSource.asset("lvl3.png"));
-                        if (Math.round(blueCoords[2]) != 3){
+                        if (Math.round(blueCoords[2]) != 3) {
                             imageView.setPinBlue(null);
-                        }else{
+                        } else {
                             imageView.setPinBlue(new PointF(blueCoords[0], blueCoords[1]));
 
                         }
-                        if (Math.round(redCoords[2]) != 3){
+                        if (Math.round(redCoords[2]) != 3) {
                             imageView.setRedPin(null);
-                        }else{
+                        } else {
                             imageView.setRedPin(new PointF(redCoords[0], redCoords[1]));
 
                         }
@@ -595,13 +578,7 @@ public class Map extends Activity {
         });
 
 
-
-
-
     }
-
-
-
 
 
 }
