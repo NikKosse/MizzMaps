@@ -498,6 +498,11 @@ public class Map extends Activity {
                                 }
                                 break;
                             }
+                            default:
+                                if (Math.round(blueCoords[2]) != -1) {
+                                    getPath = pf.search(locatation[0], selectedRoom[0]);
+                                    imageView.setNodes(getPath);
+                                }
 
                     }
 

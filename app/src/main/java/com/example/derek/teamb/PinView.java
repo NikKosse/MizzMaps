@@ -82,12 +82,14 @@ public class PinView extends SubsamplingScaleImageView {
                 }
             }
 
+            int count=0;
 
             Path path = new Path();
             path.moveTo(vLine[0].x, vLine[0].y);
 
             for (int i=1; i < iterate; i++) {
                 path.lineTo(vLine[i].x, vLine[i].y);
+                count++;
             }
 
 
@@ -95,10 +97,11 @@ public class PinView extends SubsamplingScaleImageView {
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeCap(Paint.Cap.ROUND);
-            paint.setStrokeWidth(strokeWidth );
+            paint.setStrokeWidth(strokeWidth);
             paint.setColor(Color.RED);
 
-            canvas.drawPath(path, paint );
+            canvas.drawPath(path, paint);
+            canvas.drawCircle(vLine[count].x, vLine[count].y, 10, paint);
         }
         }catch (NullPointerException e){
 
@@ -129,12 +132,15 @@ public class PinView extends SubsamplingScaleImageView {
                     }
                 }
 
+                int count=0;
+
 
                 Path path = new Path();
                 path.moveTo(vLine[0].x, vLine[0].y);
 
                 for (int i = 1; i < iterate; i++) {
                     path.lineTo(vLine[i].x, vLine[i].y);
+                    count++;
                 }
 
 
@@ -142,9 +148,10 @@ public class PinView extends SubsamplingScaleImageView {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeCap(Paint.Cap.ROUND);
                 paint.setStrokeWidth(strokeWidth);
-                paint.setColor(Color.BLUE);
+                paint.setColor(Color.RED);
 
                 canvas.drawPath(path, paint);
+                canvas.drawCircle(vLine[count].x, vLine[count].y, 10, paint);
             }
         }catch (NullPointerException e){
 
@@ -173,13 +180,14 @@ public class PinView extends SubsamplingScaleImageView {
                         iterate++;
                     }
                 }
-
+                int count=0;
 
                 Path path = new Path();
                 path.moveTo(vLine[0].x, vLine[0].y);
 
                 for (int i = 1; i < iterate; i++) {
                     path.lineTo(vLine[i].x, vLine[i].y);
+                    count++;
                 }
 
 
@@ -187,9 +195,10 @@ public class PinView extends SubsamplingScaleImageView {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeCap(Paint.Cap.ROUND);
                 paint.setStrokeWidth(strokeWidth);
-                paint.setColor(Color.GREEN);
+                paint.setColor(Color.RED);
 
                 canvas.drawPath(path, paint);
+                canvas.drawCircle(vLine[count].x, vLine[count].y, 10, paint);
             }catch (NullPointerException e){
 
             }
@@ -219,12 +228,14 @@ public class PinView extends SubsamplingScaleImageView {
                     }
                 }
 
+                int count=0;
 
                 Path path = new Path();
                 path.moveTo(vLine[0].x, vLine[0].y);
 
                 for (int i = 1; i < iterate; i++) {
                     path.lineTo(vLine[i].x, vLine[i].y);
+                    count++;
                 }
 
 
@@ -232,9 +243,10 @@ public class PinView extends SubsamplingScaleImageView {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeCap(Paint.Cap.ROUND);
                 paint.setStrokeWidth(strokeWidth);
-                paint.setColor(Color.CYAN);
+                paint.setColor(Color.RED);
 
                 canvas.drawPath(path, paint);
+                canvas.drawCircle(vLine[count].x, vLine[count].y, 10, paint);
             }
         }catch (NullPointerException e){
 
